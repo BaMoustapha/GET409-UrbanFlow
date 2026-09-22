@@ -1,98 +1,122 @@
-# GET409-SanteRapide
+# GET409-UrbanFlow
 
 ## Équipe
 
 | Prénom Nom | Rôle | GitHub Username | E-mail GitHub |
 |---|---|---|---|
-| Mouhamadou Moustapha BA | PM / Master Prompt Engineer / Dev UI / Responsable Impact | BaMoustapha | bam480836@gmail.com |
-
-*Note : conformément aux consignes de la Séance 1, une seule personne peut cumuler les 4 rôles stratégiques (Chef de Produit, Master Prompt Engineer, Dev UI, Responsable Impact) pour un dépôt en solo.*
+| Mouhamadou Moustapha BA | Chef de Produit (PM) / Dev UI (No-Code) | BaMoustapha | bam480836@gmail.com |
+| Astou Barro Ndiaye | Master Prompt Engineer / Responsable Impact | (à compléter par Astou) | (à compléter par Astou) |
 
 ## Notre défi
 
-**Secteur :** Santé communautaire — accès aux soins primaires en zone rurale/périurbaine du Sénégal
+**Secteur :** Mobilité urbaine à Dakar
 
-**Problématique (HMW) :**
-> Comment pourrions-nous aider les agents de santé communautaire des zones rurales à orienter rapidement les patients vers le bon niveau de soins, via un simple téléphone basique, afin de réduire les retards de prise en charge ?
+**Utilisateurs cibles :** Usagers des transports en commun, notamment les usagers de Dakar Dem Dikk (DDD)
+
+**Contexte :** Embouteillages quotidiens à Dakar
+
+## Découverte — 3 problèmes identifiés (Prompt S1)
+
+### 1. Imprévisibilité des temps d'attente et d'arrivée des bus
+
+- **Cause principale :** Absence de système de suivi en temps réel des bus ; les horaires théoriques ne sont plus tenus dès que le trafic se congestionne sur les grands axes.
+- **Impact sur la vie quotidienne :** Retards au travail et à l'école, attentes prolongées et incertaines aux arrêts, stress et perte de confiance dans le réseau DDD.
+- **Piste de solution technologique accessible :** Un système par SMS/USSD (sans smartphone requis) donnant une estimation d'arrivée du prochain bus par ligne, alimenté par un signalement de position simple (chauffeurs ou usagers relais).
+
+### 2. Sur-saturation des bus aux heures de pointe
+
+- **Cause principale :** Convergence de plusieurs lignes sur les mêmes axes déjà engorgés (ex. Route de Rufisque, VDN), sans voie ou créneau dédié aux bus.
+- **Impact sur la vie quotidienne :** Usagers debout et serrés, risques accrus de vols ou d'agressions, fatigue physique, temps de trajet parfois doublé ou triplé.
+- **Piste de solution technologique accessible :** Une alerte SMS de "charge estimée" par ligne et par créneau horaire, pour permettre aux usagers de décaler leur départ ou choisir une ligne moins chargée.
+
+### 3. Manque d'information sur les itinéraires alternatifs en cas de blocage
+
+- **Cause principale :** Absence de coordination en temps réel entre DDD et les usagers lors d'incidents ou de déviations ; aucune communication officielle immédiate.
+- **Impact sur la vie quotidienne :** Usagers bloqués sans visibilité sur la durée du blocage, rendez-vous manqués, sentiment d'impuissance face au trafic.
+- **Piste de solution technologique accessible :** Un chatbot WhatsApp/SMS simple donnant l'état du trafic par ligne et proposant des itinéraires alternatifs, mis à jour par un petit réseau de contributeurs locaux.
+
+## Énoncé HMW (How Might We)
+
+> Comment pourrions-nous aider les usagers de Dakar Dem Dikk à connaître en temps réel la position et la charge des bus, via un simple SMS, afin de réduire l'incertitude liée aux embouteillages quotidiens ?
 
 **Autres formulations explorées (draft) :**
-1. Comment pourrions-nous aider les agents de santé communautaire des zones rurales à orienter rapidement les patients vers le bon niveau de soins, via un simple téléphone basique, afin de réduire les retards de prise en charge ?
-2. Comment pourrions-nous permettre aux mères de familles isolées de savoir si l'état de santé de leur enfant nécessite un déplacement urgent au poste de santé, sans connexion internet ?
-3. Comment pourrions-nous aider les postes de santé ruraux à garder une trace fiable du suivi des patients chroniques quand les dossiers papier se perdent entre les visites ?
+1. Comment pourrions-nous aider les usagers de Dakar Dem Dikk à connaître en temps réel la position et la charge des bus, via un simple SMS, afin de réduire l'incertitude liée aux embouteillages quotidiens ?
+2. Comment pourrions-nous permettre aux usagers des transports en commun à Dakar de choisir un itinéraire alternatif fiable lors d'un blocage, sans smartphone ni connexion internet ?
+3. Comment pourrions-nous aider les usagers de DDD à anticiper leur temps de trajet réel pour mieux organiser leur journée malgré les embouteillages ?
 
 ## Livrables S1
 
-- [x] Fiche équipe (solo, 4 rôles cumulés)
+- [x] Fiche équipe soumise (2 membres, 4 rôles répartis)
 - [x] Énoncé HMW validé
 - [x] Carte d'empathie
 
 ---
 
-# Carte d'empathie — Fatou Sow
+# Carte d'empathie — Aïssatou Diallo
 
 ## Persona
 
 | Champ | Détail |
 |---|---|
-| Prénom, âge, profession | Fatou Sow, 34 ans, Agent de Santé Communautaire (ASC) |
-| Localisation | Village de Ndiago, région de Kaolack, Sénégal |
-| Problème principal | Difficulté à évaluer rapidement la gravité des cas et à orienter les patients vers le bon niveau de soins |
-| Équipement digital | Feature phone (SMS uniquement), pas de smartphone, réseau instable |
-| Revenus approximatifs | 40 000 - 60 000 FCFA/mois (indemnité communautaire) |
-| Contexte familial | Mère de 3 enfants, couvre à elle seule un rayon de 8 villages |
+| Prénom, âge, profession | Aïssatou Diallo, 29 ans, assistante administrative |
+| Localisation | Habite Guédiawaye, travaille au Plateau, Dakar |
+| Problème principal | Ne sait jamais combien de temps son trajet en DDD va réellement durer à cause des embouteillages |
+| Équipement digital | Téléphone basique avec SMS, smartphone d'entrée de gamme partagé avec le foyer |
+| Revenus approximatifs | 80 000 - 100 000 FCFA/mois |
+| Contexte familial | Vit avec ses parents, doit récupérer sa petite sœur à l'école certains jours |
 
 ## 1. Ce qu'elle pense et ressent
 
-- Craint de mal évaluer un cas grave et d'arriver trop tard
-- Se sent seule face à des décisions médicales qui dépassent sa formation de base
-- Fière du rôle qu'elle joue dans sa communauté, mais épuisée par la charge de travail
-- Aspire à une reconnaissance et à un vrai outil de décision, pas juste un carnet papier
+- Anxieuse à l'idée d'arriver en retard au bureau, surtout les jours de réunion
+- Frustrée de ne jamais savoir si elle doit attendre 5 ou 40 minutes le bus
+- Se sent impuissante face aux embouteillages qu'elle subit sans aucune information
+- Aimerait pouvoir planifier sa journée avec plus de certitude
 
 ## 2. Ce qu'elle voit
 
-- Des patients qui arrivent au poste de santé trop tard, l'état déjà aggravé
-- Des collègues ASC livrées à elles-mêmes, sans outil de coordination avec le poste de santé
-- Un poste de santé à 12 km, souvent injoignable par téléphone aux heures de forte affluence
-- Des carnets de santé papier abîmés, perdus ou incomplets
+- Des files d'attente longues et désorganisées aux arrêts DDD aux heures de pointe
+- Des bus qui passent déjà pleins sans pouvoir s'arrêter
+- Des embouteillages denses sur la Route de Rufisque et la VDN chaque matin
+- D'autres usagers qui consultent leur téléphone sans trouver d'information fiable
 
 ## 3. Ce qu'elle entend
 
-- Les familles qui minimisent les symptômes par manque d'argent pour le déplacement
-- Le personnel du poste de santé qui reproche les orientations tardives ou infondées
-- D'autres ASC qui partagent les mêmes difficultés lors des réunions mensuelles
-- Les autorités sanitaires qui demandent plus de rapports sans donner plus d'outils
+- Les autres passagers se plaindre des retards et des bus bondés
+- Des rumeurs non confirmées sur des routes bloquées, transmises de bouche à oreille
+- Son responsable lui faire remarquer ses retards répétés
+- Des chauffeurs qui annoncent des changements d'itinéraire au dernier moment
 
 ## 4. Ce qu'elle dit et fait
 
-- "Je fais du mieux que je peux avec ce que j'ai, mais parfois je doute."
-- Note les symptômes à la main sur un carnet qu'elle doit ensuite recopier
-- Appelle le poste de santé pour demander un avis, souvent sans réponse immédiate
-- Improvise des critères de tri (triage) selon son expérience personnelle
+- "Je ne sais jamais à quelle heure je dois partir pour être à l'heure."
+- Part systématiquement 45 minutes en avance "par sécurité", ce qui lui fait perdre du temps
+- Appelle des collègues pour savoir si la route est dégagée
+- Change parfois de ligne au hasard en espérant que ce sera plus rapide
 
 ## 5. Frustrations (Pains)
 
 | Frustration | Intensité |
 |---|---|
-| Aucun outil structuré pour évaluer l'urgence d'un cas | ★★★ |
-| Communication difficile avec le poste de santé de référence | ★★★ |
-| Suivi papier peu fiable, données perdues entre les visites | ★★ |
-| Manque de reconnaissance et de formation continue | ★ |
+| Aucune visibilité sur l'heure d'arrivée réelle du bus | ★★★ |
+| Bus surchargés aux heures de pointe | ★★★ |
+| Pas d'information sur les itinéraires alternatifs en cas de blocage | ★★ |
+| Temps perdu à attendre "par précaution" | ★★ |
 
 ## 6. Aspirations (Gains)
 
 | Aspiration | Priorité |
 |---|---|
-| Un moyen simple par SMS de recevoir un avis rapide sur la gravité d'un cas | ★★★ |
-| Un historique fiable et accessible des patients suivis | ★★ |
-| Une meilleure coordination avec le poste de santé référent | ★★ |
-| Une reconnaissance de son rôle auprès des autorités sanitaires | ★ |
+| Recevoir une estimation fiable de l'heure d'arrivée du prochain bus | ★★★ |
+| Savoir à l'avance si un bus est trop chargé pour l'éviter | ★★ |
+| Être informée en temps réel des déviations et blocages | ★★ |
+| Gagner du temps le matin en partant au bon moment | ★ |
 
 ## Insights clés
 
-- Le goulot d'étranglement n'est pas le diagnostic médical complet, mais un premier tri fiable et rapide.
-- Le canal doit fonctionner sans smartphone ni connexion data (SMS/USSD).
-- La confiance entre l'ASC et le poste de santé de référence est aussi importante que l'outil lui-même.
+- Le vrai problème n'est pas l'embouteillage lui-même, mais l'absence totale d'information fiable pendant le trajet.
+- La solution doit fonctionner sur téléphone basique (SMS/USSD), car tous les usagers n'ont pas un smartphone connecté en permanence.
+- Une information simple et rapide (position, charge, alternative) change concrètement l'organisation de la journée des usagers.
 
 ## Énoncé HMW
 
-> Comment pourrions-nous aider les agents de santé communautaire des zones rurales à orienter rapidement les patients vers le bon niveau de soins, via un simple téléphone basique, afin de réduire les retards de prise en charge ?
+> Comment pourrions-nous aider les usagers de Dakar Dem Dikk à connaître en temps réel la position et la charge des bus, via un simple SMS, afin de réduire l'incertitude liée aux embouteillages quotidiens ?
