@@ -35,20 +35,27 @@
 - **Impact sur la vie quotidienne :** Usagers bloqués sans visibilité sur la durée du blocage, rendez-vous manqués, sentiment d'impuissance face au trafic.
 - **Piste de solution technologique accessible :** Un chatbot WhatsApp/SMS simple donnant l'état du trafic par ligne et proposant des itinéraires alternatifs, mis à jour par un petit réseau de contributeurs locaux.
 
-## Énoncé HMW (How Might We)
+## Énoncé HMW définitif (S2)
 
-> Comment pourrions-nous aider les usagers de Dakar Dem Dikk à connaître en temps réel la position et la charge des bus, via un simple SMS, afin de réduire l'incertitude liée aux embouteillages quotidiens ?
+> Comment pourrions-nous aider les usagers de Dakar Dem Dikk à anticiper de façon fiable la durée réelle de leur trajet, malgré les embouteillages quotidiens, pour organiser leur journée sereinement ?
 
-**Autres formulations explorées (draft) :**
-1. Comment pourrions-nous aider les usagers de Dakar Dem Dikk à connaître en temps réel la position et la charge des bus, via un simple SMS, afin de réduire l'incertitude liée aux embouteillages quotidiens ?
-2. Comment pourrions-nous permettre aux usagers des transports en commun à Dakar de choisir un itinéraire alternatif fiable lors d'un blocage, sans smartphone ni connexion internet ?
-3. Comment pourrions-nous aider les usagers de DDD à anticiper leur temps de trajet réel pour mieux organiser leur journée malgré les embouteillages ?
+Ce HMW remplace la version provisoire de S1 (qui imposait déjà le canal SMS). Justification complète et comparaison S1 → S2 : [`docs/hmw-definitif.md`](docs/hmw-definitif.md)
+
+## Value Proposition Canvas (S2)
+
+Profil Client (Jobs, Pains, Gains) et Proposition de Valeur (Produits & Services, Pain Relievers, Gain Creators) du persona Aïssatou : [`docs/vpc.md`](docs/vpc.md)
 
 ## Livrables S1
 
 - [x] Fiche équipe soumise (2 membres, 4 rôles répartis)
-- [x] Énoncé HMW validé
+- [x] Énoncé HMW provisoire formulé
 - [x] Carte d'empathie
+
+## Livrables S2
+
+- [x] Value Proposition Canvas élaboré — [`docs/vpc.md`](docs/vpc.md)
+- [x] HMW définitif rédigé et validé par rapport au HMW S1 — [`docs/hmw-definitif.md`](docs/hmw-definitif.md)
+- [x] README mis à jour avec le HMW définitif
 
 ---
 
@@ -117,6 +124,6 @@
 - La solution doit fonctionner sur téléphone basique (SMS/USSD), car tous les usagers n'ont pas un smartphone connecté en permanence.
 - Une information simple et rapide (position, charge, alternative) change concrètement l'organisation de la journée des usagers.
 
-## Énoncé HMW
+## Énoncé HMW (provisoire S1 — voir HMW définitif S2 plus haut)
 
 > Comment pourrions-nous aider les usagers de Dakar Dem Dikk à connaître en temps réel la position et la charge des bus, via un simple SMS, afin de réduire l'incertitude liée aux embouteillages quotidiens ?
