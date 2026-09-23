@@ -5,7 +5,7 @@
 | Prénom Nom | Rôle | GitHub Username | E-mail GitHub |
 |---|---|---|---|
 | Mouhamadou Moustapha BA | Chef de Produit (PM) / Dev UI (No-Code) | BaMoustapha | bam480836@gmail.com |
-| Astou Barro Ndiaye | Master Prompt Engineer / Responsable Impact | (à compléter par Astou) | (à compléter par Astou) |
+| Astou Barro Ndiaye | Master Prompt Engineer / Responsable Impact | (à compléter par Astou) | astoubarrond@gmail.com |
 
 ## Notre défi
 
