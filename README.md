@@ -45,6 +45,14 @@ Ce HMW remplace la version provisoire de S1 (qui imposait déjà le canal SMS). 
 
 Profil Client (Jobs, Pains, Gains) et Proposition de Valeur (Produits & Services, Pain Relievers, Gain Creators) du persona Aïssatou : [`docs/vpc.md`](docs/vpc.md)
 
+## Journal de Prompts (S2)
+
+5 prompts documentés (technique, prompt exact, résumé de la réponse, note, itération) couvrant les Séances 1 et 2 : [`docs/journal-prompts.md`](docs/journal-prompts.md)
+
+## Pitch (S2)
+
+Capture du pitch de 30 secondes présentant le HMW définitif et la solution UrbanFlow : [`docs/pitch.md`](docs/pitch.md)
+
 ## Livrables S1
 
 - [x] Fiche équipe soumise (2 membres, 4 rôles répartis)
@@ -55,6 +63,8 @@ Profil Client (Jobs, Pains, Gains) et Proposition de Valeur (Produits & Services
 
 - [x] Value Proposition Canvas élaboré — [`docs/vpc.md`](docs/vpc.md)
 - [x] HMW définitif rédigé et validé par rapport au HMW S1 — [`docs/hmw-definitif.md`](docs/hmw-definitif.md)
+- [x] Journal de Prompts (5 entrées) — [`docs/journal-prompts.md`](docs/journal-prompts.md)
+- [x] Capture du Pitch (recommandé) — [`docs/pitch.md`](docs/pitch.md)
 - [x] README mis à jour avec le HMW définitif
 
 ---
