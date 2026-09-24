@@ -15,6 +15,21 @@
 
 **Contexte :** Embouteillages quotidiens à Dakar
 
+## Documentation (docs/)
+
+Les livrables S1 et S2 sont organisés en deux dossiers :
+
+**S1 :**
+- [`docs/s1/fiche-equipe.md`](docs/s1/fiche-equipe.md) — Fiche équipe et défi
+- [`docs/s1/decouverte-problemes.md`](docs/s1/decouverte-problemes.md) — 3 problèmes identifiés
+- [`docs/s1/carte-empathie.md`](docs/s1/carte-empathie.md) — Carte d'empathie (persona Aïssatou)
+
+**S2 :**
+- [`docs/s2/vpc.md`](docs/s2/vpc.md) — Value Proposition Canvas
+- [`docs/s2/hmw-definitif.md`](docs/s2/hmw-definitif.md) — HMW définitif
+- [`docs/s2/journal-prompts.md`](docs/s2/journal-prompts.md) — Journal de Prompts (5 entrées)
+- [`docs/s2/pitch.md`](docs/s2/pitch.md) — Capture du Pitch
+
 ## Découverte — 3 problèmes identifiés (Prompt S1)
 
 ### 1. Imprévisibilité des temps d'attente et d'arrivée des bus
@@ -39,19 +54,19 @@
 
 > Comment pourrions-nous aider les usagers de Dakar Dem Dikk à anticiper de façon fiable la durée réelle de leur trajet, malgré les embouteillages quotidiens, pour organiser leur journée sereinement ?
 
-Ce HMW remplace la version provisoire de S1 (qui imposait déjà le canal SMS). Justification complète et comparaison S1 → S2 : [`docs/hmw-definitif.md`](docs/hmw-definitif.md)
+Ce HMW remplace la version provisoire de S1 (qui imposait déjà le canal SMS). Justification complète et comparaison S1 → S2 : [`docs/s2/hmw-definitif.md`](docs/s2/hmw-definitif.md)
 
 ## Value Proposition Canvas (S2)
 
-Profil Client (Jobs, Pains, Gains) et Proposition de Valeur (Produits & Services, Pain Relievers, Gain Creators) du persona Aïssatou : [`docs/vpc.md`](docs/vpc.md)
+Profil Client (Jobs, Pains, Gains) et Proposition de Valeur (Produits & Services, Pain Relievers, Gain Creators) du persona Aïssatou : [`docs/s2/vpc.md`](docs/s2/vpc.md)
 
 ## Journal de Prompts (S2)
 
-5 prompts documentés (technique, prompt exact, résumé de la réponse, note, itération) couvrant les Séances 1 et 2 : [`docs/journal-prompts.md`](docs/journal-prompts.md)
+5 prompts documentés (technique, prompt exact, résumé de la réponse, note, itération) couvrant les Séances 1 et 2 : [`docs/s2/journal-prompts.md`](docs/s2/journal-prompts.md)
 
 ## Pitch (S2)
 
-Capture du pitch de 30 secondes présentant le HMW définitif et la solution UrbanFlow : [`docs/pitch.md`](docs/pitch.md)
+Capture du pitch de 30 secondes présentant le HMW définitif et la solution UrbanFlow : [`docs/s2/pitch.md`](docs/s2/pitch.md)
 
 ## Livrables S1
 
@@ -61,10 +76,10 @@ Capture du pitch de 30 secondes présentant le HMW définitif et la solution Urb
 
 ## Livrables S2
 
-- [x] Value Proposition Canvas élaboré — [`docs/vpc.md`](docs/vpc.md)
-- [x] HMW définitif rédigé et validé par rapport au HMW S1 — [`docs/hmw-definitif.md`](docs/hmw-definitif.md)
-- [x] Journal de Prompts (5 entrées) — [`docs/journal-prompts.md`](docs/journal-prompts.md)
-- [x] Capture du Pitch (recommandé) — [`docs/pitch.md`](docs/pitch.md)
+- [x] Value Proposition Canvas élaboré — [`docs/s2/vpc.md`](docs/s2/vpc.md)
+- [x] HMW définitif rédigé et validé par rapport au HMW S1 — [`docs/s2/hmw-definitif.md`](docs/s2/hmw-definitif.md)
+- [x] Journal de Prompts (5 entrées) — [`docs/s2/journal-prompts.md`](docs/s2/journal-prompts.md)
+- [x] Capture du Pitch (recommandé) — [`docs/s2/pitch.md`](docs/s2/pitch.md)
 - [x] README mis à jour avec le HMW définitif
 
 ---
