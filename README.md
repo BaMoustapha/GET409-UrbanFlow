@@ -17,7 +17,7 @@
 
 ## Documentation (docs/)
 
-Les livrables S1 et S2 sont organisés en deux dossiers :
+Les livrables S1, S2 et S3 sont organisés en trois dossiers :
 
 **S1 :**
 - [`docs/s1/fiche-equipe.md`](docs/s1/fiche-equipe.md) — Fiche équipe et défi
@@ -29,6 +29,10 @@ Les livrables S1 et S2 sont organisés en deux dossiers :
 - [`docs/s2/hmw-definitif.md`](docs/s2/hmw-definitif.md) — HMW définitif
 - [`docs/s2/journal-prompts.md`](docs/s2/journal-prompts.md) — Journal de Prompts (5 entrées)
 - [`docs/s2/pitch.md`](docs/s2/pitch.md) — Capture du Pitch
+
+**S3 :**
+- [`docs/s3/journal-prompts.md`](docs/s3/journal-prompts.md) — Journal de Prompts S3 (Agent, Chercheur, IF/ELSE, Rédacteur)
+- [`docs/s3/reflexion-ethique.md`](docs/s3/reflexion-ethique.md) — Réflexion éthique (L4)
 
 ## Découverte — 3 problèmes identifiés (Prompt S1)
 
@@ -68,6 +72,22 @@ Profil Client (Jobs, Pains, Gains) et Proposition de Valeur (Produits & Services
 
 Capture du pitch de 30 secondes présentant le HMW définitif et la solution UrbanFlow : [`docs/s2/pitch.md`](docs/s2/pitch.md)
 
+## Architecture multi-agents Dify (S3)
+
+UrbanFlow évolue d'un agent conversationnel unique (S1) vers un workflow Dify à trois nœuds :
+
+**Chercheur (LLM)** → analyse la question, collecte les données de trafic disponibles, retourne soit une fiche structurée (ligne/axe, zone, temps de trajet, tendance, affluence, risques, heure de collecte, sources), soit `INSUFFISANT : [raison]`.
+
+**IF/ELSE** → lit `output_chercheur` ; si elle contient `INSUFFISANT`, boucle vers le Chercheur (2 tentatives max) ; sinon, transmet au Rédacteur.
+
+**Rédacteur (LLM, Few-Shot)** → reçoit `{{output_chercheur}}` et rédige une fiche trajet courte (120–200 mots), prête pour un envoi SMS, avec mention "Non disponible" plutôt que d'inventer une donnée manquante.
+
+Détail des prompts de chaque nœud et procédure de test de la boucle IF/ELSE : [`docs/s3/journal-prompts.md`](docs/s3/journal-prompts.md)
+
+## Réflexion éthique (S3)
+
+Trois risques identifiés — fiabilité des estimations, exclusion numérique (usagers sans smartphone), dépendance à l'infrastructure — chacun avec un garde-fou technique et un garde-fou organisationnel, et une recommandation de déploiement en pilote contrôlé : [`docs/s3/reflexion-ethique.md`](docs/s3/reflexion-ethique.md)
+
 ## Livrables S1
 
 - [x] Fiche équipe soumise (2 membres, 4 rôles répartis)
@@ -81,6 +101,13 @@ Capture du pitch de 30 secondes présentant le HMW définitif et la solution Urb
 - [x] Journal de Prompts (5 entrées) — [`docs/s2/journal-prompts.md`](docs/s2/journal-prompts.md)
 - [x] Capture du Pitch (recommandé) — [`docs/s2/pitch.md`](docs/s2/pitch.md)
 - [x] README mis à jour avec le HMW définitif
+
+## Livrables S3
+
+- [x] L3 — Journal de Prompts S3 (min. 3 prompts analysés) — [`docs/s3/journal-prompts.md`](docs/s3/journal-prompts.md)
+- [x] L4 — Réflexion éthique (3 risques + garde-fous + recommandation) — [`docs/s3/reflexion-ethique.md`](docs/s3/reflexion-ethique.md)
+- [ ] L1 — Agent V1 Fonctionnel (URL Dify publiée + 2 captures d'écran) — à réaliser dans le compte Dify de l'équipe
+- [ ] L2 — Schéma d'Architecture (capture annotée du workflow Dify) — à réaliser une fois le workflow monté
 
 ---
 
@@ -98,28 +125,24 @@ Capture du pitch de 30 secondes présentant le HMW définitif et la solution Urb
 | Contexte familial | Vit avec ses parents, doit récupérer sa petite sœur à l'école certains jours |
 
 ## 1. Ce qu'elle pense et ressent
-
 - Anxieuse à l'idée d'arriver en retard au bureau, surtout les jours de réunion
 - Frustrée de ne jamais savoir si elle doit attendre 5 ou 40 minutes le bus
 - Se sent impuissante face aux embouteillages qu'elle subit sans aucune information
 - Aimerait pouvoir planifier sa journée avec plus de certitude
 
 ## 2. Ce qu'elle voit
-
 - Des files d'attente longues et désorganisées aux arrêts DDD aux heures de pointe
 - Des bus qui passent déjà pleins sans pouvoir s'arrêter
 - Des embouteillages denses sur la Route de Rufisque et la VDN chaque matin
 - D'autres usagers qui consultent leur téléphone sans trouver d'information fiable
 
 ## 3. Ce qu'elle entend
-
 - Les autres passagers se plaindre des retards et des bus bondés
 - Des rumeurs non confirmées sur des routes bloquées, transmises de bouche à oreille
 - Son responsable lui faire remarquer ses retards répétés
 - Des chauffeurs qui annoncent des changements d'itinéraire au dernier moment
 
 ## 4. Ce qu'elle dit et fait
-
 - "Je ne sais jamais à quelle heure je dois partir pour être à l'heure."
 - Part systématiquement 45 minutes en avance "par sécurité", ce qui lui fait perdre du temps
 - Appelle des collègues pour savoir si la route est dégagée
@@ -144,7 +167,6 @@ Capture du pitch de 30 secondes présentant le HMW définitif et la solution Urb
 | Gagner du temps le matin en partant au bon moment | ★ |
 
 ## Insights clés
-
 - Le vrai problème n'est pas l'embouteillage lui-même, mais l'absence totale d'information fiable pendant le trajet.
 - La solution doit fonctionner sur téléphone basique (SMS/USSD), car tous les usagers n'ont pas un smartphone connecté en permanence.
 - Une information simple et rapide (position, charge, alternative) change concrètement l'organisation de la journée des usagers.
