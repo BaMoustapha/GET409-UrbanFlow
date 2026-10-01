@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan marketing UrbanFlow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1710; --ink-soft:#43514a; --paper:#f4f7f2; --card:#ffffff; --line:#d5ded3;
+  --green:#00a651; --green-text:#007a3b; --on-green:#0f1710; --tint:#e2f4e8;
+  --yellow:#fdef42; --red:#e31b23;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#eaf0e7; --ink-soft:#a5b3a8; --paper:#0f1710; --card:#16211a; --line:#26372b;
+    --green-text:#00a651; --tint:#12301f; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#eaf0e7; --ink-soft:#a5b3a8; --paper:#0f1710; --card:#16211a; --line:#26372b;
+  --green-text:#00a651; --tint:#12301f; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--body)}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:clamp(16px,4vw,32px);padding-block:0}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:4px}
+
+header.hero{padding-block:clamp(40px,8vw,88px) 40px;border-bottom:1px solid var(--line)}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font:800 clamp(2.2rem,6.5vw,4.2rem)/1.03 var(--display);letter-spacing:-.02em;margin:.5em 0 .4em;max-width:20ch}
+h1 em{font-style:normal;color:var(--green-text)}
+.lede{font-size:1.1rem;max-width:62ch;color:var(--ink-soft);margin:0}
+.note{margin-top:28px;padding:14px 18px;border-left:4px solid var(--red);background:var(--card);border-radius:0 8px 8px 0;font-size:.95rem;max-width:74ch}
+.note ul{margin:8px 0 0;padding-left:1.1em}
+
+section{padding-block:clamp(36px,6vw,64px);border-bottom:1px solid var(--line)}
+h2{font:800 clamp(1.6rem,4vw,2.2rem)/1.1 var(--display);letter-spacing:-.01em;margin:0 0 8px}
+.sub{color:var(--ink-soft);margin:0 0 28px;max-width:64ch}
+
+.positioning{background:var(--green);color:var(--on-green);border-radius:20px;padding:clamp(24px,5vw,48px)}
+.positioning .eyebrow{color:inherit;opacity:.8}
+.positioning p.big{font:800 clamp(1.5rem,3.6vw,2.2rem)/1.18 var(--display);margin:.4em 0 .6em;max-width:28ch}
+.positioning p{margin:0;max-width:62ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:18px 0 0;padding:0}
+.chips li{font:600 13px/1 var(--body);padding:8px 12px;border:1.5px solid currentColor;border-radius:999px}
+.chips.on-card li{color:var(--green-text)}
+.chips-label{margin-top:22px;font:600 12px/1 var(--body);letter-spacing:.1em;text-transform:uppercase}
+
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{font:800 1.2rem/1.2 var(--display);margin:0 0 8px}
+.card p{margin:0 0 10px}
+.proof{font-size:.9rem;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:10px;margin:12px 0 0}
+.proof b{font:600 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--green-text);margin-right:4px}
+.proof b.idea{background:var(--yellow);color:#0f1710;padding:3px 6px;border-radius:4px}
+.proof b.todo{color:var(--red)}
+
+/* la ligne de bus : le calendrier est une vraie séquence */
+.line{position:relative;list-style:none;margin:0;padding:0;display:grid;gap:20px;grid-template-columns:repeat(4,1fr)}
+.line::before{content:"";position:absolute;left:0;right:0;top:18px;height:6px;background:var(--green);border-radius:3px}
+.stop{position:relative;padding-top:52px}
+.stop::before{content:"";position:absolute;top:8px;left:0;width:26px;height:26px;border-radius:50%;background:var(--paper);border:6px solid var(--green)}
+.stop:last-child::before{border-color:var(--yellow);box-shadow:0 0 0 2px var(--ink)}
+.stop .wk{font:600 12px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.stop h3{font:800 1.25rem/1.15 var(--display);margin:6px 0 8px}
+.stop ul{margin:0;padding-left:1.1em;font-size:.95rem}
+.stop li{margin-bottom:4px}
+@media (max-width:820px){
+  .line{grid-template-columns:1fr;padding-left:36px}
+  .line::before{left:12px;right:auto;top:0;bottom:0;width:6px;height:auto}
+  .stop{padding-top:0}
+  .stop::before{left:-36px;top:2px}
+}
+
+ol.fixes{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:f}
+ol.fixes li{counter-increment:f;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 58px;position:relative}
+ol.fixes li::before{content:counter(f);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--tint);color:var(--green-text);font:600 13px/28px var(--body);text-align:center}
+ol.fixes strong{display:block;font-family:var(--display);font-size:1.05rem}
+ol.fixes span{color:var(--ink-soft);font-size:.93rem}
+
+.now{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.now .card{border-top:6px solid var(--yellow)}
+.now .who{font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+
+footer{padding-block:32px 56px;color:var(--ink-soft);font-size:.9rem}
+footer ul{padding-left:1.1em;margin:8px 0 0}
+.sign{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.sign strong{display:block;font:800 1.15rem/1.3 var(--display);color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Plan marketing · 4 semaines · 30/09/2026 · équipe GET409</div>
+  <h1>Anticipez votre trajet, malgré les <em>embouteillages</em>.</h1>
+  <p class="lede">Plan construit à partir du rapport comparatif de Moovit, Dakar Dem Dikk et SunuBRT (pages d'accueil observées le 30/09/2026), avec les faits d'UrbanFlow fournis par l'équipe.</p>
+  <div class="note">
+    <strong>Comment lire ce plan</strong>
+    <ul>
+      <li><strong>Constaté</strong> : observé par moi sur les sites le 30/09/2026.</li>
+      <li><strong>Source équipe</strong> : fourni par l'équipe GET409 (positionnement, marque, lignes), non re-vérifié par moi.</li>
+      <li><strong>Idée</strong> : proposition à tester, aucun résultat promis.</li>
+      <li><strong>À définir</strong> : aucune donnée à ce jour. Deux zones : tarifs par ligne (exclus volontairement de la base du projet) et objectif chiffré d'acquisition.</li>
+    </ul>
+  </div>
+</header>
+
+<section id="positionnement">
+  <h2>Positionnement</h2>
+  <p class="sub">Positionnement confirmé par l'équipe. Il occupe un angle que les pages observées ne traitent pas.</p>
+  <div class="positioning">
+    <div class="eyebrow">Source équipe</div>
+    <p class="big">Anticipez la durée réelle de votre trajet Dakar Dem Dikk, malgré les embouteillages quotidiens.</p>
+    <p>UrbanFlow s'adresse aux usagers des bus Dakar Dem Dikk qui veulent connaître le temps de trajet estimé avant de partir, sans subir l'inconnu des embouteillages.</p>
+    <div class="chips-label">Lignes confirmées</div>
+    <ul class="chips" aria-label="Lignes Dakar Dem Dikk confirmées">
+      <li>1</li><li>4</li><li>7</li><li>8</li><li>9</li><li>10</li><li>13</li><li>18</li><li>20</li><li>23</li><li>121</li>
+    </ul>
+  </div>
+  <p class="proof" style="margin-top:16px"><b>Constaté</b> Sur les pages observées, Moovit met la recherche départ/arrivée au premier écran, SunuBRT annonce une fréquence (toutes les 6 minutes) et Dem Dikk publie des horaires de départ pour la ligne 01 (premier et dernier départ). Aucune de ces pages n'affiche une durée de trajet estimée.</p>
+  <p class="proof"><b>Source équipe</b> Les couleurs de la marque reprennent le rebranding 2025 de Dakar Dem Dikk aux couleurs nationales (confirmé par l'APS, 4 avril 2025). Liste des lignes : demdikk.sn/info-voyageurs.</p>
+</section>
+
+<section id="piliers">
+  <h2>3 piliers</h2>
+  <p class="sub">Chaque pilier répond à un écart observé dans le rapport.</p>
+  <div class="grid g3">
+    <article class="card">
+      <h3>Durée réelle anticipée</h3>
+      <p>Le temps de trajet estimé d'une ligne, visible avant de partir, sans clic de menu.</p>
+      <p class="proof"><b>Constaté</b> L'actualité Dem Dikk sur la ligne 01 donne le premier et le dernier départ, sans durée de trajet.</p>
+    </article>
+    <article class="card">
+      <h3>Un seul geste</h3>
+      <p>Une action principale, un bouton, une destination qui fonctionne. Tout le reste passe en second plan.</p>
+      <p class="proof"><b>Constaté</b> Le bouton « RESERVEZ UNE PLACE » de Dem Dikk pointe sur « # ». Moovit tient tout sur un champ et un bouton orange.</p>
+    </article>
+    <article class="card">
+      <h3>Confiance par la preuve</h3>
+      <p>Chaque donnée de trafic affichée vient de la base du projet. Pas de chiffre sans source, pas de témoignage inventé.</p>
+      <p class="proof"><b>Constaté</b> Moovit : « plus d'1 million d'avis 5 étoiles ». Dem Dikk : compteurs affichés à « 0 » au chargement.</p>
+    </article>
+  </div>
+</section>
+
+<section id="calendrier">
+  <h2>Calendrier de 4 semaines</h2>
+  <p class="sub">Un ordre à respecter : on ne diffuse qu'une fois le site corrigé.</p>
+  <ol class="line">
+    <li class="stop">
+      <div class="wk">Semaine 1</div>
+      <h3>Cadrer</h3>
+      <ul>
+        <li>Définir l'objectif chiffré d'acquisition (à définir)</li>
+        <li>Choisir l'action principale et sa destination</li>
+        <li>Auditer le site avec la liste des 7 améliorations</li>
+      </ul>
+    </li>
+    <li class="stop">
+      <div class="wk">Semaine 2</div>
+      <h3>Corriger</h3>
+      <ul>
+        <li>Améliorations 1 à 4 en ligne (bouton, durée estimée, cookies, hero)</li>
+        <li>Corriger les erreurs de console et les liens « # »</li>
+        <li>Tester sur mobile (environ 400 px)</li>
+      </ul>
+    </li>
+    <li class="stop">
+      <div class="wk">Semaine 3</div>
+      <h3>Prouver</h3>
+      <ul>
+        <li>Afficher les sources de chaque donnée (améliorations 5 à 7)</li>
+        <li>Recueillir de vrais avis d'usagers, s'il y en a</li>
+        <li>Préparer les codes de suivi par canal</li>
+      </ul>
+    </li>
+    <li class="stop">
+      <div class="wk">Semaine 4</div>
+      <h3>Diffuser et mesurer</h3>
+      <ul>
+        <li>Lancer 2 des 5 idées d'acquisition</li>
+        <li>Suivre le clic sur l'action principale et la source des visites</li>
+        <li>Bilan : garder, arrêter, ou étendre</li>
+      </ul>
+    </li>
+  </ol>
+  <p class="proof" style="margin-top:22px"><b class="todo">À définir</b> Objectif chiffré d'acquisition : sans donnée de départ, tout chiffre serait inventé.</p>
+</section>
+
+<section id="site">
+  <h2>7 améliorations du site</h2>
+  <p class="sub">Tirées des défauts et des bonnes pratiques constatés sur les trois sites, adaptées au positionnement d'UrbanFlow.</p>
+  <ol class="fixes">
+    <li><strong>Un bouton principal, un vrai lien</strong><span>Un seul appel à l'action au premier écran, avec une destination réelle (jamais « # »), fort contraste texte/fond. Le jaune et le rouge restent des touches ponctuelles, jamais un fond plein.</span></li>
+    <li><strong>Durée estimée au premier écran</strong><span>Choisir une des 11 lignes et voir le temps de trajet estimé, comme Moovit met la recherche au premier écran. Si la donnée manque pour une ligne, le dire plutôt que d'afficher un chiffre.</span></li>
+    <li><strong>Chiffres sourcés dès le chargement</strong><span>Pas de compteur qui démarre à « 0 » : la valeur finale est lisible tout de suite, avec sa source (base du projet ou fichiers sources déjà collectés).</span></li>
+    <li><strong>Un seul bandeau de consentement</strong><span>SunuBRT en superpose deux sur le hero. Un bandeau, sobre, qui ne masque pas le message.</span></li>
+    <li><strong>Hero dégagé</strong><span>Rien de flottant (chatbot, avatar, pastilles) sur le message principal.</span></li>
+    <li><strong>Console sans erreur</strong><span>Constaté : 4 erreurs sur Dem Dikk, 15 sur SunuBRT à l'ouverture. Objectif : zéro erreur sur l'accueil d'UrbanFlow.</span></li>
+    <li><strong>Pied de page maîtrisé</strong><span>Vérifier régulièrement les liens sortants. Dem Dikk contient 203 liens cachés vers des sites de paris : ce type d'injection nuit à la confiance et au référencement.</span></li>
+  </ol>
+</section>
+
+<section id="acquisition">
+  <h2>5 idées d'acquisition</h2>
+  <p class="sub">Idées à tester, pas des promesses de résultat. Aucune n'affirme de partenariat, de témoignage ou de chiffre de trafic non sourcé.</p>
+  <div class="grid g2">
+    <article class="card">
+      <h3>Codes de suivi par canal</h3>
+      <p>Un code ou un lien différent par canal (réseaux sociaux, affichage, bouche-à-oreille) pour savoir d'où viennent les nouveaux usagers. Aucune remise n'est prévue : les tarifs sont à définir.</p>
+      <p class="proof"><b>Constaté</b> Moovit utilise un code (« MOOVIT ») pour son offre eSIM.</p>
+    </article>
+    <article class="card">
+      <h3>Guides « embouteillages et trajets »</h3>
+      <p>Pages qui expliquent, ligne par ligne, quand le trajet s'allonge, à partir des données de la base.</p>
+      <p class="proof"><b>Constaté</b> SunuBRT met en avant le rabattement Dem Dikk depuis la station de Pétersen. UrbanFlow n'a aucun partenariat à revendiquer ici : l'exemple montre seulement l'intérêt des trajets combinés.</p>
+    </article>
+    <article class="card">
+      <h3>Une page par ligne</h3>
+      <p>Une page dédiée pour chacune des 11 lignes confirmées, pensée pour être trouvée par recherche.</p>
+      <ul class="chips on-card" aria-label="Lignes">
+        <li>1</li><li>4</li><li>7</li><li>8</li><li>9</li><li>10</li><li>13</li><li>18</li><li>20</li><li>23</li><li>121</li>
+      </ul>
+      <p class="proof"><b>Constaté</b> SunuBRT détaille horaires et fréquence, mais dans une FAQ en bas de page.</p>
+    </article>
+    <article class="card">
+      <h3>Avis réels visibles</h3>
+      <p>Collecter et afficher de vrais avis d'usagers, avec leur origine. Jamais de témoignage inventé.</p>
+      <p class="proof"><b>Constaté</b> Moovit affiche des avis dans plusieurs langues et un total de notes 5 étoiles.</p>
+    </article>
+    <article class="card">
+      <h3>QR codes aux arrêts</h3>
+      <p>Un QR vers la page de la ligne, avec accord de l'exploitant.</p>
+      <p class="proof"><b class="idea">Idée</b> Non observée sur les sites : à tester à petite échelle avant de généraliser.</p>
+    </article>
+  </div>
+</section>
+
+<section id="immediat">
+  <h2>3 actions immédiates</h2>
+  <p class="sub">À lancer cette semaine, sans budget.</p>
+  <div class="now">
+    <article class="card">
+      <div class="who">Action 1</div>
+      <h3>Fixer l'objectif d'acquisition</h3>
+      <p>Décider quel résultat mesurer et sur quelle période. Aujourd'hui : à définir.</p>
+    </article>
+    <article class="card">
+      <div class="who">Action 2</div>
+      <h3>Choisir l'action principale</h3>
+      <p>Proposition : choisir une ligne et voir la durée estimée. À valider, puis vérifier que sa destination fonctionne.</p>
+    </article>
+    <article class="card">
+      <div class="who">Action 3</div>
+      <h3>Auditer l'accueil</h3>
+      <p>Passer la liste des 7 améliorations sur le site : bandeau cookies, erreurs de console, liens « # », pied de page.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <strong>Sources et limites</strong>
+  <ul>
+    <li>Rapport : <code>rapport-comparatif-urbanflow.md</code> (pages d'accueil de moovitapp.com, demdikk.sn, sunubrt.sn, observées le 30/09/2026).</li>
+    <li>Positionnement, lignes, rebranding et équipe : fournis par l'équipe GET409, non re-vérifiés.</li>
+    <li>Identité de marque : <code>05-brand/SKILL.md</code>. Tarifs par ligne et objectif chiffré : à définir.</li>
+    <li>Les erreurs de console citées sont des comptes à l'ouverture de l'accueil, non analysées en détail.</li>
+  </ul>
+  <div class="sign">
+    <strong>UrbanFlow — anticiper le trafic, pas le subir.</strong>
+    Équipe GET409 (Moustapha &amp; Astou) — UrbanFlow, UMEF Swiss University, Dakar.
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
