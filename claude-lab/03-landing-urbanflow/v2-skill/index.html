@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UrbanFlow — Trafic Dakar Dem Dikk en temps réel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#EAF0E7; --bg:#0F1710; --bg-2:#151F17; --accent:#00A651; --accent2:#FDEF42; --accent3:#E31B23;
+    --line:#233327; --muted:#8FA091;
+    --display:"Fraunces", Georgia, serif; --body:"Work Sans", -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.6}
+  h1,h2{font-family:var(--display); letter-spacing:-.03em; font-weight:600; margin:0}
+
+  .band{height:4px; background:linear-gradient(90deg,#00853F 0 33%,#FDEF42 33% 66%,#E31B23 66% 100%)}
+  .marquee{overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--line); background:var(--bg-2); padding:8px 0}
+  .marquee span{display:inline-block; padding-right:48px; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); animation:scroll 24s linear infinite}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  header{padding:96px 24px 64px; max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:end}
+  header .idx{font-family:var(--display); font-size:13px; color:var(--accent); letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px}
+  header h1{font-size:clamp(38px,6vw,64px); line-height:1.02}
+  header .pitch{color:var(--muted); font-size:16px; max-width:34ch; margin-top:18px}
+
+  section{padding:56px 24px; max-width:1100px; margin:0 auto; border-top:1px solid var(--line)}
+  section h2{font-size:clamp(24px,3vw,32px); margin-bottom:36px}
+
+  .quiz{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line)}
+  .quiz .step{background:var(--bg); padding:24px; border-left:3px solid transparent}
+  .quiz .step:nth-child(1){border-left-color:var(--accent)}
+  .quiz .step:nth-child(2){border-left-color:var(--accent2)}
+  .quiz .step:nth-child(3){border-left-color:var(--accent3)}
+  .quiz .n{font-family:var(--display); color:var(--muted); font-size:13px}
+  .quiz .step b{display:block; margin:8px 0 6px; font-size:16px; font-weight:500}
+  .quiz .step p{color:var(--muted); font-size:14px; margin:0}
+
+  .services{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line)}
+  .services div{background:var(--bg); padding:22px 18px}
+  .services .n{font-family:var(--display); font-size:12px; color:var(--muted)}
+  .services b{display:block; margin-top:10px; font-size:15px; font-weight:500}
+
+  .lines{display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--line)}
+  .lines div{background:var(--bg); padding:18px 8px; text-align:center; font-family:var(--display); font-size:20px}
+  .lines div span{display:block; font-family:var(--body); font-size:10.5px; color:var(--muted); margin-top:4px; letter-spacing:.05em; text-transform:uppercase}
+
+  form{display:flex; flex-direction:column; gap:14px; max-width:440px}
+  input,textarea{background:transparent; border:0; border-bottom:1px solid var(--line); color:var(--ink); font-family:var(--body); font-size:15px; padding:10px 2px; outline:none}
+  input:focus,textarea:focus{border-color:var(--accent)}
+  button{align-self:flex-start; background:var(--accent); color:#04201C; border:0; border-radius:2px; padding:12px 22px; font-family:var(--body); font-weight:600; font-size:14px; cursor:pointer; margin-top:6px}
+
+  footer{padding:40px 24px 60px; max-width:1100px; margin:0 auto; color:var(--muted); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
+
+  @media (max-width:720px){
+    header{grid-template-columns:1fr}
+    .quiz{grid-template-columns:1fr}
+    .services{grid-template-columns:repeat(2,1fr)}
+    .lines{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<div class="band"></div>
+<div class="marquee"><span>TRAFIC EN TEMPS RÉEL · 15 LIGNES DDD · ALERTES AFFLUENCE · ITINÉRAIRES ALTERNATIFS · DAKAR, SÉNÉGAL · TRAFIC EN TEMPS RÉEL · 15 LIGNES DDD · ALERTES AFFLUENCE · ITINÉRAIRES ALTERNATIFS · DAKAR, SÉNÉGAL · </span></div>
+
+<header>
+  <div>
+    <div class="idx">Mobilité — Dakar</div>
+    <h1>UrbanFlow</h1>
+  </div>
+  <p class="pitch">Anticipez la durée réelle de votre trajet Dakar Dem Dikk, malgré les embouteillages quotidiens.</p>
+</header>
+
+<section>
+  <h2>Comment ça marche ?</h2>
+  <div class="quiz">
+    <div class="step"><span class="n">01</span><b>Choisissez votre ligne</b><p>Sélectionnez la ligne DDD que vous empruntez.</p></div>
+    <div class="step"><span class="n">02</span><b>Consultez le trafic</b><p>Temps de trajet estimé et niveau d'affluence en temps réel.</p></div>
+    <div class="step"><span class="n">03</span><b>Partez informé</b><p>Recevez une alerte si le trafic se dégrade sur votre trajet.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Fonctionnalités clés</h2>
+  <div class="services">
+    <div><span class="n">01</span><b>Trafic en temps réel</b></div>
+    <div><span class="n">02</span><b>15 lignes DDD suivies</b></div>
+    <div><span class="n">03</span><b>Alertes affluence</b></div>
+    <div><span class="n">04</span><b>Itinéraires alternatifs</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>Lignes suivies</h2>
+  <div class="lines">
+    <div>1<span>Urbaine</span></div>
+    <div>4<span>Urbaine</span></div>
+    <div>7<span>Urbaine</span></div>
+    <div>8<span>Urbaine</span></div>
+    <div>9<span>Urbaine</span></div>
+    <div>121<span>Urbaine</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Nous contacter</h2>
+  <form onsubmit="return false">
+    <input type="text" placeholder="Votre nom" required>
+    <input type="email" placeholder="Votre email" required>
+    <textarea placeholder="Votre message" rows="3" required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+</section>
+
+<footer>
+  <span>UrbanFlow — Projet GET409, UMEF Swiss University, Dakar</span>
+  <span>contact@urbanflow-get409.sn</span>
+</footer>
+
+</body>
+</html>
