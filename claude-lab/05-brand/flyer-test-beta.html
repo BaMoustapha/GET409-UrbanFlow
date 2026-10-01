@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>UrbanFlow — Flyer test bêta</title>
+<style>
+  @page{size:A4;margin:0}
+  body{margin:0;background:#0F1710;font-family:-apple-system,"Segoe UI",Arial,sans-serif;color:#EAF0E7}
+  .flyer{width:210mm;min-height:297mm;margin:0 auto;padding:40mm 20mm;box-sizing:border-box;position:relative;overflow:hidden}
+  .band{position:absolute;top:0;left:0;right:0;height:10px;background:linear-gradient(90deg,#00A651 0 33%,#FDEF42 33% 66%,#E31B23 66% 100%)}
+  .lines{position:absolute;inset:0;opacity:.06;background:
+    repeating-linear-gradient(100deg,#00A651 0 2px,transparent 2px 60px),
+    repeating-linear-gradient(20deg,#FDEF42 0 2px,transparent 2px 90px)}
+  .content{position:relative}
+  .idx{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#00A651;margin-bottom:18px}
+  h1{font-family:Georgia,serif;font-size:52px;line-height:1.02;letter-spacing:-.03em;margin:0 0 20px}
+  p.lead{font-size:17px;color:#8FA091;max-width:32ch;line-height:1.5;margin:0 0 40px}
+  .lines-list{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+  .lines-list span{font-family:Georgia,serif;font-size:20px;border:1px solid #233327;border-radius:4px;padding:8px 16px}
+  .cta{background:#00A651;color:#04201C;display:inline-block;padding:14px 28px;border-radius:4px;font-weight:700;font-size:16px}
+  .foot{position:absolute;bottom:40mm;left:20mm;right:20mm;color:#8FA091;font-size:13px;border-top:1px solid #233327;padding-top:16px}
+</style>
+</head>
+<body>
+<div class="flyer">
+  <div class="band"></div>
+  <div class="lines"></div>
+  <div class="content">
+    <div class="idx">Test bêta — Dakar</div>
+    <h1>Testez UrbanFlow avant tout le monde</h1>
+    <p class="lead">Anticipez la durée réelle de votre trajet Dakar Dem Dikk, malgré les embouteillages.</p>
+    <div class="lines-list">
+      <span>Ligne 1</span><span>Ligne 4</span><span>Ligne 7</span><span>Ligne 8</span><span>Ligne 9</span><span>Ligne 121</span>
+    </div>
+    <div class="cta">Rejoindre le test bêta</div>
+  </div>
+  <div class="foot">UrbanFlow — anticiper le trafic, pas le subir. · Équipe GET409, UMEF Swiss University, Dakar</div>
+</div>
+</body>
+</html>
