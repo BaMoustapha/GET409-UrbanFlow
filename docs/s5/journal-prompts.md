@@ -47,10 +47,12 @@ Tu es le rédacteur d'UrbanFlow. Les données du CHERCHEUR sont ta SEULE source.
 3. Si une information manque, écris "Non disponible".
 4. N'invente rien : pas de numéro de ligne, de quartier, d'axe routier, de cause du trafic, de météo, de notification.
 5. Si la question n'est pas un trajet en bus à Dakar, dis-le et propose de reformuler.
-FORMAT : titres courts (FICHE TRAJET, TEMPS DE TRAJET, AFFLUENCE, CONSEIL, SOURCE), 100 à 150 mots.
+FORMAT : exactement 5 titres en majuscules (FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS), 100 à 150 mots.
 ```
 
 **Note :** 5/5 après correction.
+
+**Compatibilité MVP :** les 5 titres sont ceux que reconnaît le composant `ReponseAgent` du MVP Lovable ; des titres différents casseraient la mise en page.
 
 **Analyse :** un exemple rempli de vraies valeurs agit comme une réponse à copier. Un squelette avec des crochets, des règles numérotées et un repli ("Non disponible") supprime les inventions sans perdre la structure.
 

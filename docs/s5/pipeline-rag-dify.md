@@ -56,7 +56,7 @@ Autres lignes : "non relevé". Ces relevés sont aussi dans la feuille `Collecte
 - `TEMPS DE TRAJET` : fourchette du catalogue (estimation voiture), créneau 8h ou 18h le plus proche de l'heure demandée
 - `HEURE DEMANDÉE` : jour et heure écrits par l'usager, sinon "Non précisée", **jamais l'heure actuelle** (avant, le champ "HEURE COLLECTE" faisait inventer "10:12")
 
-**RÉDACTEUR** : le prompt d'origine contenait un exemple complet (ligne 14, 35-50 min, axe VDN) que le modèle recopiait. Il est remplacé par un squelette sans valeurs et des règles strictes : n'utiliser que les données du CHERCHEUR, "Non disponible" si une donnée manque, aucune invention (marchandises, notifications, SMS), et mention obligatoire "estimation voiture, le bus peut être plus long" à côté de chaque temps.
+**RÉDACTEUR** : le prompt d'origine contenait un exemple complet (ligne 14, 35-50 min, axe VDN) que le modèle recopiait. Il est remplacé par un squelette sans valeurs et des règles strictes : n'utiliser que les données du CHERCHEUR, "Non disponible" si une donnée manque, aucune invention (marchandises, notifications, SMS), et mention obligatoire "estimation voiture, le bus peut être plus long" à côté de chaque temps. Le format impose les 5 titres FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS, les seuls reconnus par le composant `ReponseAgent` du MVP.
 
 ## 6. Tests obligatoires (résultats du 01/10/2026)
 
