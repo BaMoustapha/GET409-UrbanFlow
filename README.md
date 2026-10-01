@@ -17,7 +17,7 @@
 
 ## Documentation (docs/)
 
-Les livrables S1, S2 et S3 sont organisés en trois dossiers :
+Les livrables S1, S2, S3 et S5 sont organisés par séance :
 
 **S1 :**
 - [`docs/s1/fiche-equipe.md`](docs/s1/fiche-equipe.md) — Fiche équipe et défi
@@ -33,6 +33,12 @@ Les livrables S1, S2 et S3 sont organisés en trois dossiers :
 **S3 :**
 - [`docs/s3/journal-prompts.md`](docs/s3/journal-prompts.md) — Journal de Prompts S3 (Agent, Chercheur, IF/ELSE, Rédacteur)
 - [`docs/s3/reflexion-ethique.md`](docs/s3/reflexion-ethique.md) — Réflexion éthique (L4)
+
+**S5 :**
+- [`docs/s5/pipeline-rag.md`](docs/s5/pipeline-rag.md) - Pipeline RAG opérationnel (L2) : workflow Dify, bases de connaissances, données
+- [`docs/s5/architecture-v2.md`](docs/s5/architecture-v2.md) - Schéma d'architecture V2 (L3)
+- [`docs/s5/journal-prompts.md`](docs/s5/journal-prompts.md) - Journal de Prompts S5 (L4) : RAG, rédacteur, webhook, tests T1 à T3
+- [`docs/s5/pipeline-rag-dify.md`](docs/s5/pipeline-rag-dify.md) - Guide Dify : RAG à deux recherches adapté à UrbanFlow
 
 ## Découverte — 3 problèmes identifiés (Prompt S1)
 
