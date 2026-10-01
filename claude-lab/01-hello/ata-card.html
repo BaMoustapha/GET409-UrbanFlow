@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATA suarl — Carte de visite</title>
+<style>
+  :root{
+    --ink:#141413; --bg:#F7F5F0; --card:#FFFFFF; --accent:#1F6B5C; --accent-soft:#E4EFEB; --line:#E4E1D8; --muted:#6B675F;
+  }
+  :root[data-theme="dark"]{
+    --ink:#EDEAE3; --bg:#141413; --card:#1C1B19; --accent:#4EC0A8; --accent-soft:#20302B; --line:#332F2A; --muted:#9C978E;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    padding:24px; transition:background .2s,color .2s;
+  }
+  .card{
+    width:100%; max-width:420px; background:var(--card); border:1px solid var(--line);
+    border-radius:16px; padding:28px 26px; box-shadow:0 1px 3px rgba(20,20,19,.06);
+    position:relative; transition:background .2s,border-color .2s;
+  }
+  .mark{
+    width:44px; height:44px; border-radius:10px; background:var(--accent);
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    font-weight:700; font-size:18px; letter-spacing:.02em; margin-bottom:18px;
+  }
+  h1{font-size:22px; margin:0 0 6px; letter-spacing:-.01em}
+  p.pitch{margin:0 0 20px; color:var(--muted); font-size:14.5px; line-height:1.5}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px}
+  .tag{
+    font-size:12.5px; font-weight:600; color:var(--accent); background:var(--accent-soft);
+    border-radius:999px; padding:5px 12px;
+  }
+  .contact{border-top:1px solid var(--line); padding-top:16px; display:flex; flex-direction:column; gap:6px}
+  .contact .line{display:flex; gap:8px; align-items:baseline; font-size:13.5px}
+  .contact .label{color:var(--muted); min-width:56px}
+  .contact .value{font-weight:600}
+  #themebtn{
+    position:absolute; top:22px; right:22px; width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer;
+    font-size:15px; display:flex; align-items:center; justify-content:center;
+  }
+  @media (max-width:360px){
+    .card{padding:22px 18px}
+    h1{font-size:20px}
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <button id="themebtn" aria-label="Changer de thème" onclick="
+      const r=document.documentElement;
+      const dark=r.getAttribute('data-theme')==='dark';
+      r.setAttribute('data-theme', dark ? 'light' : 'dark');
+      this.textContent = dark ? '🌙' : '☀️';
+    ">🌙</button>
+    <div class="mark">ATA</div>
+    <h1>ATA suarl</h1>
+    <p class="pitch">Studio de technologie créative à Dakar : animation 3D, expériences XR, jeux vidéo et IA générative.</p>
+    <div class="tags">
+      <span class="tag">Animation 3D</span>
+      <span class="tag">XR</span>
+      <span class="tag">Jeux vidéo</span>
+      <span class="tag">IA générative</span>
+    </div>
+    <div class="contact">
+      <div class="line"><span class="label">Ville</span><span class="value">Dakar, Sénégal</span></div>
+      <div class="line"><span class="label">Email</span><span class="value">contact@ata-suarl.sn</span></div>
+    </div>
+  </main>
+</body>
+</html>

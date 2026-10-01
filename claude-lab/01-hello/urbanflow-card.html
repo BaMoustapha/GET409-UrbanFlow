@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UrbanFlow — Carte de présentation</title>
+<style>
+  :root{
+    --ink:#12180F; --bg:#F5F6F1; --card:#FFFFFF; --accent:#00853F; --accent-soft:#DFF0E5; --line:#DEE3D8; --muted:#5F675A;
+  }
+  :root[data-theme="dark"]{
+    --ink:#E9EDE4; --bg:#12180F; --card:#181F14; --accent:#4EC98A; --accent-soft:#1C2E21; --line:#2B342A; --muted:#98A192;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    padding:24px; transition:background .2s,color .2s;
+  }
+  .card{
+    width:100%; max-width:420px; background:var(--card); border:1px solid var(--line);
+    border-radius:16px; padding:28px 26px; box-shadow:0 1px 3px rgba(18,24,15,.06);
+    position:relative; transition:background .2s,border-color .2s;
+  }
+  .band{position:absolute; top:0; left:0; right:0; height:4px; border-radius:16px 16px 0 0;
+    background:linear-gradient(90deg,#00853F 0 33%,#FDEF42 33% 66%,#E31B23 66% 100%)}
+  .mark{
+    width:44px; height:44px; border-radius:10px; background:var(--accent); margin-top:14px;
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    font-weight:700; font-size:15px; letter-spacing:.01em; margin-bottom:18px;
+  }
+  h1{font-size:22px; margin:0 0 6px; letter-spacing:-.01em}
+  p.pitch{margin:0 0 20px; color:var(--muted); font-size:14.5px; line-height:1.5}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px}
+  .tag{
+    font-size:12.5px; font-weight:600; color:var(--accent); background:var(--accent-soft);
+    border-radius:999px; padding:5px 12px;
+  }
+  .contact{border-top:1px solid var(--line); padding-top:16px; display:flex; flex-direction:column; gap:6px}
+  .contact .line{display:flex; gap:8px; align-items:baseline; font-size:13.5px}
+  .contact .label{color:var(--muted); min-width:56px}
+  .contact .value{font-weight:600}
+  #themebtn{
+    position:absolute; top:22px; right:22px; width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer;
+    font-size:15px; display:flex; align-items:center; justify-content:center;
+  }
+  @media (max-width:360px){
+    .card{padding:22px 18px}
+    h1{font-size:20px}
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="band"></div>
+    <button id="themebtn" aria-label="Changer de thème" onclick="
+      const r=document.documentElement;
+      const dark=r.getAttribute('data-theme')==='dark';
+      r.setAttribute('data-theme', dark ? 'light' : 'dark');
+      this.textContent = dark ? '🌙' : '☀️';
+    ">🌙</button>
+    <div class="mark">UF</div>
+    <h1>UrbanFlow</h1>
+    <p class="pitch">Aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de leur trajet malgré les embouteillages quotidiens.</p>
+    <div class="tags">
+      <span class="tag">Trafic en temps réel</span>
+      <span class="tag">15 lignes DDD</span>
+      <span class="tag">Alertes affluence</span>
+      <span class="tag">Itinéraires alternatifs</span>
+    </div>
+    <div class="contact">
+      <div class="line"><span class="label">Équipe</span><span class="value">Moustapha &amp; Astou · GET409</span></div>
+      <div class="line"><span class="label">Email</span><span class="value">contact@urbanflow-get409.sn</span></div>
+    </div>
+  </main>
+</body>
+</html>
