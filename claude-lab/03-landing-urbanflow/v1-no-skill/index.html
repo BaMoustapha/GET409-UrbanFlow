@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UrbanFlow</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#222;line-height:1.5}
+  header{background:#00853F;color:#fff;padding:60px 20px;text-align:center}
+  header h1{font-size:32px;margin-bottom:10px}
+  header p{font-size:16px;opacity:.9}
+  section{padding:40px 20px;max-width:900px;margin:0 auto}
+  h2{font-size:22px;margin-bottom:16px}
+  .quiz{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px}
+  .quiz .step{flex:1;min-width:200px;border:1px solid #ddd;border-radius:6px;padding:16px}
+  .quiz .step b{display:block;margin-bottom:6px}
+  .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .services div{border:1px solid #ddd;border-radius:6px;padding:16px;text-align:center}
+  .lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .lines div{background:#eee;border-radius:6px;padding:16px;text-align:center;font-size:14px}
+  form{display:flex;flex-direction:column;gap:12px;max-width:400px}
+  input,textarea{padding:10px;border:1px solid #ccc;border-radius:4px;font-size:14px}
+  button{background:#00853F;color:#fff;border:0;border-radius:4px;padding:12px;font-size:15px;cursor:pointer}
+  footer{text-align:center;padding:24px;color:#888;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>UrbanFlow</h1>
+  <p>Anticipez la durée réelle de votre trajet Dakar Dem Dikk, malgré les embouteillages.</p>
+</header>
+
+<section>
+  <h2>Comment ça marche ?</h2>
+  <div class="quiz">
+    <div class="step"><b>1. Choisissez votre ligne</b>Sélectionnez la ligne DDD que vous empruntez.</div>
+    <div class="step"><b>2. Consultez le trafic</b>Temps de trajet estimé et niveau d'affluence en temps réel.</div>
+    <div class="step"><b>3. Partez informé</b>Recevez une alerte si le trafic se dégrade sur votre trajet.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Fonctionnalités clés</h2>
+  <div class="services">
+    <div>Trafic en temps réel</div>
+    <div>15 lignes DDD suivies</div>
+    <div>Alertes affluence</div>
+    <div>Itinéraires alternatifs</div>
+  </div>
+</section>
+
+<section>
+  <h2>Lignes suivies</h2>
+  <div class="lines">
+    <div>Ligne 1</div>
+    <div>Ligne 4</div>
+    <div>Ligne 7</div>
+    <div>Ligne 8</div>
+    <div>Ligne 9</div>
+    <div>Ligne 121</div>
+  </div>
+</section>
+
+<section>
+  <h2>Nous contacter</h2>
+  <form onsubmit="return false">
+    <input type="text" placeholder="Votre nom" required>
+    <input type="email" placeholder="Votre email" required>
+    <textarea placeholder="Votre message" rows="4" required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+</section>
+
+<footer>UrbanFlow — Projet GET409, UMEF Swiss University, Dakar</footer>
+</body>
+</html>
