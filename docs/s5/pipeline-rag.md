@@ -7,4 +7,4 @@
 - Données de collecte (relevés Google Maps, feuille `Collecte_TempsTrajet`) : [`data/DakarFlow_Donnees_UrbanFlow.xlsx`](data/DakarFlow_Donnees_UrbanFlow.xlsx)
 - Guide complet de construction, tests et pièges : [`pipeline-rag-dify.md`](pipeline-rag-dify.md)
 
-Captures d'écran Dify (bases indexées, workflow connecté) : à ajouter dans `docs/s5/captures/`.
+Capture du workflow publié : [docs/s5/captures/dify-workflow-publie.png](captures/dify-workflow-publie.png).
