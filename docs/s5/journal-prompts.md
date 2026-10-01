@@ -71,7 +71,18 @@ FORMAT : exactement 5 titres en majuscules (FICHE TRAJET, TEMPS DE TRAJET, ANALY
 
 **Pourquoi :** Dify peut répondre HTTP 200 alors que l'exécution a échoué (crédits épuisés, modèle indisponible). Sans contrôle du statut, le MVP affichait "Aucune réponse" sans explication. Garder la clé côté serveur évite de l'exposer.
 
-**Prompts exacts envoyés à Lovable :** à compléter par l'équipe (3 itérations : formulaire et suggestions, appel Dify, détection d'échec).
+**Prompts exacts envoyés à Lovable (extraits de l'historique du projet, sans clé API) :**
+
+1. 29/09, 18h58 : « Ajoute une fonctionnalité de consultation de l'agent IA sur la page Lignes de UrbanFlow. » Interface : champ « Posez votre question sur un trajet ou une ligne... », bouton vert #00853F « Demander à l'agent 🚌 », zone de résultat, spinner, erreur en rouge. Appel côté serveur à https://api.dify.ai/v1/workflows/run (corps : inputs.query, mode blocking). La clé reste côté serveur. Messages prévus : « Service temporairement indisponible » et un message si la réponse dépasse 10 s.
+2. 30/09, 20h57 : « Transforme le bouton "Estimer mon trajet" en une vraie fonctionnalité connectée à mon agent IA Dify. » Section #estimer, fonction serveur lisant le secret DIFY_API_KEY, délai maximal 30 s, affichage de la première valeur texte de data.outputs.
+3. 30/09, 20h58 : amélioration de l'affichage. Carte structurée par section, temps en grand et en gras, alertes dans un encadré jaune, réponse INSUFFISANT dans un encadré orange « Précisez votre ligne et votre heure de départ... », 3 suggestions cliquables, bouton désactivé pendant le chargement.
+4. 30/09, 21h02 : mode démo et transparence. Réponses simulées pour la ligne 8 et la ligne 18, badge gris « Mode démo : réponse simulée », mention « Estimation indicative issue du catalogue UrbanFlow (données septembre 2026) et des heures de pointe observées. Non affilié à Dakar Dem Dikk. », message pour les questions hors sujet.
+5. 30/09, 21h07 : prompt de test seul, sans modification du code (« Météo demain à Dakar ? » et « Je veux aller au marché Sandaga »).
+6. 30/09, 21h09 : corrections. askAgent traite comme « indisponible » tout statut différent de "succeeded", toute erreur data.error ou toute sortie vide, et journalise. Classification hors sujet par mots-clés (ligne, bus, trajet, arrêt, noms de quartiers, etc.). Vérification avec la démo « Ligne 8 vers 8h... ».
+
+**Erreur à signaler :** un prompt du 29/09, 18h55 était un modèle copié d'un autre projet (GreenSprint) et envoyé par erreur. Il est à ignorer. Le rebranding vert #00853F avec barre tricolore date du 28/09 (prompt de 20h44).
+
+**Point non appliqué :** le point 2 du prompt 6 (nouvelle détection hors sujet) n'a pas été codé faute de crédits. Le correctif est prêt dans le fichier lovable_demo_patch.txt.
 
 **Limite connue :** le mode démo contient encore d'anciens trajets pour les lignes 8 et 18, et la détection des questions hors sujet est à refaire (crédits Lovable épuisés). L'agent Dify publié est à jour.
 
