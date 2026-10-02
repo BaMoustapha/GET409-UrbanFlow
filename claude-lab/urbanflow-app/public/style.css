@@ -16,6 +16,15 @@ nav a{flex:none; min-height:44px; display:inline-flex; align-items:center; paddi
 nav a:hover{color:var(--ink)}
 nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--accent)}
 .intro{color:var(--muted); font-size:15px; margin:18px 0 0}
+.hero{margin:22px 0 0; max-width:720px}
+.hero h1{font-size:clamp(26px,4.2vw,38px); line-height:1.15; margin:0 0 10px}
+.hero p{margin:0 0 8px; color:var(--ink); font-size:16px}
+.hero .note{font-size:14px; margin-top:10px; color:var(--muted)}
+.points{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.point{display:block; text-decoration:none; color:var(--ink); background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:16px}
+.point:hover{border-color:var(--accent)}
+.point b{display:block; font-family:var(--display); font-size:18px; margin-bottom:6px; color:var(--accent)}
+.point span{font-size:14px; color:var(--muted); display:block}
 main{display:grid; gap:28px; padding-top:22px; padding-bottom:48px}
 h2{font-size:20px; margin-bottom:12px}
 .muted{color:var(--muted)}
@@ -96,7 +105,7 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
 footer{padding-bottom:40px; color:var(--muted); font-size:13px}
 
 @media (max-width:700px){
-  .grille-rech, .resultats, .grille-rel{grid-template-columns:1fr}
+  .grille-rech, .resultats, .grille-rel, .points{grid-template-columns:1fr}
   .champ-dep{flex-direction:column; align-items:stretch}
   .ligne-heure{flex-direction:column; align-items:stretch}
   .agent-form{grid-template-columns:1fr}
