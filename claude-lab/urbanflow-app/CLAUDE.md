@@ -6,9 +6,10 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 ## Architecture de l'app (ce dossier)
 - `public/index.html` : interface unique (carte Leaflet/OpenStreetMap, géolocalisation, trajet A vers B, lignes, journal local, agent IA).
 - `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
+- `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
 - `server.js` : serveur Express local (`npm start`, http://localhost:3000). Sert uniquement `public/`.
 - `worker.js` + `wrangler.toml` : même API sur Cloudflare Workers (`deployer.bat` pousse aussi les secrets). Worker nommé `urbanflow`.
-- Routes : `POST /api/analyser-trafic` (Dify) et `POST /api/trajet` (TomTom).
+- Routes : `POST /api/analyser-trafic` (guide réseau, sinon Dify) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
 
 ## Services externes
 - **Dify** : workflow UrbanFlow (RAG sur 2 bases, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus, prévoir Gemini Flash-Lite avec une clé AI Studio personnelle).
@@ -40,6 +41,8 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 ## Méthode de travail
 - Toute nouvelle donnée de trafic passe par une recherche web sourcée avant d'être ajoutée à la base xlsx.
 - Toute évolution du workflow Dify est d'abord testée sur une copie du YAML avant application dans l'éditeur Dify.
+- Après chaque modification nécessaire : pousser sur GitHub (code, docs, CLAUDE.md) et mettre à jour Dify (bases de connaissance, workflow) si la modification le concerne. Ne pas attendre une demande.
+- Les questions des utilisateurs peuvent être courtes ou mal écrites ("8", "l8 matin", "Ouakam Plateau") : ne jamais exiger de phrase complète.
 - Tester en local avec `DEMO_MODE=1` avant de brancher les vraies clés.
 
 ## Interdits
