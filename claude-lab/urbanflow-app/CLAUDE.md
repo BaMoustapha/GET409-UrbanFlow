@@ -46,6 +46,13 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Ne jamais inventer de témoignage usager, de partenariat ou de statistique DDD non sourcée.
 - Ne jamais coder en dur une clé API (Dify, TomTom, Gemini, etc.) ni la coller dans le chat : toujours via `.env` ou secrets Cloudflare. Une clé exposée doit être régénérée.
 - Ne pas travailler sur les livrables S6 tant que l'équipe ne le demande pas.
+- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps relevés et l'affluence typique sont utilisés. Le mot retard ne désigne que le retard dû au trafic.
+- Pas de prix de tickets dans la base de connaissance (hors périmètre).
+
+## Recherche Dify (base de connaissance)
+- Les segments portent des jetons collés `ligne7`, `ligne18`, `lignet07` : l'index inversé de Dify ignore les mots d'un seul caractère.
+- `enrichirRequete()` (lib/core.mjs) envoie une requête compacte (jetons répétés + heures + lieux) quand la question cite une ligne. Les mots courants (ligne, vers, temps) font remonter toutes les lignes.
+- Top K de la base lignes : 8. Fichiers et règles d'import dans `dify/README.md`.
 
 ## Prochaines étapes possibles
 1. Passer le modèle Dify de Groq à Gemini Flash-Lite.
