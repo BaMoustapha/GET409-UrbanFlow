@@ -34,7 +34,7 @@ function desserte(ix, lieu) {
 
 function ficheLigne(l, ctx) {
   const t = l.t8 ? `Voiture (Google Maps, vendredi) : 8h ${l.t8}, 18h ${l.t18}.` : 'Temps non relevé.';
-  return `Ligne ${l.n} : ${l.trajet}${l.verif ? ' (trajet à vérifier)' : ''}\n${ctx ? ctx + '\n' : ''}${t}\nAffluence typique : ${l.aff || 'non renseignée'}.`;
+  return `Ligne ${l.n} : ${l.trajet}${l.verif ? ' (trajet à vérifier)' : ''}\n${ctx ? ctx + '\n' : ''}${t}\nHeures de pointe habituelles : ${l.pointe}.`;
 }
 
 const SIGLES = new Set(['ucad', 'bceao', 'hlm', 'lss', 'aibd', 'ter', 'sos', 'bhs', 'bicis', 'ipress', 'uvs', 'imt', 'pt1']);

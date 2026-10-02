@@ -8,7 +8,7 @@ export const LIGNES = [
   "zones": "Parcelles Assainies / Yoff > Fann / Mermoz / UCAD > Médina / Plateau",
   "t8": "24-40 min",
   "t18": "28-55 min",
-  "aff": "forte le matin 7h-9h30 vers le Plateau/Palais",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -19,7 +19,7 @@ export const LIGNES = [
   "zones": "Dieuppeul / Sacré-Cœur / Point E > Canal 4 / Delafosse / Manguiers > Médina / Plateau",
   "t8": "16-30 min",
   "t18": "20-40 min",
-  "aff": "forte le soir 17h30-20h vers les banlieues",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -30,7 +30,7 @@ export const LIGNES = [
   "zones": "Ouakam > Mermoz > Fann / UCAD > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "forte le soir 17h30-20h vers les banlieues",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -41,7 +41,7 @@ export const LIGNES = [
   "zones": "Aéroport Yoff / Patte d'Oie > Grand Yoff / Castors > Sicap Amitié / Point E > Médina / Plateau",
   "t8": "24-45 min",
   "t18": "30-55 min",
-  "aff": "forte le matin 7h-9h30 vers le Plateau/Palais",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -52,7 +52,7 @@ export const LIGNES = [
   "zones": "Liberté 4-6 / JVC > Niary Tally / Centenaire > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "forte le matin 7h-9h30 vers le Plateau/Palais",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -63,7 +63,7 @@ export const LIGNES = [
   "zones": "Dieuppeul / Sacré-Cœur > Sicap Karack / Corniche > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "forte le soir 17h30-20h vers les banlieues",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -74,7 +74,7 @@ export const LIGNES = [
   "zones": "Dieuppeul / HLM > Colobane / Centenaire > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "forte le matin 7h-9h30 vers le Plateau/Palais",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -85,7 +85,7 @@ export const LIGNES = [
   "zones": "Dieuppeul / Liberté 5 > Ouagou Niayes / HLM > Colobane / Bel Air > Port / Reubeus > Médina / Delafosse > Sahm / Fann > Karack / Dieuppeul",
   "t8": "18-35 min",
   "t18": "20-45 min",
-  "aff": "forte le soir 17h30-20h vers les banlieues",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -96,7 +96,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "forte le soir 17h30-20h vers les banlieues",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -107,7 +107,7 @@ export const LIGNES = [
   "zones": "HLM / Grand Yoff > Zone B / Dieuppeul > Canal 4 / Santhiaba > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "forte le matin 7h-9h30 vers le Plateau/Palais",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -118,7 +118,7 @@ export const LIGNES = [
   "zones": "Parcelles Assainies / Dior > Castors / Sicap Karack > Croisement 22 / Grand Médine > Fann / UCAD > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -129,7 +129,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -140,7 +140,7 @@ export const LIGNES = [
   "zones": "Rue 10 / Madina Gounass > Daroukhane / Hamo > Dakar / Reubeus",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -151,7 +151,7 @@ export const LIGNES = [
   "zones": "Guédiawaye > Camberène / Grand Médine > Impôts / Liberté 4-6 > Niary Tally > Centenaire / Sandaga > Médina / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -162,7 +162,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -173,7 +173,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -184,7 +184,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -195,7 +195,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -206,7 +206,7 @@ export const LIGNES = [
   "zones": "Jaxaay > Keur Massar / Mbao > Thiaroye / Plateau",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -217,7 +217,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -228,7 +228,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -239,7 +239,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -250,7 +250,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -261,7 +261,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -272,7 +272,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -283,7 +283,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -294,7 +294,7 @@ export const LIGNES = [
   "zones": "Thiaroye / Pikine > Patte d'Oie / HLM Grand Yoff > Almadies / Ngor > Ngor / Aéroport Yoff > Ouakam",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -305,7 +305,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -316,7 +316,7 @@ export const LIGNES = [
   "zones": "Dieuppeul / Grand Yoff > Thiaroye / Mbao > Keur Massar / Grand Mbao > Zac Mbao",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -327,7 +327,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -338,7 +338,7 @@ export const LIGNES = [
   "zones": "Ouakam > Sacré-Cœur / JVC > Liberté 6",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -349,7 +349,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -360,7 +360,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -371,7 +371,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -382,7 +382,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
  {
@@ -393,7 +393,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -404,7 +404,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -415,7 +415,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -426,7 +426,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -437,7 +437,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -448,7 +448,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
  {
@@ -459,7 +459,7 @@ export const LIGNES = [
   "zones": "",
   "t8": "",
   "t18": "",
-  "aff": "non relevée pour cette ligne (modérée en journée 10h-16h sur tout le réseau)",
+  "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  }
 ];
