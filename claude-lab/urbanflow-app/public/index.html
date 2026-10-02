@@ -78,7 +78,7 @@
   </section>
 
   <section>
-    <h2>Lignes urbaines suivies</h2>
+    <h2>Lignes du réseau Dakar Dem Dikk</h2>
     <div class="lignes-grid" id="lignes"></div>
   </section>
 
@@ -117,30 +117,19 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const LIGNES_DDD = [
-  {n:"1", zone:"Parcelles Assainies ↔ Place Leclerc", temps:45},
-  {n:"4", zone:"Guédiawaye ↔ Plateau", temps:60},
-  {n:"7", zone:"Pikine ↔ Plateau", temps:50},
-  {n:"8", zone:"Parcelles Assainies ↔ Palais", temps:40},
-  {n:"9", zone:"Grand Yoff ↔ Plateau", temps:35},
-  {n:"10", zone:"Yeumbeul ↔ Plateau", temps:55},
-  {n:"13", zone:"Ouakam ↔ Plateau", temps:30},
-  {n:"18", zone:"Rufisque ↔ Plateau", temps:70},
-  {n:"20", zone:"Cambérène ↔ Plateau", temps:45},
-  {n:"23", zone:"Liberté ↔ Plateau", temps:25},
-  {n:"121", zone:"Parcelles Assainies ↔ Palais", temps:40},
-];
-
 const grid = document.getElementById('lignes');
 const select = document.getElementById('f-ligne');
-LIGNES_DDD.forEach(l => {
-  const d = document.createElement('div');
-  d.innerHTML = `<b>Ligne ${l.n}</b><span>${l.zone}</span><span>~${l.temps} min</span>`;
-  grid.appendChild(d);
-  const opt = document.createElement('option');
-  opt.value = l.n; opt.textContent = `Ligne ${l.n}`;
-  select.appendChild(opt);
-});
+fetch('lignes.json').then(r => r.json()).then(LIGNES => {
+  LIGNES.forEach(l => {
+    const d = document.createElement('div');
+    const temps = l.t8 ? `8h : ${l.t8} · 18h : ${l.t18} (voiture)` : 'Temps non relevé';
+    d.innerHTML = `<b>${/^\d/.test(l.n) ? 'Ligne ' : ''}${l.n}</b><span>${l.trajet}</span><span>${temps}</span>` + (l.verif ? '<span>Trajet à vérifier</span>' : '');
+    grid.appendChild(d);
+    const opt = document.createElement('option');
+    opt.value = l.n; opt.textContent = (/^\d/.test(l.n) ? 'Ligne ' : '') + l.n;
+    select.appendChild(opt);
+  });
+}).catch(() => { grid.textContent = 'Liste des lignes indisponible.'; });
 
 const KEY = 'urbanflow_journal';
 function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e){ return []; } }
