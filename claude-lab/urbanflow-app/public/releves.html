@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relevés terrain — UrbanFlow</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2300A651'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%2304201C' font-family='Georgia' font-weight='bold'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="band"></div>
+<header>
+  <a class="marque" href="/">UrbanFlow</a>
+  <div id="menu"></div>
+  <p class="intro">Aucune donnée en temps réel n'existe pour les bus. Un relevé chronométré par un usager est la seule vraie mesure en bus.</p>
+</header>
+
+<main>
+  <section aria-labelledby="t-rel">
+    <h2 id="t-rel">Envoyer un relevé à l'agent</h2>
+    <form class="carte-form" id="form-rel">
+      <div class="grille-rel">
+        <div>
+          <label for="r-ligne">Ligne</label>
+          <select id="r-ligne" required></select>
+        </div>
+        <div>
+          <label for="r-date">Date</label>
+          <input id="r-date" type="date" required>
+        </div>
+        <div>
+          <label for="r-heure">Heure de départ</label>
+          <input id="r-heure" type="time" required>
+        </div>
+        <div>
+          <label for="r-min">Durée observée (minutes)</label>
+          <input id="r-min" type="number" min="1" max="300" inputmode="numeric" placeholder="Ex : 52" required>
+        </div>
+        <div class="large">
+          <label for="r-question">Votre question à l'agent</label>
+          <input id="r-question" type="text" maxlength="300" placeholder="Ex : Je prends la ligne 8 vers 8h, combien de temps prévoir ?" required>
+        </div>
+        <div class="large">
+          <button type="submit" class="btn btn-main" id="btn-rel">Envoyer le relevé et demander à l'agent</button>
+        </div>
+      </div>
+      <p class="note">Le relevé est transmis à l'agent pour cette question uniquement. Il n'est pas enregistré par l'application.</p>
+    </form>
+    <div id="agent-zone" aria-live="polite"></div>
+  </section>
+
+  <section aria-labelledby="t-cmt">
+    <h2 id="t-cmt">Comment faire un bon relevé</h2>
+    <div class="texte">
+      <ol class="etapes">
+        <li>Notez l'heure à laquelle vous montez dans le bus.</li>
+        <li>Notez l'heure à laquelle vous arrivez à l'arrêt final de la ligne.</li>
+        <li>Calculez la durée en minutes et saisissez-la ci-dessus.</li>
+      </ol>
+      <p class="note">Ne saisissez que ce que vous avez réellement mesuré. Un chiffre estimé de tête fausserait la réponse de l'agent.</p>
+    </div>
+  </section>
+</main>
+
+<script src="/app.js"></script>
+<script>
+const sel = document.getElementById("r-ligne");
+let LISTE = [];
+chargerLignes().then(l => { LISTE = l; sel.replaceChildren(...l.map(x => el("option", {value:x.n, textContent:x.nom + " · " + x.trajet}))); })
+  .catch(() => { sel.replaceChildren(el("option", {textContent:"Liste indisponible"})); });
+const auj = new Date();
+document.getElementById('r-date').value = auj.getFullYear() + '-' + String(auj.getMonth()+1).padStart(2,'0') + '-' + String(auj.getDate()).padStart(2,'0');
+document.getElementById('r-date').max = document.getElementById('r-date').value;
+
+document.getElementById('form-rel').addEventListener('submit', ev => {
+  ev.preventDefault();
+  const ligne = LISTE.find(l => l.n === sel.value);
+  if(!ligne){ return; }
+  const date = new Date(document.getElementById('r-date').value + 'T12:00');
+  const jour = date.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit'});
+  const heure = document.getElementById('r-heure').value.replace(':', 'h');
+  const min = document.getElementById('r-min').value;
+  // Format attendu par le champ Dify donnees_trafic (256 caracteres maximum).
+  const releve = ('Ligne ' + ligne.n + ' ' + ligne.trajet.replace(' ↔ ', ' vers ') + ', ' + jour + ' ' + heure + ' : ' + min + ' min observés').slice(0, 256);
+  interrogerAgent(document.getElementById('r-question').value, releve, document.getElementById('agent-zone'), document.getElementById('btn-rel'));
+});
+</script>
+</body>
+</html>

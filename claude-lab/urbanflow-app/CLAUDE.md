@@ -4,10 +4,16 @@
 UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de leur trajet malgré les embouteillages quotidiens. Projet GET409 (Atelier IA), UMEF Swiss University, Dakar. Équipe : Moustapha & Astou.
 
 ## Architecture de l'app (ce dossier)
-- `public/index.html` : interface unique (carte Leaflet/OpenStreetMap, géolocalisation, trajet A vers B, lignes, journal local, agent IA).
-- `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
+- `public/` : interface en 5 pages avec menu commun (`app.js`, `style.css`, `lignes.json`) :
+  - `/` (`index.html`) : trajet A vers B (carte Leaflet/OpenStreetMap, géolocalisation sur clic, heure de départ, temps voiture TomTom, lignes dont un terminus correspond aux lieux saisis).
+  - `/agent` : questions à l'agent Dify, fiche en sections, suggestions. Accepte `?q=` pour une question préremplie.
+  - `/lignes` : les 42 lignes de `lignes.json` par catégorie, avec temps voiture 8h et 18h quand ils sont relevés.
+  - `/releves` : relevé chronométré envoyé à l'agent via `donnees_trafic` (non enregistré par l'app).
+  - `/a-propos` : sources, limites, confidentialité.
+- `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom avec `departAt` pour une heure future, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
 - `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
-- `server.js` : serveur Express local (`npm start`, http://localhost:3000). Sert uniquement `public/`.
+- `server.js` : serveur Express local (`npm start`, http://localhost:3000). Sert uniquement `public/`, avec URL propres (`/lignes`).
+- Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 - `worker.js` + `wrangler.toml` : même API sur Cloudflare Workers (`deployer.bat` pousse aussi les secrets). Worker nommé `urbanflow`.
 - Routes : `POST /api/analyser-trafic` (guide réseau, sinon Dify) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
 
@@ -18,7 +24,9 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 
 ## Limites connues
 - Aucune donnée en temps réel n'existe pour les bus DDD (rien n'est publié). Le temps affiché dans l'app est celui d'une voiture avec le trafic actuel, et l'interface le dit.
-- Les temps par ligne viennent du catalogue (`dify/urbanflow_lignes_catalogue.csv`), ce sont des estimations.
+- Les temps par ligne (`t8`, `t18` dans `public/lignes.json`) sont des temps voiture relevés, jamais des temps en bus. Quand ils manquent, l'interface affiche « Temps non relevé ».
+- Quota Dify : l'abonnement limite les requêtes à la base de connaissance (erreur « rate limit »). `core.mjs` renvoie alors un 429 avec un message clair. Éviter de multiplier les tests de l'agent.
+- Le journal de trajets local a été retiré de l'interface (les relevés passent par `/releves`).
 
 ## Dossiers
 - `dify/` : bases de connaissance Dify (catalogue des lignes, affluence type, base xlsx maître, 11 feuilles).

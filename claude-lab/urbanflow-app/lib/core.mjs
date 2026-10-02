@@ -97,9 +97,17 @@ export async function analyserTrafic(env, query, donneesTrafic) {
     if (!r.ok) return { status: 502, body: { error: 'Service temporairement indisponible.' } };
     const data = await r.json();
     if (data.data && data.data.status && data.data.status !== 'succeeded') {
+      if (/rate limit/i.test(String(data.data.error || ''))) {
+        return { status: 429, body: { error: "L'agent a atteint sa limite de requêtes. Réessayez dans quelques minutes." } };
+      }
       return { status: 502, body: { error: "L'agent n'a pas pu répondre, réessayez." } };
     }
-    const out = data.data ? data.data.outputs : data.outputs || data;
+    let out = data.data ? data.data.outputs : data.outputs || data;
+    // Dify renvoie un objet {nom_de_variable: texte} : on garde le premier texte.
+    if (out && typeof out === 'object') {
+      const texte = Object.values(out).find((v) => typeof v === 'string' && v.trim());
+      if (texte) out = texte;
+    }
     return { status: 200, body: { outputs: out } };
   } catch (err) {
     if (err.name === 'AbortError') return { status: 504, body: { error: 'La réponse prend trop de temps, réessayez.' } };
@@ -180,6 +188,15 @@ async function incidentsSurTrace(env, trace) {
   return res;
 }
 
+// Heure de depart future (5 min a 7 jours) au format TomTom, sinon null (= maintenant).
+function departAt(v) {
+  const t = new Date(v).getTime();
+  if (!v || !Number.isFinite(t)) return null;
+  const now = Date.now();
+  if (t < now + 5 * 60 * 1000 || t > now + 7 * 24 * 3600 * 1000) return null;
+  return new Date(t).toISOString().slice(0, 19) + '+00:00';
+}
+
 export async function tempsTrajet(env, body) {
   if (!env.TOMTOM_API_KEY) return { status: 200, body: { statut: 'no_key' } };
   try {
@@ -187,10 +204,12 @@ export async function tempsTrajet(env, body) {
     const b = await point(env, body && body.arrivee);
     if (!a || !b) return { status: 200, body: { statut: 'not_found' } };
 
-    const k = `r:${a.lat.toFixed(4)},${a.lng.toFixed(4)}:${b.lat.toFixed(4)},${b.lng.toFixed(4)}`;
+    const dep = departAt(body && body.departAt);
+    const k = `r:${a.lat.toFixed(4)},${a.lng.toFixed(4)}:${b.lat.toFixed(4)},${b.lng.toFixed(4)}:${dep || 'now'}`;
     let res = cacheGet(k);
     if (!res) {
-      const url = `${base(env)}/routing/1/calculateRoute/${a.lat},${a.lng}:${b.lat},${b.lng}/json?key=${env.TOMTOM_API_KEY}&traffic=true&travelMode=car&computeTravelTimeFor=all`;
+      const url = `${base(env)}/routing/1/calculateRoute/${a.lat},${a.lng}:${b.lat},${b.lng}/json?key=${env.TOMTOM_API_KEY}&traffic=true&travelMode=car&computeTravelTimeFor=all`
+        + (dep ? `&departAt=${encodeURIComponent(dep)}` : '');
       const r = await fetchJson(url);
       if (!r.ok) throw new Error('route ' + r.status);
       const j = await r.json();
@@ -204,11 +223,15 @@ export async function tempsTrajet(env, body) {
         distanceKm: Math.round(s.lengthInMeters / 100) / 10,
         trace: (rt.legs || []).flatMap((l) => l.points || []).filter((_, i) => i % 3 === 0).map((q) => [q.latitude, q.longitude]),
         calculeA: new Date().toISOString(),
+        previsionPour: dep,
       };
       cacheSet(k, res);
     }
+    // Les incidents TomTom sont ceux du moment : inutiles (et trompeurs) pour une prevision a une heure future.
     let incidents = null;
-    try { incidents = await incidentsSurTrace(env, res.trace); } catch (e) { incidents = null; }
+    if (!res.previsionPour) {
+      try { incidents = await incidentsSurTrace(env, res.trace); } catch (e) { incidents = null; }
+    }
     return { status: 200, body: { statut: 'ok', depart: a, arrivee: b, ...res, congestion: niveauCongestion(res.voitureMin, res.habituelMin), incidents } };
   } catch (e) {
     return { status: 200, body: { statut: 'unavailable' } };

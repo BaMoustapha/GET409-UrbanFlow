@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 app.use(express.json({ limit: '10kb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
 const core = import('./lib/core.mjs');
 

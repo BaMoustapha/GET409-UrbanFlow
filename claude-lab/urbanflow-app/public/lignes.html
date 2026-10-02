@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lignes — UrbanFlow</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2300A651'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%2304201C' font-family='Georgia' font-weight='bold'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="band"></div>
+<header>
+  <a class="marque" href="/">UrbanFlow</a>
+  <div id="menu"></div>
+  <p class="intro">Les lignes du réseau Dakar Dem Dikk suivies par UrbanFlow.</p>
+</header>
+
+<main>
+  <section aria-labelledby="t-lignes">
+    <h2 id="t-lignes">Lignes du réseau</h2>
+    <p class="note" style="margin:0 0 12px">Touchez une ligne pour interroger l'agent. Les temps affichés sont des temps voiture relevés à 8h et à 18h, pas des temps en bus. Quand aucun temps n'a été relevé, c'est indiqué.</p>
+    <div id="groupes" aria-live="polite"><p class="vide">Chargement des lignes...</p></div>
+  </section>
+</main>
+
+<script src="/app.js"></script>
+<script>
+chargerLignes().then(liste => {
+  const zone = document.getElementById('groupes');
+  zone.replaceChildren();
+  CATEGORIES.forEach(([cle, titre]) => {
+    const lignes = liste.filter(l => l.cat.startsWith(cle));
+    if(!lignes.length) return;
+    zone.append(el('h3', {textContent:titre + ' (' + lignes.length + ')', style:'margin:20px 0 10px; font-size:17px'}));
+    const grille = el('div', {className:'lignes'});
+    lignes.forEach(l => grille.append(el('a', {className:'lg', href:lienAgent(l.question + ' ?')},
+      el('b', {textContent:l.nom}),
+      el('span', {textContent:l.trajet}),
+      el('span', {textContent:l.temps}),
+      l.verif ? el('span', {textContent:'Trajet à vérifier'}) : '')));
+    zone.append(grille);
+  });
+}).catch(() => { document.getElementById('groupes').replaceChildren(el('p', {className:'msg-erreur', role:'alert', textContent:'Liste des lignes indisponible. Réessayez dans un instant.'})); });
+</script>
+</body>
+</html>

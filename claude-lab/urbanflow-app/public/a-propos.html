@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>À propos — UrbanFlow</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2300A651'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%2304201C' font-family='Georgia' font-weight='bold'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="band"></div>
+<header>
+  <a class="marque" href="/">UrbanFlow</a>
+  <div id="menu"></div>
+  <p class="intro">Ce que fait UrbanFlow, d'où viennent les chiffres, et ce qu'il ne sait pas faire.</p>
+</header>
+
+<main>
+  <section aria-labelledby="t-ap">
+    <h2 id="t-ap">À propos</h2>
+    <div class="texte">
+      <h3>Le but</h3>
+      <p>UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de leur trajet malgré les embouteillages quotidiens.</p>
+
+      <h3>D'où viennent les chiffres</h3>
+      <ul>
+        <li><b>Temps en voiture :</b> calculé par TomTom, avec le trafic du moment ou une prévision pour une heure choisie.</li>
+        <li><b>Lignes DDD :</b> la liste des lignes, leurs terminus et les temps voiture relevés à 8h et à 18h viennent des données du projet (fichier lignes.json). Un temps voiture n'est pas un temps en bus. Les lignes marquées « Trajet à vérifier » ont un tracé encore à confirmer.</li>
+        <li><b>Agent IA :</b> un assistant qui répond à partir du catalogue et des relevés terrain. Quand la donnée manque, il répond « insuffisant » au lieu d'inventer.</li>
+        <li><b>Relevés terrain :</b> des durées mesurées en bus par des usagers, transmises à l'agent.</li>
+      </ul>
+
+      <h3>Ce qu'UrbanFlow ne sait pas faire</h3>
+      <ul>
+        <li>Aucune donnée en temps réel n'existe pour les bus Dakar Dem Dikk : l'application ne peut pas dire où est un bus ni quand il passera.</li>
+        <li>Le temps affiché en voiture n'est pas le temps en bus : comptez en général plus.</li>
+      </ul>
+
+      <h3>Vos données</h3>
+      <ul>
+        <li>Votre position n'est demandée que si vous cliquez sur « Me localiser ».</li>
+        <li>L'application n'enregistre ni compte, ni historique, ni relevé.</li>
+        <li>Les lieux saisis et les questions sont envoyés au serveur de l'application, puis à TomTom et à l'agent pour obtenir la réponse.</li>
+      </ul>
+
+      <h3>L'équipe</h3>
+      <p>Projet GET409 (Atelier IA), UMEF Swiss University, Dakar. Équipe : Moustapha et Astou.</p>
+    </div>
+  </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

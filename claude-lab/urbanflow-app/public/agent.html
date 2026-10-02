@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent IA — UrbanFlow</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2300A651'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%2304201C' font-family='Georgia' font-weight='bold'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="band"></div>
+<header>
+  <a class="marque" href="/">UrbanFlow</a>
+  <div id="menu"></div>
+  <p class="intro">Posez votre question sur une ligne Dakar Dem Dikk : l'agent répond à partir du catalogue et des relevés disponibles.</p>
+</header>
+
+<main>
+  <section aria-labelledby="t-agent">
+    <h2 id="t-agent">Interroger l'agent IA</h2>
+    <div class="carte-form">
+      <form class="agent-form" id="form-agent">
+        <div>
+          <label for="f-question">Votre question sur une ligne ou un trajet</label>
+          <input id="f-question" type="text" placeholder="Ex : 8, ligne 18 soir, Ouakam Plateau" required maxlength="500" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-main" id="btn-agent">Demander à l'agent</button>
+      </form>
+      <div class="chips" id="chips" role="group" aria-label="Questions suggérées"></div>
+      <div id="agent-zone" aria-live="polite"></div>
+    </div>
+    <p class="note">L'agent ne répond qu'aux questions sur les trajets en bus Dakar Dem Dikk. Les temps viennent du catalogue (estimations), sauf si un relevé terrain est fourni. Pour en ajouter un, allez sur <a href="/releves">Relevés terrain</a>.</p>
+  </section>
+</main>
+
+<script src="/app.js"></script>
+<script>
+const zone = document.getElementById('agent-zone');
+const btn = document.getElementById('btn-agent');
+const champ = document.getElementById('f-question');
+function poser(q){ champ.value = q; interrogerAgent(q, '', zone, btn); }
+document.getElementById('form-agent').addEventListener('submit', ev => { ev.preventDefault(); poser(champ.value); });
+SUGGESTIONS.forEach(q => document.getElementById('chips').append(el('button', {type:'button', className:'chip', textContent:q, onclick:() => poser(q)})));
+// Question transmise par une autre page (?q=...).
+const q = new URLSearchParams(location.search).get('q');
+if(q) poser(q.slice(0, 500));
+</script>
+</body>
+</html>
