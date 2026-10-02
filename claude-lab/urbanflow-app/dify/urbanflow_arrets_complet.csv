@@ -1,0 +1,614 @@
+﻿ligne,sens,ordre,arret,zone_traversee
+1,Aller,1,Gare Parcelles Assainies,Parcelles Assainies / Yoff
+1,Aller,2,Camp sapeur,Parcelles Assainies / Yoff
+1,Aller,3,Pharmacie Tekrour,Parcelles Assainies / Yoff
+1,Aller,4,Ecole les Educateurs,Parcelles Assainies / Yoff
+1,Aller,5,Pharmacie Mariama,Parcelles Assainies / Yoff
+1,Aller,6,Pharmacie Corniche,Parcelles Assainies / Yoff
+1,Aller,7,HLM Grand Médine,Parcelles Assainies / Yoff
+1,Aller,8,Marché Dior,Parcelles Assainies / Yoff
+1,Aller,9,Terrain Acapes,Parcelles Assainies / Yoff
+1,Aller,10,Boutique riz de la vallée,Fann / Mermoz / UCAD
+1,Aller,11,Pharmacie Cheikh Ibrahima Fall Yare,Fann / Mermoz / UCAD
+1,Aller,12,Stade Leopold Sedar Senghor,Fann / Mermoz / UCAD
+1,Aller,13,Dédi,Fann / Mermoz / UCAD
+1,Aller,14,Yengoulène,Fann / Mermoz / UCAD
+1,Aller,15,En face Impôts et domaines,Fann / Mermoz / UCAD
+1,Aller,16,Caisse de sécurité sociale,Fann / Mermoz / UCAD
+1,Aller,17,Majorelle,Fann / Mermoz / UCAD
+1,Aller,18,Saint Lazare,Fann / Mermoz / UCAD
+1,Aller,19,Good Rade,Fann / Mermoz / UCAD
+1,Aller,20,Orabank,Fann / Mermoz / UCAD
+1,Aller,21,Clinique médic'Kane,Fann / Mermoz / UCAD
+1,Aller,22,Bank of Africa,Fann / Mermoz / UCAD
+1,Aller,23,Cité Keur Gorgui,Fann / Mermoz / UCAD
+1,Aller,24,Jummah Mermoz,Fann / Mermoz / UCAD
+1,Aller,25,Orange Bank,Fann / Mermoz / UCAD
+1,Aller,26,Fann,Fann / Mermoz / UCAD
+1,Aller,27,UCAD 1,Fann / Mermoz / UCAD
+1,Aller,28,UCAD 2,Fann / Mermoz / UCAD
+1,Aller,29,Ecole Manguiers,Fann / Mermoz / UCAD
+1,Aller,30,Police 4e,Fann / Mermoz / UCAD
+1,Aller,31,Rue 31,Médina / Plateau
+1,Aller,32,Marché Tilène,Médina / Plateau
+1,Aller,33,Rue 11,Médina / Plateau
+1,Aller,34,Poste Medina,Médina / Plateau
+1,Aller,35,Crédit foncier Medina,Médina / Plateau
+1,Aller,36,Sandaga,Médina / Plateau
+1,Aller,37,Peytavin,Médina / Plateau
+1,Aller,38,En face Bijouterie Yoro Lam Ponty,Médina / Plateau
+1,Aller,39,Trésor Public,Médina / Plateau
+1,Aller,40,Place de l'Indépendance,Médina / Plateau
+1,Aller,41,Mairie Dakar,Médina / Plateau
+1,Aller,42,Gare Leclerc,Médina / Plateau
+4,Aller,1,Gare Dieuppeul,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,2,Après Rond Point Liberté 5,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,3,Ecole Les 3S,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,4,Walf,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,5,Pharmacie Derkelé,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,6,Cité Marine,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,7,Ibrahima Koïté,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,8,Coiffeur Dieuppeul Barry,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,9,Groupe Aya,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,10,Ecole primaire Moundiaye Cissé,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,11,Ecole IMT,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,12,Dakar Sacré Cœur,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,13,St Pierre,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,14,SOS Baobab,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,15,Mass Massaer Niane,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,16,Mosquée Karack,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,17,PT1 Disa,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,18,PT1 Ecole Fallou MB,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,19,PT1 Bicis,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,20,Ipress PT1,Dieuppeul / Sacré-Cœur / Point E
+4,Aller,21,Canal 4,Canal 4 / Delafosse / Manguiers
+4,Aller,22,Canal 4 avant Tunnel,Canal 4 / Delafosse / Manguiers
+4,Aller,23,Claudel Terminus 84,Canal 4 / Delafosse / Manguiers
+4,Aller,24,Lycée Industriel Maurice Delafosse,Canal 4 / Delafosse / Manguiers
+4,Aller,25,Ecole Manguiers,Canal 4 / Delafosse / Manguiers
+4,Aller,26,Police 4e,Canal 4 / Delafosse / Manguiers
+4,Aller,27,Rue 31,Médina / Plateau
+4,Aller,28,Marché Tilène,Médina / Plateau
+4,Aller,29,Rue 11,Médina / Plateau
+4,Aller,30,Poste Medina,Médina / Plateau
+4,Aller,31,Crédit foncier Medina,Médina / Plateau
+4,Aller,32,Sandaga,Médina / Plateau
+4,Aller,33,Asecna,Médina / Plateau
+4,Aller,34,Jeanne d'Arc,Médina / Plateau
+4,Aller,35,Place de l'Indépendance,Médina / Plateau
+4,Aller,36,Mairie Dakar,Médina / Plateau
+4,Aller,37,Gare Leclerc,Médina / Plateau
+5,Aller,1,Police Guédiawaye,Rue 10 / Madina Gounass
+5,Aller,2,Brioche Dorée Guédiawaye,Rue 10 / Madina Gounass
+5,Aller,3,Africa Couture,Rue 10 / Madina Gounass
+5,Aller,4,Bakh Yaye Fashion,Rue 10 / Madina Gounass
+5,Aller,5,Arrêt Mosquée Rue 10,Rue 10 / Madina Gounass
+5,Aller,6,Gawane Shop,Rue 10 / Madina Gounass
+5,Aller,7,Face Ecole Rue 10,Rue 10 / Madina Gounass
+5,Aller,8,Avant Pharmacie Mbacké Madina,Rue 10 / Madina Gounass
+5,Aller,9,Arrêt Mor Fadam,Rue 10 / Madina Gounass
+5,Aller,10,Arrêt sans nom,Rue 10 / Madina Gounass
+5,Aller,11,Gare Daroukhane,Daroukhane / Hamo
+5,Aller,12,Baye Laye,Daroukhane / Hamo
+5,Aller,13,Wahinam Nimzat 1,Daroukhane / Hamo
+5,Aller,14,Wahinam Nimzat 2,Daroukhane / Hamo
+5,Aller,15,Hamo 6,Daroukhane / Hamo
+5,Aller,16,Hamo 5,Daroukhane / Hamo
+5,Aller,17,Sam Notaire 1,Daroukhane / Hamo
+5,Aller,18,Sam Notaire 2,Daroukhane / Hamo
+5,Aller,19,Station Touré,Daroukhane / Hamo
+5,Aller,20,Hôpital Roi Bedoin,Daroukhane / Hamo
+5,Aller,21,Ecole Thierno Souleymane Baal,Daroukhane / Hamo
+5,Aller,22,Pompier,Dakar / Reubeus
+5,Aller,23,Gare de Dakar,Dakar / Reubeus
+5,Aller,24,Poste Ponty,Dakar / Reubeus
+5,Aller,25,Peytavin,Dakar / Reubeus
+5,Aller,26,Direction des Douanes,Dakar / Reubeus
+5,Aller,27,Reubeus,Dakar / Reubeus
+5,Aller,28,En face Cité Police,Dakar / Reubeus
+5,Aller,29,ENNS Jem Sport,Dakar / Reubeus
+6,Aller,1,Gare Guédiawaye,Guédiawaye
+6,Aller,2,Face Préfecture Guédiawaye,Guédiawaye
+6,Aller,3,Gueule Tapée 1 Guédiawaye Terminus Ligne 24,Guédiawaye
+6,Aller,4,Arrêt Double Less,Guédiawaye
+6,Aller,5,Face Groupe Scolaire les Filaos,Guédiawaye
+6,Aller,6,Station BRT Fith Mith,Guédiawaye
+6,Aller,7,Sen Optique,Guédiawaye
+6,Aller,8,Timtimol,Guédiawaye
+6,Aller,9,Sans nom,Guédiawaye
+6,Aller,10,Institut Islamique Seydina Limamoulaye,Guédiawaye
+6,Aller,11,Résidence Khalife Général des Layennes,Guédiawaye
+6,Aller,12,Station API Camberène,Camberène / Grand Médine
+6,Aller,13,Face Centre Commercial Camberène,Camberène / Grand Médine
+6,Aller,14,Casebi,Camberène / Grand Médine
+6,Aller,15,Jamil Carreaux,Camberène / Grand Médine
+6,Aller,16,Police Parcelles,Camberène / Grand Médine
+6,Aller,17,Face Station BRT Grand Médine,Camberène / Grand Médine
+6,Aller,18,Face Boulangerie Keur Bamba Grand Médine,Camberène / Grand Médine
+6,Aller,19,Pharmacie Stade,Camberène / Grand Médine
+6,Aller,20,Dédi,Camberène / Grand Médine
+6,Aller,21,Yengoulène,Camberène / Grand Médine
+6,Aller,22,En face Impôts et Domaines,Impôts / Liberté 4-6
+6,Aller,23,Face Kadel,Impôts / Liberté 4-6
+6,Aller,24,Face Camp Pénal,Impôts / Liberté 4-6
+6,Aller,25,Face Pharmacie Bambinerie SafmaCare,Impôts / Liberté 4-6
+6,Aller,26,Gare Liberté 6,Impôts / Liberté 4-6
+6,Aller,27,Terrain foot Liberté 6,Impôts / Liberté 4-6
+6,Aller,28,Touba Ammeublement,Impôts / Liberté 4-6
+6,Aller,29,Immeuble JVC,Impôts / Liberté 4-6
+6,Aller,30,Arrêt Sonatel Liberté 4,Impôts / Liberté 4-6
+6,Aller,31,Ancienne Lonase,Impôts / Liberté 4-6
+6,Aller,32,Arrêt en face Terminus Liberté 5,Niary Tally
+6,Aller,33,Arrêt Lonase,Niary Tally
+6,Aller,34,Pompier Dieuppeul,Niary Tally
+6,Aller,35,Bicis Jet d'Eau,Niary Tally
+6,Aller,36,Arrêt Askia,Niary Tally
+6,Aller,37,Jet d'Eau,Niary Tally
+6,Aller,38,Arrêt Poste Niary Tally,Niary Tally
+6,Aller,39,Arrêt Venisia,Niary Tally
+6,Aller,40,Arrêt en face SDE,Niary Tally
+6,Aller,41,Tolsem,Niary Tally
+6,Aller,42,Centenaire,Centenaire / Sandaga
+6,Aller,43,Arrêt Boulevard Centenaire,Centenaire / Sandaga
+6,Aller,44,Siège BCEAO,Centenaire / Sandaga
+6,Aller,45,En face BHS,Centenaire / Sandaga
+6,Aller,46,Grande Mosquée,Centenaire / Sandaga
+6,Aller,47,Garage Petersen,Centenaire / Sandaga
+6,Aller,48,Saprolait,Centenaire / Sandaga
+6,Aller,49,Salle de vente,Centenaire / Sandaga
+6,Aller,50,Peytavin,Centenaire / Sandaga
+6,Aller,51,Centre Commercial Touba Sandaga,Centenaire / Sandaga
+6,Aller,52,Pharmacie Gambeta Camp Lat Dior,Centenaire / Sandaga
+6,Aller,53,Arrêt Asecna,Médina / Plateau
+6,Aller,54,Jeanne d'Arc,Médina / Plateau
+6,Aller,55,Hôpital Principal,Médina / Plateau
+6,Aller,56,Assemblée nationale,Médina / Plateau
+6,Aller,57,Hôpital Aristide Le Dantec,Médina / Plateau
+6,Aller,58,En face Gare Palais 2,Médina / Plateau
+6,Aller,59,Gare Palais 1,Médina / Plateau
+7,Aller,1,Gare Ouakam,Ouakam
+7,Aller,2,Poste courant cité Assemblée Ouakam,Ouakam
+7,Aller,3,Lycée Ouakam,Ouakam
+7,Aller,4,Marché Jeudi,Ouakam
+7,Aller,5,Arrêt station Shell Ouakam,Ouakam
+7,Aller,6,Ecole 6,Ouakam
+7,Aller,7,Case des tous petits,Ouakam
+7,Aller,8,Pharmacie Mame Seynabou Diagne,Ouakam
+7,Aller,9,Arrêt car rapide,Ouakam
+7,Aller,10,Pharmacie cité Avion,Ouakam
+7,Aller,11,Arrêt Terrain Foot,Ouakam
+7,Aller,12,Yum Yum Ouakam,Ouakam
+7,Aller,13,Sortie Ouakam,Ouakam
+7,Aller,14,Ecole Stella Maris,Mermoz
+7,Aller,15,Batrain,Mermoz
+7,Aller,16,Mosquée Rawane Mbaye,Mermoz
+7,Aller,17,UVS Mermoz,Mermoz
+7,Aller,18,Mermoz,Mermoz
+7,Aller,19,Ambassade Niger,Mermoz
+7,Aller,20,Fann,Mermoz
+7,Aller,21,UCAD 1,Fann / UCAD
+7,Aller,22,UCAD 2,Fann / UCAD
+7,Aller,23,Ecole Manguiers,Fann / UCAD
+7,Aller,24,Police 4e,Fann / UCAD
+7,Aller,25,Rue 31,Médina / Plateau
+7,Aller,26,Marché Tilène,Médina / Plateau
+7,Aller,27,Rue 11,Médina / Plateau
+7,Aller,28,Poste Medina,Médina / Plateau
+7,Aller,29,Crédit foncier Medina,Médina / Plateau
+7,Aller,30,Sandaga,Médina / Plateau
+7,Aller,31,Peytavin,Médina / Plateau
+7,Aller,32,En face Bijouterie Yoro Lam Ponty,Médina / Plateau
+7,Aller,33,Trésor Public,Médina / Plateau
+7,Aller,34,BICIS Place de l'Indépendance,Médina / Plateau
+7,Aller,35,Hôpital Principal,Médina / Plateau
+7,Aller,36,Assemblée nationale,Médina / Plateau
+7,Aller,37,Hôpital Aristide Le Dantec,Médina / Plateau
+7,Aller,38,Gare Palais 2,Médina / Plateau
+8,Aller,1,Gare Aéroport Yoff,Aéroport Yoff / Patte d'Oie
+8,Aller,2,Asecna Yoff,Aéroport Yoff / Patte d'Oie
+8,Aller,3,Face ASP,Aéroport Yoff / Patte d'Oie
+8,Aller,4,Rond Point Yoff,Aéroport Yoff / Patte d'Oie
+8,Aller,5,Banque Islamique Sénégal,Aéroport Yoff / Patte d'Oie
+8,Aller,6,Face Auchan Yoff,Aéroport Yoff / Patte d'Oie
+8,Aller,7,Face Ancien SDE Yoff,Aéroport Yoff / Patte d'Oie
+8,Aller,8,Keur Yoff,Aéroport Yoff / Patte d'Oie
+8,Aller,9,Arrêt 121,Aéroport Yoff / Patte d'Oie
+8,Aller,10,Face Stade Léopold Sédar Senghor,Aéroport Yoff / Patte d'Oie
+8,Aller,11,Pharmacie Patte d'Oie,Aéroport Yoff / Patte d'Oie
+8,Aller,12,Station d'Épuration Grand Yoff,Grand Yoff / Castors
+8,Aller,13,En face Centre Talibou Dabo,Grand Yoff / Castors
+8,Aller,14,En face Hôpital Idrissa Pouye ex CTEO,Grand Yoff / Castors
+8,Aller,15,Castors,Grand Yoff / Castors
+8,Aller,16,Auchan Castors,Grand Yoff / Castors
+8,Aller,17,Université Bourguiba,Grand Yoff / Castors
+8,Aller,18,Face Station Shell Bourguiba,Grand Yoff / Castors
+8,Aller,19,Face Immeuble Serigne Saliou Mbacke,Grand Yoff / Castors
+8,Aller,20,Fun Time,Grand Yoff / Castors
+8,Aller,21,Score Liberté,Grand Yoff / Castors
+8,Aller,22,Thiossane,Grand Yoff / Castors
+8,Aller,23,Pharmacie El Mansour,Sicap Amitié / Point E
+8,Aller,24,Mairie Sicap Amitié,Sicap Amitié / Point E
+8,Aller,25,CMS Point E,Sicap Amitié / Point E
+8,Aller,26,Pharmacie Actuel Point E,Sicap Amitié / Point E
+8,Aller,27,UCAD 2,Sicap Amitié / Point E
+8,Aller,28,Ecole Manguiers,Sicap Amitié / Point E
+8,Aller,29,Police 4e,Sicap Amitié / Point E
+8,Aller,30,Rue 31,Sicap Amitié / Point E
+8,Aller,31,Marché Tilène,Sicap Amitié / Point E
+8,Aller,32,Rue 11,Sicap Amitié / Point E
+8,Aller,33,Poste Medina,Sicap Amitié / Point E
+8,Aller,34,Crédit foncier Medina,Médina / Plateau
+8,Aller,35,Sandaga,Médina / Plateau
+8,Aller,36,Arrêt Asecna,Médina / Plateau
+8,Aller,37,Jeanne d'Arc,Médina / Plateau
+8,Aller,38,Hôpital Principal,Médina / Plateau
+8,Aller,39,Assemblée nationale,Médina / Plateau
+8,Aller,40,Hôpital Aristide Le Dantec,Médina / Plateau
+8,Aller,41,Gare Palais 2,Médina / Plateau
+9,Aller,1,Gare Liberté 6,Liberté 4-6 / JVC
+9,Aller,2,Terrain foot Liberté 6,Liberté 4-6 / JVC
+9,Aller,3,Touba Ammeublement,Liberté 4-6 / JVC
+9,Aller,4,Immeuble JVC,Liberté 4-6 / JVC
+9,Aller,5,Arrêt Sonatel Liberté 4,Liberté 4-6 / JVC
+9,Aller,6,Ancienne Lonase,Liberté 4-6 / JVC
+9,Aller,7,Arrêt en face Terminus Liberté 5,Liberté 4-6 / JVC
+9,Aller,8,Arrêt Lonase,Liberté 4-6 / JVC
+9,Aller,9,Pompier Dieuppeul,Liberté 4-6 / JVC
+9,Aller,10,BICIS Jet d'Eau,Liberté 4-6 / JVC
+9,Aller,11,Arrêt Askia,Niary Tally / Centenaire
+9,Aller,12,Jet d'Eau,Niary Tally / Centenaire
+9,Aller,13,Arrêt Poste Niary Tally,Niary Tally / Centenaire
+9,Aller,14,Arrêt Venisia,Niary Tally / Centenaire
+9,Aller,15,Arrêt en face SDE,Niary Tally / Centenaire
+9,Aller,16,Tolsem,Niary Tally / Centenaire
+9,Aller,17,Centenaire,Niary Tally / Centenaire
+9,Aller,18,Arrêt Boulevard Centenaire,Niary Tally / Centenaire
+9,Aller,19,Siège BCEAO,Niary Tally / Centenaire
+9,Aller,20,En face BHS,Niary Tally / Centenaire
+9,Aller,21,En face Grande Mosquée,Médina / Plateau
+9,Aller,22,Crédit foncier Medina,Médina / Plateau
+9,Aller,23,Sandaga,Médina / Plateau
+9,Aller,24,Peytavin,Médina / Plateau
+9,Aller,25,En face Bijouterie Yoro Lam Ponty,Médina / Plateau
+9,Aller,26,Trésor Public,Médina / Plateau
+9,Aller,27,BICIS Place de l'Indépendance,Médina / Plateau
+9,Aller,28,Hôpital Principal,Médina / Plateau
+9,Aller,29,Assemblée nationale,Médina / Plateau
+9,Aller,30,Hôpital Aristide Le Dantec,Médina / Plateau
+9,Aller,31,Gare Palais 2,Médina / Plateau
+10,Aller,1,Gare Dieuppeul,Dieuppeul / Sacré-Cœur
+10,Aller,2,Après Rond Point Liberté 5,Dieuppeul / Sacré-Cœur
+10,Aller,3,Ecole Les 3S,Dieuppeul / Sacré-Cœur
+10,Aller,4,Walf,Dieuppeul / Sacré-Cœur
+10,Aller,5,Pharmacie Derkelé,Dieuppeul / Sacré-Cœur
+10,Aller,6,Cité Marine,Dieuppeul / Sacré-Cœur
+10,Aller,7,Ibrahima Koïté,Dieuppeul / Sacré-Cœur
+10,Aller,8,Coiffeur Dieuppeul Barry,Dieuppeul / Sacré-Cœur
+10,Aller,9,Groupe Aya,Dieuppeul / Sacré-Cœur
+10,Aller,10,Ecole primaire Moundiaye Cissé,Dieuppeul / Sacré-Cœur
+10,Aller,11,Ecole IMT,Dieuppeul / Sacré-Cœur
+10,Aller,12,Stade Demba Diop,Sicap Karack / Corniche
+10,Aller,13,Score Liberté,Sicap Karack / Corniche
+10,Aller,14,Sicap Karack,Sicap Karack / Corniche
+10,Aller,15,Ecole Police,Sicap Karack / Corniche
+10,Aller,16,Relais,Sicap Karack / Corniche
+10,Aller,17,Centre de Cardio Ministère de la Santé,Sicap Karack / Corniche
+10,Aller,18,Ucad Corniche,Sicap Karack / Corniche
+10,Aller,19,Terrou Bi,Sicap Karack / Corniche
+10,Aller,20,Cours de Cassation,Sicap Karack / Corniche
+10,Aller,21,Cimetière Soumbédioune,Sicap Karack / Corniche
+10,Aller,22,Prison 100m,Sicap Karack / Corniche
+10,Aller,23,Direction des Douanes,Sicap Karack / Corniche
+10,Aller,24,Hôtel des Députés,Médina / Plateau
+10,Aller,25,Jeanne d'Arc,Médina / Plateau
+10,Aller,26,Hôpital Principal,Médina / Plateau
+10,Aller,27,Assemblée nationale,Médina / Plateau
+10,Aller,28,Hôpital Aristide Le Dantec,Médina / Plateau
+10,Aller,29,Gare Palais 2,Médina / Plateau
+13,Aller,1,Gare Dieuppeul,Dieuppeul / HLM
+13,Aller,2,Pharmacie Fakeita,Dieuppeul / HLM
+13,Aller,3,En face Crêperie le 7/5,Dieuppeul / HLM
+13,Aller,4,Centre de formation aux métiers de sécurité,Dieuppeul / HLM
+13,Aller,5,Usine Ben Taly,Dieuppeul / HLM
+13,Aller,6,Cours privés Madieye Sall,Dieuppeul / HLM
+13,Aller,7,Arrêt sans nom Ouagou Niayess 1,Dieuppeul / HLM
+13,Aller,8,Pharmacie Kader Diop,Dieuppeul / HLM
+13,Aller,9,Pharmacie Diwan Serigne Babacar,Dieuppeul / HLM
+13,Aller,10,Marché HLM,Dieuppeul / HLM
+13,Aller,11,Massalikoul Djinané,Dieuppeul / HLM
+13,Aller,12,Caisse de sécurité sociale Colobane,Colobane / Centenaire
+13,Aller,13,Place de l'Obélisque,Colobane / Centenaire
+13,Aller,14,Le Taif,Colobane / Centenaire
+13,Aller,15,Centenaire,Colobane / Centenaire
+13,Aller,16,Siège BCEAO,Colobane / Centenaire
+13,Aller,17,En face BHS,Colobane / Centenaire
+13,Aller,18,Garage Petersen,Colobane / Centenaire
+13,Aller,19,Saprolait,Colobane / Centenaire
+13,Aller,20,Pharmacie Avicenne,Colobane / Centenaire
+13,Aller,21,Mairie Dakar,Colobane / Centenaire
+13,Aller,22,BICIS Place de l'Indépendance,Médina / Plateau
+13,Aller,23,Hôpital Principal,Médina / Plateau
+13,Aller,24,Assemblée nationale,Médina / Plateau
+13,Aller,25,Hôpital Aristide Le Dantec,Médina / Plateau
+13,Aller,26,Gare Palais 2,Médina / Plateau
+18,Aller,1,Gare Dieuppeul,Dieuppeul / Liberté 5
+18,Aller,2,Rond Point Liberté 5,Dieuppeul / Liberté 5
+18,Aller,3,Ecole Les 3S,Dieuppeul / Liberté 5
+18,Aller,4,Walf,Dieuppeul / Liberté 5
+18,Aller,5,Pharmacie Derkelé,Dieuppeul / Liberté 5
+18,Aller,6,Cité Marine,Dieuppeul / Liberté 5
+18,Aller,7,En face Crêperie le 7/5,Dieuppeul / Liberté 5
+18,Aller,8,Centre de formation aux métiers de sécurité,Ouagou Niayes / HLM
+18,Aller,9,Usine Ben Taly,Ouagou Niayes / HLM
+18,Aller,10,Cours privés Madieye Sall,Ouagou Niayes / HLM
+18,Aller,11,Arrêt sans nom Ouagou Niayess 1,Ouagou Niayes / HLM
+18,Aller,12,Pharmacie Kader Diop,Ouagou Niayes / HLM
+18,Aller,13,Pharmacie Diwan Serigne Babacar,Ouagou Niayes / HLM
+18,Aller,14,Marché HLM,Ouagou Niayes / HLM
+18,Aller,15,Massalikoul Djinané,Colobane / Bel Air
+18,Aller,16,Marché Colobane,Colobane / Bel Air
+18,Aller,17,Services des Mines,Colobane / Bel Air
+18,Aller,18,Commissariat Bel Air,Colobane / Bel Air
+18,Aller,19,Pharmacie Eiffage,Colobane / Bel Air
+18,Aller,20,Senelec Bel Air,Colobane / Bel Air
+18,Aller,21,Môle 10,Colobane / Bel Air
+18,Aller,22,Pompier,Port / Reubeus
+18,Aller,23,Gare de Dakar,Port / Reubeus
+18,Aller,24,Poste Ponty,Port / Reubeus
+18,Aller,25,Peytavin,Port / Reubeus
+18,Aller,26,Direction des Douanes,Port / Reubeus
+18,Aller,27,Reubeus,Port / Reubeus
+18,Aller,28,En face Cité Police,Port / Reubeus
+18,Aller,29,ENNS Jem Sport,Port / Reubeus
+18,Aller,30,En face Le Mbote Médina,Médina / Delafosse
+18,Aller,31,Ecole Paye,Médina / Delafosse
+18,Aller,32,Boutique Samsoung,Médina / Delafosse
+18,Aller,33,Lycée Mixte Maurice Delafosse,Médina / Delafosse
+18,Aller,34,Lycée Industriel Maurice Delafosse,Médina / Delafosse
+18,Aller,35,Ecole Manguiers,Médina / Delafosse
+18,Aller,36,Police 4e,Médina / Delafosse
+18,Aller,37,Casino Sahm,Sahm / Fann
+18,Aller,38,Tapis Rouge,Sahm / Fann
+18,Aller,39,Saint Dominique,Sahm / Fann
+18,Aller,40,UCAD,Sahm / Fann
+18,Aller,41,Hôpital Fann,Sahm / Fann
+18,Aller,42,Seydou Nourou Tall,Sahm / Fann
+18,Aller,43,Ecole Normale,Karack / Dieuppeul
+18,Aller,44,Ecole Police,Karack / Dieuppeul
+18,Aller,45,Coris Bank Karack,Karack / Dieuppeul
+18,Aller,46,Saveur d'Asie,Karack / Dieuppeul
+18,Aller,47,Cinéma Liberté,Karack / Dieuppeul
+18,Aller,48,Jet d'Eau Sonatel,Karack / Dieuppeul
+18,Aller,49,Groupe Management ISI,Karack / Dieuppeul
+18,Aller,50,Police Dieuppeul,Karack / Dieuppeul
+18,Aller,51,En face Lonase,Karack / Dieuppeul
+23,Aller,1,Gare Parcelles Assainies,Parcelles Assainies / Dior
+23,Aller,2,Bicis Parcelles Assainies,Parcelles Assainies / Dior
+23,Aller,3,Arrêt Mandela,Parcelles Assainies / Dior
+23,Aller,4,Ecole Dior,Parcelles Assainies / Dior
+23,Aller,5,Marché Dior,Parcelles Assainies / Dior
+23,Aller,6,Terrain Acapes,Parcelles Assainies / Dior
+23,Aller,7,En face Dispensaire Norade,Parcelles Assainies / Dior
+23,Aller,8,En face Pharmacie Bousso Dramé,Parcelles Assainies / Dior
+23,Aller,9,En face Pédagogues,Parcelles Assainies / Dior
+23,Aller,10,En face Stade Birane Ly Parcelles Assainies,Parcelles Assainies / Dior
+23,Aller,11,Pharmacie Populaire Unité 13,Parcelles Assainies / Dior
+23,Aller,12,Rond Point 6,Castors / Sicap Karack
+23,Aller,13,Walf,Castors / Sicap Karack
+23,Aller,14,VIP Assurance,Castors / Sicap Karack
+23,Aller,15,Castors,Castors / Sicap Karack
+23,Aller,16,Auchan Castors,Castors / Sicap Karack
+23,Aller,17,Université Bourguiba,Castors / Sicap Karack
+23,Aller,18,Face Station Shell Bourguiba,Castors / Sicap Karack
+23,Aller,19,Face Immeuble Serigne Saliou Mbacke,Castors / Sicap Karack
+23,Aller,20,Fun Time,Castors / Sicap Karack
+23,Aller,21,Score Liberté,Castors / Sicap Karack
+23,Aller,22,Sicap Karack,Castors / Sicap Karack
+23,Aller,23,Croisement 22,Croisement 22 / Grand Médine
+23,Aller,24,Djamil Carreaux,Croisement 22 / Grand Médine
+23,Aller,25,Pharmacie Yacine,Croisement 22 / Grand Médine
+23,Aller,26,Lo et Frères En face BRT,Croisement 22 / Grand Médine
+23,Aller,27,Police Parcelles Assainies,Croisement 22 / Grand Médine
+23,Aller,28,Station BRT Grand Médine,Croisement 22 / Grand Médine
+23,Aller,29,Grand Médine avant pont émergent,Croisement 22 / Grand Médine
+23,Aller,30,Hyacinthe Thiandoum,Croisement 22 / Grand Médine
+23,Aller,31,Carreaux 2000,Croisement 22 / Grand Médine
+23,Aller,32,Yacine Coiffure,Croisement 22 / Grand Médine
+23,Aller,33,Crédit Baobab,Croisement 22 / Grand Médine
+23,Aller,34,Ecole Police,Fann / UCAD
+23,Aller,35,Fann,Fann / UCAD
+23,Aller,36,UCAD 1,Fann / UCAD
+23,Aller,37,UCAD 2,Fann / UCAD
+23,Aller,38,Ecole Manguiers,Fann / UCAD
+23,Aller,39,Police 4e,Fann / UCAD
+23,Aller,40,Gueule Tapée,Fann / UCAD
+23,Aller,41,Origin Afric,Fann / UCAD
+23,Aller,42,La Vision Pharmacie Iota,Fann / UCAD
+23,Aller,43,Wurus,Fann / UCAD
+23,Aller,44,Police Rebeuss,Fann / UCAD
+23,Aller,45,Crédit foncier Medina,Médina / Plateau
+23,Aller,46,Sandaga,Médina / Plateau
+23,Aller,47,Arrêt Asecna,Médina / Plateau
+23,Aller,48,Jeanne d'Arc,Médina / Plateau
+23,Aller,49,Hôpital Principal,Médina / Plateau
+23,Aller,50,Assemblée nationale,Médina / Plateau
+23,Aller,51,Hôpital Aristide Le Dantec,Médina / Plateau
+23,Aller,52,Gare Palais 2,Médina / Plateau
+121,Aller,1,Gare HLM Grand Yoff,HLM / Grand Yoff
+121,Aller,2,ESGD,HLM / Grand Yoff
+121,Aller,3,Avant Rond Point Mairie,HLM / Grand Yoff
+121,Aller,4,Auto Ecole la Prudence,HLM / Grand Yoff
+121,Aller,5,Arrêt sans nom,HLM / Grand Yoff
+121,Aller,6,Pharmacie Darou Habibi,HLM / Grand Yoff
+121,Aller,7,Euro Plus,HLM / Grand Yoff
+121,Aller,8,Après Rond Point 6,HLM / Grand Yoff
+121,Aller,9,Immeuble JVC,HLM / Grand Yoff
+121,Aller,10,Après JVC,HLM / Grand Yoff
+121,Aller,11,Boulangerie Jaune,Zone B / Dieuppeul
+121,Aller,12,Clinique Al Amine,Zone B / Dieuppeul
+121,Aller,13,Fast-Fresh,Zone B / Dieuppeul
+121,Aller,14,Pressing,Zone B / Dieuppeul
+121,Aller,15,Le Fevre Mobilier,Zone B / Dieuppeul
+121,Aller,16,Quincaillerie Fall et Frère,Zone B / Dieuppeul
+121,Aller,17,ARED,Zone B / Dieuppeul
+121,Aller,18,Thiossane,Zone B / Dieuppeul
+121,Aller,19,Pharmacie El Mansour,Zone B / Dieuppeul
+121,Aller,20,Antuss,Zone B / Dieuppeul
+121,Aller,21,Mosquée Zone B,Zone B / Dieuppeul
+121,Aller,22,Avant Rond Point Canal 4,Canal 4 / Santhiaba
+121,Aller,23,1er arrêt après Rond Point Canal 4,Canal 4 / Santhiaba
+121,Aller,24,Chez Serigne Djamil Sy,Canal 4 / Santhiaba
+121,Aller,25,Building communal,Canal 4 / Santhiaba
+121,Aller,26,Jean de la Fontaine,Canal 4 / Santhiaba
+121,Aller,27,Pharmacie Fatima Zahra,Canal 4 / Santhiaba
+121,Aller,28,Mosquée Santhiaba,Canal 4 / Santhiaba
+121,Aller,29,Siège BCEAO,Canal 4 / Santhiaba
+121,Aller,30,En face BHS,Canal 4 / Santhiaba
+121,Aller,31,Grande Mosquée,Médina / Plateau
+121,Aller,32,Garage Petersen,Médina / Plateau
+121,Aller,33,Saprolait,Médina / Plateau
+121,Aller,34,Pharmacie Avicenne,Médina / Plateau
+121,Aller,35,Mairie Dakar,Médina / Plateau
+121,Aller,36,Place de l'Indépendance,Médina / Plateau
+121,Aller,37,Albert Sarraut,Médina / Plateau
+121,Aller,38,Gare Leclerc,Médina / Plateau
+213,Aller,1,Gare Dieuppeul,Dieuppeul / Grand Yoff
+213,Aller,2,Après Rond Point JVC,Dieuppeul / Grand Yoff
+213,Aller,3,Arrêt Liberté 5,Dieuppeul / Grand Yoff
+213,Aller,4,Arrêt avant Rond Point L6,Dieuppeul / Grand Yoff
+213,Aller,5,Arrêt après Rond Point L6,Dieuppeul / Grand Yoff
+213,Aller,6,SGBS Grand Yoff,Dieuppeul / Grand Yoff
+213,Aller,7,Brioche Dorée,Dieuppeul / Grand Yoff
+213,Aller,8,Banque ACEP,Dieuppeul / Grand Yoff
+213,Aller,9,Pharmacie Lamine Konaté,Dieuppeul / Grand Yoff
+213,Aller,10,Patte d'Oie face Nabil Choucair,Dieuppeul / Grand Yoff
+213,Aller,11,Poste Thiaroye,Thiaroye / Mbao
+213,Aller,12,Après Rond Point Thiaroye,Thiaroye / Mbao
+213,Aller,13,Tableau Tivaouane,Thiaroye / Mbao
+213,Aller,14,Diack Sao,Thiaroye / Mbao
+213,Aller,15,Diamaguène,Thiaroye / Mbao
+213,Aller,16,Foraille,Thiaroye / Mbao
+213,Aller,17,Sicap Mbao,Thiaroye / Mbao
+213,Aller,18,LGI Mbao,Thiaroye / Mbao
+213,Aller,19,Fass Mbao,Thiaroye / Mbao
+213,Aller,20,ICS,Thiaroye / Mbao
+213,Aller,21,Petit Mbao,Keur Massar / Grand Mbao
+213,Aller,22,Croisement Keur Massar,Keur Massar / Grand Mbao
+213,Aller,23,Keur Mbaye Fall Garage Clando après pont,Keur Massar / Grand Mbao
+213,Aller,24,Keur Mbaye Fall arrêt Khadimou Rassoul,Keur Massar / Grand Mbao
+213,Aller,25,Djouma Keur Mbaye Fall,Keur Massar / Grand Mbao
+213,Aller,26,Avant Rond Point Grand Mbao,Keur Massar / Grand Mbao
+213,Aller,27,ETS Grand Mbao,Keur Massar / Grand Mbao
+213,Aller,28,FKS Grand Mbao,Keur Massar / Grand Mbao
+213,Aller,29,Fouta Poids Lourds,Keur Massar / Grand Mbao
+213,Aller,30,Tapis Rouge Zac Mbao,Keur Massar / Grand Mbao
+213,Aller,31,Vétérinaire le Zac,Zac Mbao
+213,Aller,32,Notaire,Zac Mbao
+213,Aller,33,En face INGCO,Zac Mbao
+213,Aller,34,Complexe Deff Sport,Zac Mbao
+213,Aller,35,Rama Beauty,Zac Mbao
+213,Aller,36,Clinique Naby,Zac Mbao
+213,Aller,37,Cité Asecna,Zac Mbao
+213,Aller,38,Pharmacie Mouridoullahi,Zac Mbao
+213,Aller,39,Boulangerie Abdoul Aziz Seck,Zac Mbao
+213,Aller,40,PNR En face Sapeur Pompier,Zac Mbao
+213,Aller,41,Dioutiba,Zac Mbao
+218,Aller,1,Dépôt Thiaroye,Thiaroye / Pikine
+218,Aller,2,Poste Thiaroye,Thiaroye / Pikine
+218,Aller,3,En face Cinéma,Thiaroye / Pikine
+218,Aller,4,SIPS,Thiaroye / Pikine
+218,Aller,5,Bountou Pikine,Thiaroye / Pikine
+218,Aller,6,EDK Pikine,Thiaroye / Pikine
+218,Aller,7,Technopole,Thiaroye / Pikine
+218,Aller,8,Dalifor,Thiaroye / Pikine
+218,Aller,9,Croisement Camberène,Thiaroye / Pikine
+218,Aller,10,Rond Point Cambérène,Thiaroye / Pikine
+218,Aller,11,Après Pont Croisement Cambérène,Patte d'Oie / HLM Grand Yoff
+218,Aller,12,Garage Patte d'Oie,Patte d'Oie / HLM Grand Yoff
+218,Aller,13,Nabil Choucair,Patte d'Oie / HLM Grand Yoff
+218,Aller,14,Stade LSS,Patte d'Oie / HLM Grand Yoff
+218,Aller,15,En face HLM Grand Yoff,Patte d'Oie / HLM Grand Yoff
+218,Aller,16,Keur Yoff,Patte d'Oie / HLM Grand Yoff
+218,Aller,17,En face Impôts et Domaines,Patte d'Oie / HLM Grand Yoff
+218,Aller,18,Caisse de sécurité sociale,Patte d'Oie / HLM Grand Yoff
+218,Aller,19,Majorelle,Patte d'Oie / HLM Grand Yoff
+218,Aller,20,Saint Lazare,Patte d'Oie / HLM Grand Yoff
+218,Aller,21,Sonatel Almadiès,Almadies / Ngor
+218,Aller,22,Five,Almadies / Ngor
+218,Aller,23,FBN Bank Almadiès,Almadies / Ngor
+218,Aller,24,En face Laverie Express Rond Point Ngor,Almadies / Ngor
+218,Aller,25,Face Centre de Santé Ngor,Almadies / Ngor
+218,Aller,26,Terminus Ngor (TATA),Almadies / Ngor
+218,Aller,27,Centre de Santé Diogali Mousse Samb,Ngor / Aéroport Yoff
+218,Aller,28,Laverie Express Rond Point Ngor,Ngor / Aéroport Yoff
+218,Aller,29,En face Stade Ngor,Ngor / Aéroport Yoff
+218,Aller,30,En face Station Shell Ngor,Ngor / Aéroport Yoff
+218,Aller,31,Casino Ngor,Ngor / Aéroport Yoff
+218,Aller,32,Virage,Ngor / Aéroport Yoff
+218,Aller,33,Cité Biagui,Ngor / Aéroport Yoff
+218,Aller,34,Paroisse Saint Christophe de Yoff,Ngor / Aéroport Yoff
+218,Aller,35,Aéroport Yoff,Ngor / Aéroport Yoff
+218,Aller,36,Gare Aéroport Yoff,Ngor / Aéroport Yoff
+218,Aller,37,Marché Ouakam,Ouakam
+218,Aller,38,Arrêt sans nom,Ouakam
+218,Aller,39,Marché Jeudi Ouakam,Ouakam
+218,Aller,40,Brioche Dorée Ouakam,Ouakam
+218,Aller,41,Cité Asecna,Ouakam
+218,Aller,42,Gare Ouakam,Ouakam
+218,Aller,43,Cité Mbakiou Faye,Ouakam
+218,Aller,44,En face Fajilux Electronics,Ouakam
+218,Aller,45,Salon Abels Mamelles,Ouakam
+218,Aller,46,Terminus 61,Ouakam
+234,Aller,1,Gare Jaxaay,Jaxaay
+234,Aller,2,Arrêt Ligne 56,Jaxaay
+234,Aller,3,Quincaillerie Le Grand,Jaxaay
+234,Aller,4,Séné Téranga,Jaxaay
+234,Aller,5,Avant Rond Point Gouy Gui,Jaxaay
+234,Aller,6,Rond Point Gouy Gui,Jaxaay
+234,Aller,7,En face Pharmacie Kamille Basse,Jaxaay
+234,Aller,8,Mosquée Mame Dior,Jaxaay
+234,Aller,9,Ecole Al Azar,Jaxaay
+234,Aller,10,En face Pharmacie Birame Ly,Jaxaay
+234,Aller,11,Avant Rond Point Keur Massar,Keur Massar / Mbao
+234,Aller,12,Garage Keur Massar,Keur Massar / Mbao
+234,Aller,13,Croisement Keur Massar,Keur Massar / Mbao
+234,Aller,14,Eaux et Forêts Keur Massar,Keur Massar / Mbao
+234,Aller,15,Croisement Petit Mbao,Keur Massar / Mbao
+234,Aller,16,ICS,Keur Massar / Mbao
+234,Aller,17,LGI Mbao,Keur Massar / Mbao
+234,Aller,18,Sicap Mbao,Keur Massar / Mbao
+234,Aller,19,Diamagueune,Keur Massar / Mbao
+234,Aller,20,Diack Sao,Keur Massar / Mbao
+234,Aller,21,Tableau Tivaouane,Thiaroye / Plateau
+234,Aller,22,Poste Thiaroye,Thiaroye / Plateau
+234,Aller,23,Pompier,Thiaroye / Plateau
+234,Aller,24,Cercle Mess,Thiaroye / Plateau
+234,Aller,25,Place de l'Indépendance,Thiaroye / Plateau
+234,Aller,26,Albert Sarraut,Thiaroye / Plateau
+234,Aller,27,Gare Leclerc,Thiaroye / Plateau
+319,Aller,1,Gare Ouakam,Ouakam
+319,Aller,2,Poste courant cité Assemblée Ouakam,Ouakam
+319,Aller,3,Lycée Ouakam,Ouakam
+319,Aller,4,Marché Jeudi,Ouakam
+319,Aller,5,Arrêt station Shell Ouakam,Ouakam
+319,Aller,6,Ecole 6,Ouakam
+319,Aller,7,Case des tous petits,Ouakam
+319,Aller,8,Pharmacie Mame Seynabou Diagne,Ouakam
+319,Aller,9,Arrêt car rapide,Ouakam
+319,Aller,10,Pharmacie cité Avion,Ouakam
+319,Aller,11,Arrêt Terrain Foot,Ouakam
+319,Aller,12,Yum Yum Ouakam,Ouakam
+319,Aller,13,Sortie Ouakam,Ouakam
+319,Aller,14,Ecole Stella Maris,Sacré-Cœur / JVC
+319,Aller,15,Batrain,Sacré-Cœur / JVC
+319,Aller,16,Rond Point Cheikh Bethio,Sacré-Cœur / JVC
+319,Aller,17,Auchan Bou Mag Bi,Sacré-Cœur / JVC
+319,Aller,18,Belel Boutique,Sacré-Cœur / JVC
+319,Aller,19,En face Immeuble Mariama,Sacré-Cœur / JVC
+319,Aller,20,Pharmacie Mame Oumy Gueye,Sacré-Cœur / JVC
+319,Aller,21,Auchan Sacré Cœur,Sacré-Cœur / JVC
+319,Aller,22,JVC,Sacré-Cœur / JVC
+319,Aller,23,Station BRT Liberté 6,Liberté 6
+319,Aller,24,Rond Point Liberté 6,Liberté 6
+319,Aller,25,En face Immeuble Liberté 6,Liberté 6
+319,Aller,26,Gare Liberté 6,Liberté 6

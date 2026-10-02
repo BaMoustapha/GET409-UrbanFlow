@@ -1,25 +1,27 @@
-# Bases Dify UrbanFlow — Etape A (RAG a deux recherches)
+# Base de connaissance UrbanFlow : données complètes
 
-Deux fichiers prets a importer dans Dify -> Connaissance -> + Creer des Connaissances.
+Source : `DakarFlow_Donnees_1.xlsx` (15 lignes de la feuille DakarFlow, 16 feuilles d'arrêts, 613 arrêts), `Dakar_Dem_Dikk_contenu_collecte.docx` (liste officielle demdikk.sn : 11 lignes urbaines, 19 lignes banlieue, 7 lignes TER) et les synthèses DDD du 29 et 30/09/2026.
 
-## 1. urbanflow_lignes_catalogue.csv (base recherchee)
-- Import : selectionner le fichier CSV
-- Decoupage : General -> longueur du segment 300, chevauchement 50
-- Verification : Test de Recuperation avec les mots "ligne 8" -> doit remonter la ligne 8 (Parcelles Assainies vers Palais, 40 min)
+## Ce qui est dans la base
+- 42 lignes : urbain, banlieue, TAF TAF, TER, ligne 319 (captures appli), avec trajet officiel, terminus capturés, zones traversées, affluence typique.
+- 613 arrêts ordonnés pour 16 lignes (1, 4, 5, 6, 7, 8, 9, 10, 13, 18, 121, 213, 218, 234, 23, 319).
+- Temps de trajet : uniquement les 4 lignes déjà relevées (1, 4, 8, 18, estimation voiture Google Maps). Les 38 autres sont "non relevé". Le xlsx a les colonnes Temps, Prix, Fréquence, Incident vides : rien n'a été inventé.
+- Incohérences entre sources signalées par "A vérifier" dans chaque ligne concernée (lignes 4, 6, 10, 13, 23, 121, 5, 213, 218, 220).
 
-## 2. urbanflow_affluence_type.md (base fixe)
-- Import : selectionner le fichier .md
-- Decoupage : Personnalise -> identifiant de segment = deux retours a la ligne (\n\n), longueur 1000
-- Verification : le document doit afficher 1 seul segment (puisque le texte est sur une seule ligne, aucun \n\n dedans)
-- Attendre le statut vert Disponible sur les deux documents avant de brancher les noeuds Recuperation
+## Fichiers et import Dify (mode Économique, découpage personnalisé, séparateur \n\n, longueur max 1024)
+| Fichier | Base Dify | Segments |
+|---|---|---|
+| urbanflow_kb_lignes.md | RECUP_LIGNES | 42 (un par ligne) |
+| urbanflow_kb_arrets.md | RECUP_LIGNES | 25 |
+| urbanflow_kb_lieux.md | RECUP_LIGNES | 4 |
+| urbanflow_kb_affluence.md | RECUP_AFFLUENCE (remplace urbanflow_affluence_type.md) | 4 |
+| urbanflow_kb_infos_ddd.md | base optionnelle (tarifs, TAF TAF, AIBD, interurbain, contacts) | 8 |
+| urbanflow_lignes_complet.csv, urbanflow_arrets_complet.csv | pour l'app et le dépôt (dossier dify/) | 42 lignes, 613 arrêts |
 
-## Pourquoi le decoupage personnalise sur la base fixe
-Avec le decoupage General (qui coupe aux sauts de ligne), un texte structure serait
-fragmente phrase par phrase et perdrait le lien entre chaque donnee et son libelle.
-Le decoupage personnalise avec \n\n comme separateur garde tout le texte en un seul
-segment puisqu'il n'y a pas de double saut de ligne dans le fichier.
+Dans la base RECUP_LIGNES, passer Top K à 6 minimum.
 
-## Suite (etapes B-D, deja documentees)
-Voir claude/urbanflow-dify-rag-2recherches.md dans le projet Claude "Atelier Interdisciplinare" :
-ENV requete_affluence, noeuds RECUP_LIGNES / RECUP_AFFLUENCE, noeud Modele Jinja2,
-blocs SYSTEM du Chercheur, tests T1-T3.
+## Pourquoi "ligne 7" ne remontait rien
+L'index inversé (mode Économique) de Dify ignore les mots d'un seul caractère : les chiffres 1 à 9 ne sont jamais indexés, donc "ligne 7", "ligne 8", "ligne 4" ne trouvaient pas la bonne ligne (seules 10, 13, 18, 20, 23, 121 passaient). Les segments contiennent donc un jeton "ligne_7" (2 caractères ou plus), et `core.mjs` (fonction `enrichirRequete`) l'ajoute automatiquement à la question avant l'appel à Dify. Dans l'interface de test de Dify, tapez "ligne_7" pour obtenir le même effet.
+
+## Remplacer les documents déjà importés
+Les fichiers gardent les mêmes noms : réimporter un fichier du même nom dans la base remplace le document. Réglages : découpage personnalisé, séparateur \n\n, longueur 1024, mode Économique. Top K : 6.
