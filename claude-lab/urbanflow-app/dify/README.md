@@ -15,13 +15,13 @@ Source : `DakarFlow_Donnees_1.xlsx` (15 lignes de la feuille DakarFlow, 16 feuil
 | urbanflow_kb_arrets.md | RECUP_LIGNES | 25 |
 | urbanflow_kb_lieux.md | RECUP_LIGNES | 4 |
 | urbanflow_kb_affluence.md | RECUP_AFFLUENCE (remplace urbanflow_affluence_type.md) | 4 |
-| urbanflow_kb_infos_ddd.md | base optionnelle (tarifs, TAF TAF, AIBD, interurbain, contacts) | 8 |
+| urbanflow_kb_infos_ddd.md | base lignes (TAF TAF, AIBD, interurbain, gares, institution, flotte, sans prix) | 13 |
 | urbanflow_lignes_complet.csv, urbanflow_arrets_complet.csv | pour l'app et le dépôt (dossier dify/) | 42 lignes, 613 arrêts |
 
-Dans la base RECUP_LIGNES, passer Top K à 6 minimum.
+Dans la base RECUP_LIGNES, Top K à 8. Aucun prix dans la base.
 
 ## Pourquoi "ligne 7" ne remontait rien
-L'index inversé (mode Économique) de Dify ignore les mots d'un seul caractère : les chiffres 1 à 9 ne sont jamais indexés, donc "ligne 7", "ligne 8", "ligne 4" ne trouvaient pas la bonne ligne (seules 10, 13, 18, 20, 23, 121 passaient). Les segments contiennent donc un jeton "ligne_7" (2 caractères ou plus), et `core.mjs` (fonction `enrichirRequete`) l'ajoute automatiquement à la question avant l'appel à Dify. Dans l'interface de test de Dify, tapez "ligne_7" pour obtenir le même effet.
+L'index inversé (mode Économique) de Dify ignore les mots d'un seul caractère : les chiffres 1 à 9 ne sont jamais indexés, donc "ligne 7", "ligne 8", "ligne 4" ne trouvaient pas la bonne ligne (seules 10, 13, 18, 20, 23, 121 passaient). Les segments contiennent donc un jeton "ligne7" (2 caractères ou plus), et `core.mjs` (fonction `enrichirRequete`) envoie à Dify une requête compacte (jetons + heures + lieux) quand la question cite une ligne. Dans l'interface de test de Dify, tapez "ligne7 ligne7 18h" (sans les mots "ligne" et "vers", qui font remonter toutes les lignes).
 
 ## Remplacer les documents déjà importés
-Les fichiers gardent les mêmes noms : réimporter un fichier du même nom dans la base remplace le document. Réglages : découpage personnalisé, séparateur \n\n, longueur 1024, mode Économique. Top K : 6.
+Les fichiers gardent les mêmes noms : réimporter un fichier du même nom dans la base remplace le document. Réglages : découpage personnalisé, séparateur \n\n, longueur 1024, mode Économique. Top K : 8.
