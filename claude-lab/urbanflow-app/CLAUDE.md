@@ -8,7 +8,6 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
   - `/` (`index.html`) : trajet A vers B (carte Leaflet/OpenStreetMap, géolocalisation sur clic, heure de départ, temps voiture TomTom, lignes dont un terminus correspond aux lieux saisis).
   - `/agent` : questions à l'agent Dify, fiche en sections, suggestions. Accepte `?q=` pour une question préremplie.
   - `/lignes` : les 42 lignes de `lignes.json` par catégorie, avec temps voiture 8h et 18h quand ils sont relevés.
-  - `/releves` : relevé chronométré envoyé à l'agent via `donnees_trafic` (non enregistré par l'app).
   - `/a-propos` : sources, limites, confidentialité.
 - `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom avec `departAt` pour une heure future, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
 - `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
@@ -26,7 +25,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Aucune donnée en temps réel n'existe pour les bus DDD (rien n'est publié). Le temps affiché dans l'app est celui d'une voiture avec le trafic actuel, et l'interface le dit.
 - Les temps par ligne (`t8`, `t18` dans `public/lignes.json`) sont des temps voiture relevés, jamais des temps en bus. Quand ils manquent, l'interface affiche « Temps non relevé ».
 - Quota Dify : l'abonnement limite les requêtes à la base de connaissance (erreur « rate limit »). `core.mjs` renvoie alors un 429 avec un message clair. Éviter de multiplier les tests de l'agent.
-- Le journal de trajets local a été retiré de l'interface (les relevés passent par `/releves`).
+- Le journal de trajets local et la page `/releves` (relevé chronométré envoyé à l'agent via `donnees_trafic`) sont retirés de l'interface pour l'instant. La page est conservée dans `archive/releves.html` : la remettre dans `public/` et dans le menu de `public/app.js` pour la réactiver.
 
 ## Dossiers
 - `dify/` : bases de connaissance Dify (catalogue des lignes, affluence type, base xlsx maître, 11 feuilles).

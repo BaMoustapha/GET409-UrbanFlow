@@ -38,7 +38,7 @@ const lienAgent = q => '/agent?q=' + encodeURIComponent(q);
 
 // ---------- Menu ----------
 (function(){
-  const PAGES = [['/', 'Trajet'], ['/agent', 'Agent IA'], ['/lignes', 'Lignes'], ['/releves', 'Relevés terrain'], ['/a-propos', 'À propos']];
+  const PAGES = [['/', 'Trajet'], ['/agent', 'Agent IA'], ['/lignes', 'Lignes'], ['/a-propos', 'À propos']];
   const chemin = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1');
   const nav = el('nav', {'aria-label':'Navigation principale'});
   PAGES.forEach(([href, nom]) => {
@@ -71,7 +71,7 @@ function afficherFiche(zone, texte){
   if(/^\s*INSUFFISANT/i.test(texte)){
     const raison = texte.replace(/^\s*INSUFFISANT\s*:?\s*/i, '');
     afficherErreur(zone, "L'agent n'a pas assez de données pour répondre : " + raison,
-      "Essayez une autre ligne du catalogue, ou ajoutez un relevé terrain dans l'onglet « Relevés terrain ».");
+      "Essayez une autre ligne, ou consultez la liste des lignes.");
     return;
   }
   const sections = decouper(texte);
