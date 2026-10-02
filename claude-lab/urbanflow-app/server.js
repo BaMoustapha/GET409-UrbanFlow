@@ -1,57 +1,27 @@
-// Petit serveur local : sert index.html et proxifie l'appel a Dify.
-// La cle Dify reste ici, cote serveur. Elle n'est jamais envoyee au navigateur.
+// Serveur local : sert public/ et expose /api/analyser-trafic et /api/trajet.
+// Les cles (Dify, TomTom) restent ici, cote serveur. Jamais envoyees au navigateur.
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
 
 const app = express();
-app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.json({ limit: '10kb' }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-const DIFY_API_URL = process.env.DIFY_API_URL || 'https://api.dify.ai/v1/workflows/run';
-const DIFY_API_KEY = process.env.DIFY_API_KEY || '';
+const core = import('./lib/core.mjs');
 
 app.post('/api/analyser-trafic', async (req, res) => {
-  const query = (req.body && req.body.query || '').trim();
-  if (!query) {
-    return res.status(400).json({ error: 'Question vide.' });
-  }
-  if (!DIFY_API_KEY) {
-    return res.status(500).json({ error: "Cle Dify absente. Ajoute DIFY_API_KEY dans .env (voir .env.example)." });
-  }
+  const { analyserTrafic } = await core;
+  const b = req.body || {};
+  const r = await analyserTrafic(process.env, b.query, b.donneesTrafic);
+  res.status(r.status).json(r.body);
+});
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
-
-  try {
-    const r = await fetch(DIFY_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${DIFY_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputs: { query },
-        response_mode: 'blocking',
-        user: 'user-urbanflow-' + Date.now(),
-      }),
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-
-    if (!r.ok) {
-      return res.status(502).json({ error: 'Service temporairement indisponible.' });
-    }
-    const data = await r.json();
-    return res.json({ outputs: data.data ? data.data.outputs : data.outputs || data });
-  } catch (err) {
-    clearTimeout(timeout);
-    if (err.name === 'AbortError') {
-      return res.status(504).json({ error: 'La reponse prend trop de temps, reessayez.' });
-    }
-    return res.status(502).json({ error: 'Service temporairement indisponible.' });
-  }
+app.post('/api/trajet', async (req, res) => {
+  const { tempsTrajet } = await core;
+  const r = await tempsTrajet(process.env, req.body);
+  res.status(r.status).json(r.body);
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`UrbanFlow serveur local sur http://localhost:${PORT}`));
+app.listen(PORT, '127.0.0.1', () => console.log(`UrbanFlow sur http://localhost:${PORT}`));
