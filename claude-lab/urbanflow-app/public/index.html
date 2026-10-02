@@ -106,7 +106,7 @@
   <section>
     <h2>Interroger l'agent IA</h2>
     <form id="form-agent">
-      <input id="f-question" type="text" placeholder="Posez votre question sur un trajet ou une ligne..." required style="grid-column:span 3">
+      <input id="f-question" type="text" placeholder="Ex : 8, ligne 18 soir, Ouakam Plateau" required style="grid-column:span 3">
       <button type="submit" id="btn-agent" style="grid-column:span 1">Demander a l'agent</button>
     </form>
     <details class="note"><summary>Ajouter des données de trafic (optionnel)</summary><input id="f-trafic" type="text" maxlength="256" placeholder="Ex : Ligne 8, 18h, 52 min observés" style="width:100%; margin-top:6px; background:var(--bg2); border:1px solid var(--line); color:var(--ink); padding:9px 10px; border-radius:4px"></details>
@@ -238,6 +238,7 @@ formAgent.addEventListener('submit', async function(ev){
     iArr.value = 'Point choisi sur la carte';
   });
 
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   document.getElementById('form-trajet').addEventListener('submit', async ev => {
     ev.preventDefault();
     const btn = document.getElementById('btn-trajet');
@@ -260,6 +261,10 @@ formAgent.addEventListener('submit', async function(ev){
         const heure = new Date(j.calculeA).toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
         box.innerHTML = `<b class="gros">${j.voitureMin} min</b>en voiture avec le trafic actuel, ${j.distanceKm} km`
           + `<small>Sans trafic : ${j.habituelMin} min` + (j.retardMin>0 ? ` · retard dû au trafic : +${j.retardMin} min` : '') + `</small>`
+          + (j.congestion ? `<small>Circulation : ${esc(j.congestion.niveau)}</small>` : '')
+          + (Array.isArray(j.incidents) ? (j.incidents.length
+              ? `<small><b>Incidents routiers sur le trajet :</b></small>` + j.incidents.map(i => `<small>· ${esc(i.type)}${i.description ? ' : ' + esc(i.description) : ''}${i.de ? ' (' + esc(i.de) + (i.vers ? ' vers ' + esc(i.vers) : '') + ')' : ''}${i.retardMin ? ', +' + i.retardMin + ' min' : ''}</small>`).join('')
+              : `<small>Aucun incident routier signalé sur le trajet</small>`) : '')
           + `<small>Calculé à ${heure}</small>`;
       }
     } catch(e){ box.textContent = "Calcul indisponible pour le moment, réessayez."; }
