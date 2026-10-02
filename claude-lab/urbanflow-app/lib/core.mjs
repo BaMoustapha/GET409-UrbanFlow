@@ -25,6 +25,23 @@ async function fetchJson(url, options = {}, ms = 10000) {
 }
 
 // ---------- Agent Dify ----------
+// L'index inversé de Dify ignore les mots d'un seul caractère ("ligne 7" ne retrouve rien) et les mots courants
+// ("ligne", "vers", "temps") font remonter toutes les lignes. La base indexe des jetons "ligne7" ;
+// quand la question cite une ligne, on envoie une requête compacte : jetons + heures + noms de lieux.
+export function enrichirRequete(q) {
+  q = String(q);
+  const jetons = [];
+  const add = (n) => { const j = 'ligne' + n.toLowerCase(); if (!jetons.includes(j)) jetons.push(j); };
+  for (const m of q.matchAll(/\blignes?\s*(t?\d{1,3}[a-z]?)\b/gi)) add(m[1]);
+  for (const m of q.matchAll(/\b(?:et|ou|&)\s*(\d{1,3}[a-z]?)\b/gi)) add(m[1]);
+  if (!jetons.length) return q;
+  const heures = [...q.matchAll(/\b(\d{1,2})\s*(?:h|:)\s*(\d{2})?\b/gi)].map((m) => m[1] + 'h' + (m[2] || ''));
+  const sans = q.replace(/\blignes?\s*t?\d{1,3}[a-z]?\b/gi, ' ');
+  const lieux = [...sans.matchAll(/\b[A-ZÀ-ÖØ-Þ][\p{L}'-]{2,}(?:\s+[A-ZÀ-ÖØ-Þ][\p{L}'-]*)*/gu)]
+    .map((m) => m[0]).filter((w) => !/^(Ligne|Lignes|Je|Tu|Il|Elle|Nous|Vous|Est|Quel|Quelle|Combien|Comment|Pour|Vers|Depuis)$/i.test(w));
+  return [...jetons, ...jetons, ...heures, ...lieux].join(' ');
+}
+
 const DEMO = {
   '8': "FICHE TRAJET\nLigne 8 : Aéroport LSS (Yoff) vers Palais 2.\n\nTEMPS DE TRAJET\n24 à 45 minutes selon l'heure.\n\nANALYSE\nExemple de démonstration, non issu du workflow en direct.\n\nALERTES\nHeures de pointe : durée proche du haut de la fourchette.\n\nRECOMMANDATIONS\nPartez avant 7h30 ou après 9h30.",
   '18': "FICHE TRAJET\nLigne 18 : Dieuppeul vers Centre-ville.\n\nTEMPS DE TRAJET\n18 à 35 minutes selon l'heure.\n\nANALYSE\nExemple de démonstration, non issu du workflow en direct.\n\nALERTES\nHeures de pointe : durée proche du haut de la fourchette.\n\nRECOMMANDATIONS\nPartez avant 7h30 ou après 9h30.",
@@ -45,7 +62,7 @@ export async function analyserTrafic(env, query, donneesTrafic) {
     return { status: 500, body: { error: 'Clé Dify absente (DIFY_API_KEY).' } };
   }
 
-  const inputs = { query };
+  const inputs = { query: enrichirRequete(query) };
   if (donneesTrafic) inputs.donnees_trafic = donneesTrafic;
   try {
     const r = await fetchJson(env.DIFY_API_URL || 'https://api.dify.ai/v1/workflows/run', {
