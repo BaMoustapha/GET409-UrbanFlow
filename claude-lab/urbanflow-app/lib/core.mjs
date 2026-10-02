@@ -24,21 +24,42 @@ async function fetchJson(url, options = {}, ms = 10000) {
   }
 }
 
+import { repondreReseau } from './guide.mjs';
+
 // ---------- Agent Dify ----------
+const MOTS_VIDES = new Set(('le la les un une de du des d l au aux a à en et ou &  vers pour par sur dans depuis jusqu jusque avec sans ' +
+  'je tu il elle on nous vous me te se mon ma mes ton ta tes son sa ses ce cet cette ces qui que quoi dont où ' +
+  'veux voudrais voulez aller va vais prendre pris prend est sont suis quel quelle quels quelles combien comment quand ' +
+  'temps trajet trajets duree durée dure mets met mettre faut combien minutes minute min heure heures bus ligne lignes ' +
+  'svp stp merci bonjour salut bonsoir donne donnez dis dites infos info information informations ' +
+  'matin soir midi aujourd hui demain actuellement maintenant').split(/\s+/).filter(Boolean));
+
+// Tolère les requêtes courtes ou mal écrites : "8", "l8", "bus 8 matin", "ligne 18 ouakam plateau 18h".
 // L'index inversé de Dify ignore les mots d'un seul caractère ("ligne 7" ne retrouve rien) et les mots courants
-// ("ligne", "vers", "temps") font remonter toutes les lignes. La base indexe des jetons "ligne7" ;
-// quand la question cite une ligne, on envoie une requête compacte : jetons + heures + noms de lieux.
+// font remonter toutes les lignes. La base indexe des jetons "ligne7" ; quand on repère une ligne, on envoie une
+// requête compacte : jetons + heures + noms de lieux. Sans ligne repérée, la question part telle quelle.
 export function enrichirRequete(q) {
-  q = String(q);
+  q = String(q).trim();
   const jetons = [];
   const add = (n) => { const j = 'ligne' + n.toLowerCase(); if (!jetons.includes(j)) jetons.push(j); };
-  for (const m of q.matchAll(/\blignes?\s*(t?\d{1,3}[a-z]?)\b/gi)) add(m[1]);
-  for (const m of q.matchAll(/\b(?:et|ou|&)\s*(\d{1,3}[a-z]?)\b/gi)) add(m[1]);
+  const re = /(?:\b(?:lignes?|bus|n°|no|num[ée]ro)\s*\.?\s*|\bl\s*(?=\d))(t?\d{1,3}[a-z]?)\b/gi;
+  for (const m of q.matchAll(re)) add(m[1]);
+  // listes : "ligne 8 et 18", "8, 18 ou 121"
+  if (jetons.length) for (const m of q.matchAll(/(?:\bet|\bou|&|,)\s*(\d{1,3}[a-z]?)\b(?!\s*(?:h|:|min|km))/gi)) add(m[1]);
+  // numéro seul : "8", "18 ouakam" (un nombre qui n'est ni une heure, ni une durée)
+  if (!jetons.length) {
+    for (const m of q.matchAll(/(?<![\d:.])\b(t?\d{1,3}[a-gi-z]?)\b(?!\s*(?:h|:|min|km|m\b|mn|heures?))/gi)) add(m[1]);
+  }
   if (!jetons.length) return q;
-  const heures = [...q.matchAll(/\b(\d{1,2})\s*(?:h|:)\s*(\d{2})?\b/gi)].map((m) => m[1] + 'h' + (m[2] || ''));
-  const sans = q.replace(/\blignes?\s*t?\d{1,3}[a-z]?\b/gi, ' ');
-  const lieux = [...sans.matchAll(/\b[A-ZÀ-ÖØ-Þ][\p{L}'-]{2,}(?:\s+[A-ZÀ-ÖØ-Þ][\p{L}'-]*)*/gu)]
-    .map((m) => m[0]).filter((w) => !/^(Ligne|Lignes|Je|Tu|Il|Elle|Nous|Vous|Est|Quel|Quelle|Combien|Comment|Pour|Vers|Depuis)$/i.test(w));
+  const heures = [...q.matchAll(/\b(\d{1,2})\s*(?:h|:)\s*(\d{2})?(?!\w)/gi)].map((m) => m[1] + 'h' + (m[2] || ''));
+  if (!heures.length) {
+    if (/\bmatin\b/i.test(q)) heures.push('8h');
+    else if (/\bsoir\b/i.test(q)) heures.push('18h');
+  }
+  const sans = q.replace(re, ' ').replace(/\b\d{1,2}\s*(?:h|:)\s*\d{0,2}/gi, ' ').replace(/\b\d+[a-z]?\b/gi, ' ');
+  const lieux = (sans.match(/[\p{L}][\p{L}'-]*/gu) || [])
+    .filter((w) => w.length >= 3 && !MOTS_VIDES.has(w.toLowerCase()))
+    .slice(0, 6);
   return [...jetons, ...jetons, ...heures, ...lieux].join(' ');
 }
 
@@ -58,6 +79,9 @@ export async function analyserTrafic(env, query, donneesTrafic) {
       ? { status: 200, body: { outputs: DEMO[m[1]], demo: true } }
       : { status: 200, body: { outputs: "INSUFFISANT : mode démonstration, seules les lignes 8 et 18 sont disponibles.", demo: true } };
   }
+  // Questions sur le réseau (quelle ligne prendre, arrêts d'une ligne) : réponse directe depuis les données, sans IA.
+  const direct = repondreReseau(query);
+  if (direct) return { status: 200, body: { outputs: direct, source: 'reseau' } };
   if (!env.DIFY_API_KEY) {
     return { status: 500, body: { error: 'Clé Dify absente (DIFY_API_KEY).' } };
   }
@@ -110,6 +134,52 @@ async function point(env, p) {
   return geocoder(env, t);
 }
 
+// Niveau de congestion : rapport entre le temps avec trafic et le temps sans trafic.
+export function niveauCongestion(voitureMin, habituelMin) {
+  if (!habituelMin || habituelMin <= 0) return null;
+  const ratio = voitureMin / habituelMin;
+  const niveau = ratio < 1.15 ? 'fluide' : ratio < 1.4 ? 'dense' : ratio < 1.8 ? 'très dense' : 'bloqué';
+  return { niveau, ratio: Math.round(ratio * 100) / 100 };
+}
+
+const CATEGORIES = { 1: 'Accident', 2: 'Brouillard', 3: 'Conditions dangereuses', 4: 'Pluie', 5: 'Verglas', 6: 'Bouchon', 7: 'Voie fermée', 8: 'Route fermée', 9: 'Travaux', 10: 'Vent', 11: 'Inondation', 14: 'Véhicule en panne' };
+
+// Incidents routiers TomTom le long du trace. Jamais bloquant : renvoie null si le service échoue.
+async function incidentsSurTrace(env, trace) {
+  if (!trace || !trace.length) return [];
+  const lats = trace.map((q) => q[0]), lngs = trace.map((q) => q[1]);
+  const m = 0.01;
+  const bbox = [Math.min(...lngs) - m, Math.min(...lats) - m, Math.max(...lngs) + m, Math.max(...lats) + m].map((x) => x.toFixed(4)).join(',');
+  const k = 'i:' + bbox;
+  const c = cacheGet(k);
+  if (c) return c;
+  const fields = encodeURIComponent('{incidents{geometry{type,coordinates},properties{iconCategory,magnitudeOfDelay,events{description},from,to,delay,length}}}');
+  const url = `${base(env)}/traffic/services/5/incidentDetails?key=${env.TOMTOM_API_KEY}&bbox=${bbox}&fields=${fields}&language=fr-FR&timeValidityFilter=present`;
+  const r = await fetchJson(url);
+  if (!r.ok) throw new Error('incidents ' + r.status);
+  const j = await r.json();
+  const proche = (lat, lng) => trace.some((q) => Math.abs(q[0] - lat) < 0.004 && Math.abs(q[1] - lng) < 0.004);
+  const out = [];
+  for (const inc of j.incidents || []) {
+    const g = inc.geometry || {}, pr = inc.properties || {};
+    const pts = g.type === 'Point' ? [g.coordinates] : (g.coordinates || []);
+    if (!pts.some((pt) => Array.isArray(pt) && proche(pt[1], pt[0]))) continue;
+    const ev = (pr.events && pr.events[0] && pr.events[0].description) || '';
+    out.push({
+      type: CATEGORIES[pr.iconCategory] || 'Incident',
+      description: String(ev).slice(0, 120),
+      de: String(pr.from || '').slice(0, 80),
+      vers: String(pr.to || '').slice(0, 80),
+      retardMin: pr.delay ? Math.round(pr.delay / 60) : 0,
+      gravite: pr.magnitudeOfDelay || 0,
+    });
+  }
+  out.sort((x, y) => y.gravite - x.gravite);
+  const res = out.slice(0, 5);
+  cacheSet(k, res);
+  return res;
+}
+
 export async function tempsTrajet(env, body) {
   if (!env.TOMTOM_API_KEY) return { status: 200, body: { statut: 'no_key' } };
   try {
@@ -137,7 +207,9 @@ export async function tempsTrajet(env, body) {
       };
       cacheSet(k, res);
     }
-    return { status: 200, body: { statut: 'ok', depart: a, arrivee: b, ...res } };
+    let incidents = null;
+    try { incidents = await incidentsSurTrace(env, res.trace); } catch (e) { incidents = null; }
+    return { status: 200, body: { statut: 'ok', depart: a, arrivee: b, ...res, congestion: niveauCongestion(res.voitureMin, res.habituelMin), incidents } };
   } catch (e) {
     return { status: 200, body: { statut: 'unavailable' } };
   }
