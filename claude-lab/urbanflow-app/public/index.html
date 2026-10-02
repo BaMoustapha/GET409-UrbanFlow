@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UrbanFlow — Trajets, lignes &amp; journal</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#EAF0E7; --bg:#0F1710; --bg2:#151F17; --accent:#00A651; --accent2:#FDEF42; --accent3:#E31B23;
+    --line:#233327; --muted:#8FA091;
+    --display:"Fraunces", Georgia, serif; --body:"Work Sans", -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.6}
+  h1,h2{font-family:var(--display); letter-spacing:-.03em; font-weight:600; margin:0}
+  .band{height:4px; background:linear-gradient(90deg,#00853F 0 33%,#FDEF42 33% 66%,#E31B23 66% 100%)}
+  header{padding:40px 24px 24px; max-width:960px; margin:0 auto}
+  header h1{font-size:clamp(28px,4vw,38px)}
+  header p{color:var(--muted); font-size:14.5px; margin-top:8px}
+  main{max-width:960px; margin:0 auto; padding:0 24px 60px; display:grid; gap:32px}
+  section{border-top:1px solid var(--line); padding-top:24px}
+  h2{font-size:18px; margin-bottom:16px; text-transform:uppercase; letter-spacing:.05em; color:var(--accent)}
+  .lignes-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1px; background:var(--line)}
+  .lignes-grid div{background:var(--bg2); padding:14px}
+  .lignes-grid b{font-family:var(--display); font-size:20px; display:block}
+  .lignes-grid span{font-size:12px; color:var(--muted); display:block; margin-top:4px}
+  form{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px}
+  form select, form input{background:var(--bg2); border:1px solid var(--line); color:var(--ink); padding:9px 10px; border-radius:4px; font-family:var(--body); font-size:13.5px}
+  form button{grid-column:span 4; background:var(--accent); color:#04201C; border:0; border-radius:4px; padding:10px; font-weight:600; cursor:pointer}
+  table{width:100%; border-collapse:collapse; font-size:13.5px}
+  th,td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--line)}
+  th{color:var(--muted); font-weight:500; text-transform:uppercase; font-size:11px; letter-spacing:.05em}
+  .empty{color:var(--muted); font-size:13.5px; padding:16px 0}
+  .aff-fluide{color:#4EC98A}.aff-dense{color:#FDEF42}.aff-sature{color:#F08585}
+  @media (max-width:640px){ form{grid-template-columns:1fr 1fr} form button{grid-column:span 2} }
+
+
+  .trajet-form{display:grid; grid-template-columns:1fr 1fr auto; gap:10px; margin-bottom:12px}
+  .trajet-form button{grid-column:auto}
+  .btn-sec{background:transparent; border:1px solid var(--accent); color:var(--accent); border-radius:4px; padding:9px 12px; cursor:pointer; font-family:var(--body); font-size:13.5px}
+  #carte{height:340px; border:1px solid var(--line); border-radius:4px; margin-bottom:12px}
+  .res-trajet{background:var(--bg2); border:1px solid var(--line); border-radius:4px; padding:16px; font-size:14px}
+  .res-trajet b.gros{font-family:var(--display); font-size:34px; color:var(--accent); display:block; line-height:1.1}
+  .res-trajet small{color:var(--muted); display:block; margin-top:6px}
+  .note{color:var(--muted); font-size:12.5px; margin-top:8px}
+  @media (max-width:640px){ .trajet-form{grid-template-columns:1fr} }
+
+  .agent-box{background:var(--bg2); border:1px solid var(--line); border-radius:4px; padding:16px; font-size:13.5px; white-space:pre-wrap}
+  .agent-erreur{color:#F08585; font-size:13.5px}
+  #btn-agent:disabled{opacity:.6; cursor:wait}
+</style>
+</head>
+<body>
+<div class="band"></div>
+<header>
+  <h1>UrbanFlow</h1>
+  <p>Anticipez la durée réelle de votre trajet Dakar Dem Dikk, malgré les embouteillages. Le journal est enregistré uniquement dans ce navigateur.</p>
+</header>
+
+<main>
+  <section>
+    <h2>Trajet de A à B (trafic actuel)</h2>
+    <form class="trajet-form" id="form-trajet">
+      <div style="display:flex; gap:8px">
+        <input id="t-depart" type="text" placeholder="Départ (ma position)" style="flex:1">
+        <button type="button" class="btn-sec" id="btn-loc">Me localiser</button>
+      </div>
+      <input id="t-arrivee" type="text" placeholder="Arrivée (lieu à Dakar, ou clic sur la carte)" required>
+      <button type="submit" id="btn-trajet">Calculer</button>
+    </form>
+    <div id="carte"></div>
+    <div id="res-trajet" class="res-trajet" hidden></div>
+    <p class="note" id="note-trajet">Le temps affiché est celui d'une voiture avec le trafic du moment. Aucune donnée en temps réel n'existe pour les bus Dakar Dem Dikk : comptez en général plus que ce temps.</p>
+  </section>
+
+  <section>
+    <h2>Lignes urbaines suivies</h2>
+    <div class="lignes-grid" id="lignes"></div>
+  </section>
+
+  <section>
+    <h2>Journal de trajets</h2>
+    <form id="form-entree">
+      <select id="f-ligne" required></select>
+      <input id="f-heure" type="time" required>
+      <input id="f-temps" type="number" min="1" placeholder="Temps observé (min)" required>
+      <select id="f-affluence" required>
+        <option value="">Affluence</option>
+        <option value="fluide">Fluide</option>
+        <option value="dense">Dense</option>
+        <option value="sature">Saturé</option>
+      </select>
+      <button type="submit">Ajouter au journal</button>
+    </form>
+    <table id="tbl-journal">
+      <thead><tr><th>Ligne</th><th>Heure</th><th>Temps observé</th><th>Affluence</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="empty" id="empty-msg" hidden>Aucune entrée pour le moment. Ajoute ton premier trajet ci-dessus.</p>
+  </section>
+
+  <section>
+    <h2>Interroger l'agent IA</h2>
+    <form id="form-agent">
+      <input id="f-question" type="text" placeholder="Posez votre question sur un trajet ou une ligne..." required style="grid-column:span 3">
+      <button type="submit" id="btn-agent" style="grid-column:span 1">Demander a l'agent</button>
+    </form>
+    <details class="note"><summary>Ajouter des données de trafic (optionnel)</summary><input id="f-trafic" type="text" maxlength="256" placeholder="Ex : Ligne 8, 18h, 52 min observés" style="width:100%; margin-top:6px; background:var(--bg2); border:1px solid var(--line); color:var(--ink); padding:9px 10px; border-radius:4px"></details>
+    <div id="agent-resultat" class="agent-box" hidden></div>
+    <p id="agent-erreur" class="agent-erreur" hidden></p>
+  </section>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const LIGNES_DDD = [
+  {n:"1", zone:"Parcelles Assainies ↔ Place Leclerc", temps:45},
+  {n:"4", zone:"Guédiawaye ↔ Plateau", temps:60},
+  {n:"7", zone:"Pikine ↔ Plateau", temps:50},
+  {n:"8", zone:"Parcelles Assainies ↔ Palais", temps:40},
+  {n:"9", zone:"Grand Yoff ↔ Plateau", temps:35},
+  {n:"10", zone:"Yeumbeul ↔ Plateau", temps:55},
+  {n:"13", zone:"Ouakam ↔ Plateau", temps:30},
+  {n:"18", zone:"Rufisque ↔ Plateau", temps:70},
+  {n:"20", zone:"Cambérène ↔ Plateau", temps:45},
+  {n:"23", zone:"Liberté ↔ Plateau", temps:25},
+  {n:"121", zone:"Parcelles Assainies ↔ Palais", temps:40},
+];
+
+const grid = document.getElementById('lignes');
+const select = document.getElementById('f-ligne');
+LIGNES_DDD.forEach(l => {
+  const d = document.createElement('div');
+  d.innerHTML = `<b>Ligne ${l.n}</b><span>${l.zone}</span><span>~${l.temps} min</span>`;
+  grid.appendChild(d);
+  const opt = document.createElement('option');
+  opt.value = l.n; opt.textContent = `Ligne ${l.n}`;
+  select.appendChild(opt);
+});
+
+const KEY = 'urbanflow_journal';
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || []; } catch(e){ return []; } }
+function save(entries){ localStorage.setItem(KEY, JSON.stringify(entries)); }
+
+function render(){
+  const entries = load();
+  const tbody = document.querySelector('#tbl-journal tbody');
+  const emptyMsg = document.getElementById('empty-msg');
+  tbody.innerHTML = '';
+  if(entries.length === 0){ emptyMsg.hidden = false; return; }
+  emptyMsg.hidden = true;
+  entries.slice().reverse().forEach(e => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>Ligne ${e.ligne}</td><td>${e.heure}</td><td>${e.temps} min</td><td class="aff-${e.affluence}">${e.affluence}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+document.getElementById('form-entree').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  const entries = load();
+  entries.push({
+    ligne: document.getElementById('f-ligne').value,
+    heure: document.getElementById('f-heure').value,
+    temps: document.getElementById('f-temps').value,
+    affluence: document.getElementById('f-affluence').value,
+  });
+  save(entries);
+  this.reset();
+  render();
+});
+
+render();
+
+const formAgent = document.getElementById('form-agent');
+const btnAgent = document.getElementById('btn-agent');
+const boxResultat = document.getElementById('agent-resultat');
+const boxErreur = document.getElementById('agent-erreur');
+
+formAgent.addEventListener('submit', async function(ev){
+  ev.preventDefault();
+  const question = document.getElementById('f-question').value.trim();
+  if(!question) return;
+  boxErreur.hidden = true;
+  boxResultat.hidden = true;
+  btnAgent.disabled = true;
+  btnAgent.textContent = 'Recherche en cours...';
+  try{
+    const res = await fetch('/api/analyser-trafic', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ query: question, donneesTrafic: document.getElementById('f-trafic').value.trim() }),
+    });
+    const data = await res.json();
+    if(!res.ok){
+      boxErreur.textContent = data.error || 'Service temporairement indisponible.';
+      boxErreur.hidden = false;
+    } else {
+      boxResultat.textContent = typeof data.outputs === 'string' ? data.outputs : JSON.stringify(data.outputs, null, 2);
+      boxResultat.hidden = false;
+    }
+  } catch(err){
+    boxErreur.textContent = 'Service temporairement indisponible.';
+    boxErreur.hidden = false;
+  } finally {
+    btnAgent.disabled = false;
+    btnAgent.textContent = "Demander a l'agent";
+  }
+});
+
+// ---------- Trajet A -> B ----------
+(function(){
+  const DAKAR = [14.7167, -17.4677];
+  const map = L.map('carte').setView(DAKAR, 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  let depart = null, arrivee = null, mDep = null, mArr = null, trace = null;
+
+  const iDep = document.getElementById('t-depart');
+  const iArr = document.getElementById('t-arrivee');
+  const box = document.getElementById('res-trajet');
+
+  function marque(p, ancien, titre){
+    if(ancien) map.removeLayer(ancien);
+    return L.marker([p.lat, p.lng]).addTo(map).bindPopup(titre);
+  }
+  function setDepart(p){ depart = p; mDep = marque(p, mDep, 'Départ'); iDep.value = 'Ma position'; }
+
+  function localiser(){
+    if(!navigator.geolocation){ iDep.placeholder = 'Géolocalisation indisponible, saisissez un lieu'; return; }
+    iDep.placeholder = 'Localisation en cours...';
+    navigator.geolocation.getCurrentPosition(
+      pos => { setDepart({lat:pos.coords.latitude, lng:pos.coords.longitude}); map.setView([pos.coords.latitude, pos.coords.longitude], 14); },
+      () => { iDep.placeholder = 'Position refusée, saisissez un lieu de départ'; },
+      {enableHighAccuracy:true, timeout:10000}
+    );
+  }
+  document.getElementById('btn-loc').addEventListener('click', localiser);
+  localiser();
+
+  iDep.addEventListener('input', () => { depart = null; });
+  iArr.addEventListener('input', () => { arrivee = null; });
+  map.on('click', e => {
+    arrivee = {lat:e.latlng.lat, lng:e.latlng.lng};
+    mArr = marque(arrivee, mArr, 'Arrivée');
+    iArr.value = 'Point choisi sur la carte';
+  });
+
+  document.getElementById('form-trajet').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const btn = document.getElementById('btn-trajet');
+    const d = depart || iDep.value.trim();
+    const a = arrivee || iArr.value.trim();
+    if(!d){ box.hidden=false; box.textContent='Indiquez un départ ou autorisez la localisation.'; return; }
+    btn.disabled = true; btn.textContent = 'Calcul...';
+    box.hidden = false; box.textContent = 'Calcul du trajet...';
+    try{
+      const r = await fetch('/api/trajet', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({depart:d, arrivee:a})});
+      const j = await r.json();
+      if(j.statut === 'no_key') box.textContent = "Service de trajet non configuré (clé TomTom manquante).";
+      else if(j.statut === 'not_found') box.textContent = "Adresse introuvable. Précisez le lieu ou cliquez sur la carte.";
+      else if(j.statut !== 'ok') box.textContent = "Calcul indisponible pour le moment, réessayez.";
+      else {
+        mDep = marque(j.depart, mDep, 'Départ'); mArr = marque(j.arrivee, mArr, 'Arrivée');
+        if(trace) map.removeLayer(trace);
+        trace = L.polyline(j.trace, {color:'#00A651', weight:5}).addTo(map);
+        map.fitBounds(trace.getBounds(), {padding:[30,30]});
+        const heure = new Date(j.calculeA).toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+        box.innerHTML = `<b class="gros">${j.voitureMin} min</b>en voiture avec le trafic actuel, ${j.distanceKm} km`
+          + `<small>Sans trafic : ${j.habituelMin} min` + (j.retardMin>0 ? ` · retard dû au trafic : +${j.retardMin} min` : '') + `</small>`
+          + `<small>Calculé à ${heure}</small>`;
+      }
+    } catch(e){ box.textContent = "Calcul indisponible pour le moment, réessayez."; }
+    finally{ btn.disabled = false; btn.textContent = 'Calculer'; }
+  });
+})();
+</script>
+</body>
+</html>
