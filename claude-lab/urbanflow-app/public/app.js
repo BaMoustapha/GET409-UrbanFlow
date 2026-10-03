@@ -1,6 +1,6 @@
 // Code partage par toutes les pages : catalogue, menu, helpers, appel a l'agent.
-// Lignes du reseau DDD : donnees reelles de lignes.json (n, cat, trajet "A ↔ B", t8, t18, verif).
-// Les durees t8 / t18 sont des temps voiture releves, jamais des temps en bus.
+// Lignes du reseau DDD : donnees reelles de lignes.json (n, cat, trajet "A ↔ B", verif).
+// Aucun temps de trajet par ligne : le temps est calcule en direct par TomTom.
 let _lignes = null;
 function chargerLignes(){
   if(!_lignes) _lignes = fetch("/lignes.json").then(r => { if(!r.ok) throw new Error("lignes"); return r.json(); }).then(liste => {
@@ -9,7 +9,6 @@ function chargerLignes(){
       l.depart = dep; l.arrivee = arr || "";
       l.nom = (/^\d/.test(l.n) ? "Ligne " : "") + l.n;
       l.question = "Ligne " + l.n + ", " + l.trajet.replace(" ↔ ", " vers ");
-      l.temps = l.t8 ? "8h : " + l.t8 + " · 18h : " + l.t18 + " (voiture)" : "Temps non relevé";
     });
     // Les lignes de rabattement TER ne sont pas affichees sur le site.
     return liste.filter(l => !String(l.cat).toLowerCase().startsWith("ter"));
@@ -114,7 +113,7 @@ const PAGES = [['/', 'Accueil'], ['/trajet', 'Trajet'], ['/agent', 'Agent IA'], 
       col('Navigation', ...PAGES.map(([href, nom]) => lien(href, nom))),
       col('Source officielle', lien('https://demdikk.sn/', 'demdikk.sn', true), lien('https://demdikk.sn/info-voyageurs', 'Info voyageurs de DDD', true))),
     el('div', {className:'pied-bas'},
-      el('p', {textContent:"Aucune donnée de bus en temps réel n'existe : les temps affichés sont des temps voiture."}))));
+      el('p', {textContent:"Aucune donnée de bus en temps réel n'existe : le temps affiché est celui d'une voiture avec le trafic actuel (TomTom)."}))));
 })();
 
 // ---------- Agent ----------

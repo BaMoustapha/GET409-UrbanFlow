@@ -23,7 +23,7 @@
   <section aria-labelledby="t-lignes">
     <h1 id="t-lignes" class="titre-page">Lignes du réseau</h1>
     <p class="intro" style="margin:0 0 14px">Les lignes du réseau Dakar Dem Dikk suivies par UrbanFlow.</p>
-    <p class="note" style="margin:0 0 12px">Touchez une ligne pour interroger l'agent. Les temps affichés sont des temps voiture relevés à 8h et à 18h, pas des temps en bus. Quand aucun temps n'a été relevé, c'est indiqué.</p>
+    <p class="note" style="margin:0 0 12px">Touchez une ligne pour interroger l'agent. Le temps de trajet est calculé en direct par l'agent (voiture, trafic actuel), pas un temps en bus.</p>
     <div id="groupes" aria-live="polite"><p class="vide">Chargement des lignes...</p></div>
   </section>
 </main>
@@ -42,7 +42,6 @@ chargerLignes().then(liste => {
       titreLigne(l),
       el('span', {className:'cat', textContent:CAT_NOM[catCle(l.cat)]}),
       el('span', {textContent:l.trajet}),
-      el('span', {textContent:l.temps}),
       l.verif ? el('span', {textContent:'Trajet à vérifier'}) : '')));
     zone.append(grille);
   });
