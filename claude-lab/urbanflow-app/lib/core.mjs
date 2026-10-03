@@ -24,7 +24,7 @@ async function fetchJson(url, options = {}, ms = 10000) {
   }
 }
 
-import { repondreReseau } from './guide.mjs';
+import { repondreReseau, estQuestionTemps, ligneCitee, extremites } from './guide.mjs';
 
 // ---------- Agent Dify ----------
 const MOTS_VIDES = new Set(('le la les un une de du des d l au aux a à en et ou &  vers pour par sur dans depuis jusqu jusque avec sans ' +
@@ -68,6 +68,25 @@ const DEMO = {
   '18': "FICHE TRAJET\nLigne 18 : Dieuppeul vers Centre-ville.\n\nTEMPS DE TRAJET\n18 à 35 minutes selon l'heure.\n\nANALYSE\nExemple de démonstration, non issu du workflow en direct.\n\nALERTES\nHeures de pointe : durée proche du haut de la fourchette.\n\nRECOMMANDATIONS\nPartez avant 7h30 ou après 9h30.",
 };
 
+
+// Questions de temps ("temps ligne 8", "combien de minutes ligne 7") : le calcul est fait par TomTom entre les deux terminus de la ligne.
+async function reponseTemps(env, query) {
+  if (!estQuestionTemps(query)) return null;
+  const l = ligneCitee(query);
+  const ext = l && extremites(l);
+  if (!ext) return null;
+  const r = await tempsTrajet(env, { depart: ext[0] + ', Dakar', arrivee: ext[1] + ', Dakar' });
+  const b = r.body;
+  const tete = `TEMPS DE TRAJET\nLigne ${l.n} : ${l.trajet}\n`;
+  if (b.statut !== 'ok') {
+    const msg = b.statut === 'no_key' ? "Le calcul de trajet n'est pas activé." : b.statut === 'not_found' ? "Les terminus de cette ligne n'ont pas pu être localisés sur la carte." : 'Le service de trafic est indisponible pour le moment.';
+    return tete + msg + " Les horaires et le temps en bus ne sont pas publiés. Réessayez dans un instant ou utilisez le calcul de trajet avec deux adresses.";
+  }
+  const hh = new Date(b.calculeA).toISOString().slice(11, 16);
+  const c = b.congestion ? b.congestion.niveau : 'non évaluée';
+  return tete + `En voiture avec le trafic actuel entre les deux terminus (${ext[0]} et ${ext[1]}) : ${b.voitureMin} min (${b.distanceKm} km).\nSans trafic : ${b.habituelMin} min. Circulation : ${c}.\nCe n'est pas le temps en bus (non publié) : c'est une référence de l'état de la route. Calculé à ${hh} (heure de Dakar).\nHeures de pointe habituelles : ${l.pointe}.`;
+}
+
 export async function analyserTrafic(env, query, donneesTrafic) {
   query = String(query || '').trim().slice(0, 500);
   donneesTrafic = String(donneesTrafic || '').trim().slice(0, 256);
@@ -80,6 +99,8 @@ export async function analyserTrafic(env, query, donneesTrafic) {
       : { status: 200, body: { outputs: "INSUFFISANT : mode démonstration, seules les lignes 8 et 18 sont disponibles.", demo: true } };
   }
   // Questions sur le réseau (quelle ligne prendre, arrêts d'une ligne) : réponse directe depuis les données, sans IA.
+  const temps = await reponseTemps(env, query);
+  if (temps) return { status: 200, body: { outputs: temps, source: 'tomtom' } };
   const direct = repondreReseau(query);
   if (direct) return { status: 200, body: { outputs: direct, source: 'reseau' } };
   if (!env.DIFY_API_KEY) {

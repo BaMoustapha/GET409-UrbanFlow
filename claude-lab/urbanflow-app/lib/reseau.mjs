@@ -6,8 +6,6 @@ export const LIGNES = [
   "trajet": "Parcelles Assainies ↔ Place Leclerc",
   "terminus": "Gare Parcelles Assainies -> Gare Leclerc",
   "zones": "Parcelles Assainies / Yoff > Fann / Mermoz / UCAD > Médina / Plateau",
-  "t8": "24-40 min",
-  "t18": "28-55 min",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -17,8 +15,6 @@ export const LIGNES = [
   "trajet": "Liberté 5 ↔ Place Leclerc",
   "terminus": "Gare Dieuppeul -> Gare Leclerc",
   "zones": "Dieuppeul / Sacré-Cœur / Point E > Canal 4 / Delafosse / Manguiers > Médina / Plateau",
-  "t8": "16-30 min",
-  "t18": "20-40 min",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -28,8 +24,6 @@ export const LIGNES = [
   "trajet": "Ouakam ↔ Palais 2",
   "terminus": "Gare Ouakam -> Gare Palais 2",
   "zones": "Ouakam > Mermoz > Fann / UCAD > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -39,8 +33,6 @@ export const LIGNES = [
   "trajet": "Aéroport LSS (Yoff) ↔ Palais 2",
   "terminus": "Gare Aéroport Yoff -> Gare Palais 2",
   "zones": "Aéroport Yoff / Patte d'Oie > Grand Yoff / Castors > Sicap Amitié / Point E > Médina / Plateau",
-  "t8": "24-45 min",
-  "t18": "30-55 min",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -50,8 +42,6 @@ export const LIGNES = [
   "trajet": "Liberté 6 ↔ Palais 2",
   "terminus": "Gare Liberté 6 -> Gare Palais 2",
   "zones": "Liberté 4-6 / JVC > Niary Tally / Centenaire > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -61,8 +51,6 @@ export const LIGNES = [
   "trajet": "Liberté 5 ↔ Palais 2",
   "terminus": "Gare Dieuppeul -> Gare Palais 2",
   "zones": "Dieuppeul / Sacré-Cœur > Sicap Karack / Corniche > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -72,8 +60,6 @@ export const LIGNES = [
   "trajet": "Liberté 5 ↔ Palais 2",
   "terminus": "Gare Dieuppeul -> Gare Palais 2",
   "zones": "Dieuppeul / HLM > Colobane / Centenaire > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -83,8 +69,6 @@ export const LIGNES = [
   "trajet": "Dieuppeul ↔ Centre-ville ↔ Dieuppeul (boucle)",
   "terminus": "Gare Dieuppeul -> En face Lonase (boucle)",
   "zones": "Dieuppeul / Liberté 5 > Ouagou Niayes / HLM > Colobane / Bel Air > Port / Reubeus > Médina / Delafosse > Sahm / Fann > Karack / Dieuppeul",
-  "t8": "18-35 min",
-  "t18": "20-45 min",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -94,8 +78,6 @@ export const LIGNES = [
   "trajet": "Dieuppeul ↔ Centre-ville ↔ Dieuppeul (boucle)",
   "terminus": "Dieuppeul -> Dieuppeul (boucle)",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -105,8 +87,6 @@ export const LIGNES = [
   "trajet": "Scat Urbam ↔ Leclerc",
   "terminus": "Gare HLM Grand Yoff -> Gare Leclerc",
   "zones": "HLM / Grand Yoff > Zone B / Dieuppeul > Canal 4 / Santhiaba > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -116,8 +96,6 @@ export const LIGNES = [
   "trajet": "Parcelles Assainies ↔ Palais 1",
   "terminus": "Gare Parcelles Assainies -> Gare Palais 2",
   "zones": "Parcelles Assainies / Dior > Castors / Sicap Karack > Croisement 22 / Grand Médine > Fann / UCAD > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -127,8 +105,6 @@ export const LIGNES = [
   "trajet": "Daroukhane ↔ Place Leclerc",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -138,8 +114,6 @@ export const LIGNES = [
   "trajet": "Guédiawaye ↔ Palais 1",
   "terminus": "Police Guédiawaye -> ENNS Jem Sport",
   "zones": "Rue 10 / Madina Gounass > Daroukhane / Hamo > Dakar / Reubeus",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -149,8 +123,6 @@ export const LIGNES = [
   "trajet": "Cambérène 2 ↔ Palais 2",
   "terminus": "Gare Guédiawaye -> Gare Palais 1",
   "zones": "Guédiawaye > Camberène / Grand Médine > Impôts / Liberté 4-6 > Niary Tally > Centenaire / Sandaga > Médina / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -160,8 +132,6 @@ export const LIGNES = [
   "trajet": "Keur Massar ↔ Lat Dior",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -171,8 +141,6 @@ export const LIGNES = [
   "trajet": "Guédiawaye ↔ Palais 1",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -182,8 +150,6 @@ export const LIGNES = [
   "trajet": "Rufisque ↔ Palais 1",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -193,8 +159,6 @@ export const LIGNES = [
   "trajet": "Malika ↔ Palais 1",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -204,8 +168,6 @@ export const LIGNES = [
   "trajet": "Jaxaay ↔ Leclerc",
   "terminus": "Gare Jaxaay -> Gare Leclerc",
   "zones": "Jaxaay > Keur Massar / Mbao > Thiaroye / Plateau",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -215,8 +177,6 @@ export const LIGNES = [
   "trajet": "Baux Maraîchers ↔ Palais 1",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -226,8 +186,6 @@ export const LIGNES = [
   "trajet": "Baux Maraîchers ↔ Aéroport LSS",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -237,8 +195,6 @@ export const LIGNES = [
   "trajet": "Terminus Rufisque ↔ Yenne",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -248,8 +204,6 @@ export const LIGNES = [
   "trajet": "Keur Massar ↔ Parcelles",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -259,8 +213,6 @@ export const LIGNES = [
   "trajet": "Gadaye ↔ Almadies",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -270,8 +222,6 @@ export const LIGNES = [
   "trajet": "Rufisque ↔ Guédiawaye",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -281,8 +231,6 @@ export const LIGNES = [
   "trajet": "Daroukhane ↔ Ouakam",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -292,8 +240,6 @@ export const LIGNES = [
   "trajet": "Thiaroye ↔ Aéroport LSS",
   "terminus": "Dépôt Thiaroye -> Terminus 61 (Ouakam)",
   "zones": "Thiaroye / Pikine > Patte d'Oie / HLM Grand Yoff > Almadies / Ngor > Ngor / Aéroport Yoff > Ouakam",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -303,8 +249,6 @@ export const LIGNES = [
   "trajet": "Thiaroye ↔ Ouakam",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -314,8 +258,6 @@ export const LIGNES = [
   "trajet": "Rufisque ↔ Dieuppeul",
   "terminus": "Gare Dieuppeul -> Dioutiba (Zac Mbao)",
   "zones": "Dieuppeul / Grand Yoff > Thiaroye / Mbao > Keur Massar / Grand Mbao > Zac Mbao",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -325,8 +267,6 @@ export const LIGNES = [
   "trajet": "Bayakh ↔ Rufisque",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -336,8 +276,6 @@ export const LIGNES = [
   "trajet": "Liberté 6 ↔ Ouakam",
   "terminus": "Gare Ouakam -> Gare Liberté 6",
   "zones": "Ouakam > Sacré-Cœur / JVC > Liberté 6",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -347,8 +285,6 @@ export const LIGNES = [
   "trajet": "Keur Massar ↔ Palais 1",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -358,8 +294,6 @@ export const LIGNES = [
   "trajet": "Jaxaay ↔ Leclerc",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -369,8 +303,6 @@ export const LIGNES = [
   "trajet": "Djoutiba ↔ Liberté 5",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -380,8 +312,6 @@ export const LIGNES = [
   "trajet": "Apix ↔ Sahm",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": true
  },
@@ -391,8 +321,6 @@ export const LIGNES = [
   "trajet": "Gare de Dakar ↔ Palais 2",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -402,8 +330,6 @@ export const LIGNES = [
   "trajet": "Colobane ↔ UCAD",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -413,8 +339,6 @@ export const LIGNES = [
   "trajet": "Colobane ↔ Abass Ndao",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -424,8 +348,6 @@ export const LIGNES = [
   "trajet": "Colobane ↔ Môle 8",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -435,8 +357,6 @@ export const LIGNES = [
   "trajet": "Colobane ↔ Hydrocarbure",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -446,8 +366,6 @@ export const LIGNES = [
   "trajet": "Gare Diamniadio ↔ Sphère ministérielle",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  },
@@ -457,8 +375,6 @@ export const LIGNES = [
   "trajet": "Sébikotane ↔ Gare Diamniadio",
   "terminus": "",
   "zones": "",
-  "t8": "",
-  "t18": "",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
   "verif": false
  }

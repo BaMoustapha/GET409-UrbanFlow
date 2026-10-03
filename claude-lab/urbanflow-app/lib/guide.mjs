@@ -33,13 +33,12 @@ function desserte(ix, lieu) {
 }
 
 function ficheLigne(l, ctx) {
-  const t = l.t8 ? `Voiture (Google Maps, vendredi) : 8h ${l.t8}, 18h ${l.t18}.` : 'Temps non relevé.';
-  return `Ligne ${l.n} : ${l.trajet}${l.verif ? ' (trajet à vérifier)' : ''}\n${ctx ? ctx + '\n' : ''}${t}\nHeures de pointe habituelles : ${l.pointe}.`;
+  return `Ligne ${l.n} : ${l.trajet}${l.verif ? ' (trajet à vérifier)' : ''}\n${ctx ? ctx + '\n' : ''}${l.zones ? 'Zones traversées : ' + l.zones + '.\n' : ''}Heures de pointe habituelles : ${l.pointe}.`;
 }
 
 const SIGLES = new Set(['ucad', 'bceao', 'hlm', 'lss', 'aibd', 'ter', 'sos', 'bhs', 'bicis', 'ipress', 'uvs', 'imt', 'pt1']);
 const joli = (s) => s.split(' ').map((w) => (SIGLES.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))).join(' ');
-const NOTE = "Limites : pas d'horaires, de prix ni de position des bus (Dakar Dem Dikk ne les publie pas). Seules les lignes directes sont proposées.";
+const NOTE = "Limites : pas d'horaires, de prix ni de position des bus (Dakar Dem Dikk ne les publie pas). Seules les lignes directes sont proposées. Pour le temps de trajet en voiture avec le trafic actuel, utilisez le calcul de trajet.";
 
 export function lignesEntre(depart, arrivee) {
   const res = [];
@@ -110,4 +109,24 @@ export function repondreReseau(question) {
   if (!r.length) return `Lieu non reconnu dans nos données : ${arr}.\nEssayez un arrêt ou un quartier proche (ex : Plateau, Médina, Ouakam).\n\n${NOTE}`;
   return `LIGNES QUI DESSERVENT : ${arr}\n\n` + r.slice(0, 6).map((x) => ficheLigne(x.ix.l, '')).join('\n\n')
     + `\n\nPrécisez votre point de départ pour savoir laquelle prendre.\n\n${NOTE}`;
+}
+
+// ---------- Question de temps sur une ligne (le calcul est fait par TomTom, voir core.mjs) ----------
+export function estQuestionTemps(question) {
+  return /\b(temps|dur[ée]e|dure|combien de minutes|minutes|mn|long|rapide|vite)\b/i.test(String(question));
+}
+
+// Retourne la ligne citée dans la question ("ligne 8", "l8", "bus 18", "8"), ou null.
+export function ligneCitee(question) {
+  const qn = norm(question);
+  const m = qn.match(/\b(?:lignes?|bus|l|n|numero)\s*(t?\d{1,3}[a-z]?)\b/) || qn.match(/(?<![\d:.])\b(t?\d{1,3}[a-gi-z]?)\b(?!\s*(?:h|min|km|mn))/);
+  if (!m) return null;
+  return parLigne.get(m[1]) || null;
+}
+
+// Deux extrémités d'une ligne (pour le calcul de trajet). Les boucles prennent les deux premiers lieux distincts.
+export function extremites(l) {
+  const parts = String(l.trajet).split('↔').map((x) => x.replace(/\(.*?\)/g, '').trim()).filter(Boolean);
+  const uniq = [...new Set(parts)];
+  return uniq.length >= 2 ? [uniq[0], uniq[1]] : null;
 }
