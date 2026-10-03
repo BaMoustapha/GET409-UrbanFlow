@@ -21,73 +21,91 @@
 </header>
 
 <main>
-  <!-- Hero -->
+  <!-- Hero : le formulaire est l'action principale -->
   <section class="land-hero" aria-labelledby="t-hero">
+    <svg class="hero-deco" viewBox="0 0 1040 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <g fill="currentColor" stroke="currentColor">
+        <!-- baobab -->
+        <path stroke="none" d="M96 160 C100 126 104 108 100 86 L140 86 C136 108 140 126 144 160 Z"/>
+        <path fill="none" stroke-width="7" stroke-linecap="round" d="M120 86 C100 66 70 62 52 44 M120 86 C132 62 154 52 182 40 M120 86 C118 62 110 42 114 22"/>
+        <circle stroke="none" cx="52" cy="40" r="16"/><circle stroke="none" cx="186" cy="36" r="18"/><circle stroke="none" cx="114" cy="18" r="16"/>
+        <!-- immeubles -->
+        <g stroke="none">
+          <rect x="700" y="104" width="24" height="56"/><rect x="730" y="74" width="30" height="86"/><rect x="766" y="112" width="20" height="48"/>
+          <rect x="792" y="88" width="26" height="72"/><rect x="824" y="122" width="22" height="38"/><rect x="852" y="98" width="28" height="62"/>
+          <rect x="886" y="116" width="20" height="44"/><rect x="912" y="82" width="30" height="78"/><rect x="948" y="108" width="24" height="52"/>
+        </g>
+        <!-- corniche -->
+        <path fill="none" stroke-width="3" d="M260 152 q 14 -10 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0"/>
+      </g>
+    </svg>
     <div>
-      <span class="eyebrow">Dakar · Dakar Dem Dikk</span>
       <h1 id="t-hero">Combien de temps durera vraiment votre trajet&nbsp;?</h1>
       <p>UrbanFlow estime votre trajet en voiture avec le trafic réel, vous montre les lignes Dakar Dem Dikk qui desservent vos lieux, et répond à vos questions sur les lignes.</p>
-      <div class="actions">
-        <a class="btn btn-main" href="/trajet">Calculer mon trajet</a>
-        <a class="btn btn-sec" href="/lignes">Voir les lignes</a>
-      </div>
       <p class="note">Limite à connaître : aucune donnée en temps réel n'existe pour les bus. Le temps affiché est celui d'une voiture, comptez en général plus en bus.</p>
+      <p class="note"><a href="/lignes">Voir les lignes du réseau</a></p>
     </div>
-    <div class="hero-visu" aria-hidden="true">
-      <svg viewBox="0 0 480 340" role="presentation" focusable="false">
-        <rect x="0" y="0" width="480" height="340" rx="12" style="fill:var(--bg3)"/>
-        <g style="stroke:var(--line-strong)" stroke-width="1" opacity=".55">
-          <path d="M0 70H480M0 140H480M0 210H480M0 280H480M80 0V340M160 0V340M240 0V340M320 0V340M400 0V340"/>
-        </g>
-        <path d="M40 270 C 120 270, 120 190, 200 190 S 290 120, 360 100 S 420 70, 440 60" fill="none" style="stroke:var(--accent)" stroke-width="8" stroke-linecap="round"/>
-        <path d="M40 270 C 120 270, 120 190, 200 190 S 290 120, 360 100 S 420 70, 440 60" fill="none" stroke="#FDEF42" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"/>
-        <g>
-          <circle cx="40" cy="270" r="14" style="fill:var(--bg2);stroke:var(--accent)" stroke-width="5"/>
-          <circle cx="440" cy="60" r="14" fill="#E31B23"/>
-          <circle cx="440" cy="60" r="5" fill="#FFFFFF"/>
-        </g>
-        <g transform="translate(150 96)">
-          <rect width="120" height="56" rx="12" fill="#00A651"/>
-          <rect x="10" y="10" width="22" height="18" rx="3" fill="#EAF0E7"/>
-          <rect x="38" y="10" width="22" height="18" rx="3" fill="#EAF0E7"/>
-          <rect x="66" y="10" width="22" height="18" rx="3" fill="#EAF0E7"/>
-          <rect x="94" y="10" width="16" height="30" rx="3" fill="#EAF0E7"/>
-          <rect x="0" y="36" width="120" height="6" fill="#FDEF42"/>
-          <circle cx="30" cy="58" r="9" fill="#14201A"/>
-          <circle cx="90" cy="58" r="9" fill="#14201A"/>
-        </g>
-      </svg>
-    </div>
+    <form class="hero-form" action="/trajet" method="get" aria-labelledby="t-form">
+      <h2 id="t-form">Où allez-vous&nbsp;?</h2>
+      <div>
+        <label for="h-depart">Départ</label>
+        <input id="h-depart" name="depart" type="text" placeholder="Un lieu à Dakar" autocomplete="off" maxlength="120" required>
+      </div>
+      <div>
+        <label for="h-arrivee">Arrivée</label>
+        <input id="h-arrivee" name="arrivee" type="text" placeholder="Un lieu à Dakar" autocomplete="off" maxlength="120" required>
+      </div>
+      <button type="submit" class="btn btn-main">Calculer mon trajet</button>
+      <p class="note">Pour partir de votre position ou choisir une heure, ouvrez directement la page <a href="/trajet">Trajet</a>.</p>
+    </form>
   </section>
 
-  <!-- Comment ca marche -->
+  <!-- Comment ca marche + fonctionnalites : trois rangees alternees avec apercu (sans donnees reelles) -->
   <section aria-labelledby="t-comment">
     <h2 class="sect-titre" id="t-comment">Comment ça marche</h2>
     <p class="sect-sous">Trois étapes, sans compte ni inscription.</p>
-    <div class="etapes-land">
-      <div class="etape">
-        <h3>Indiquez votre trajet</h3>
-        <p>Saisissez un départ et une arrivée à Dakar, ou touchez la carte. Choisissez de partir maintenant ou à une autre heure.</p>
+
+    <div class="rang">
+      <div class="rang-txt">
+        <h3>1. Indiquez votre trajet</h3>
+        <p>Saisissez un départ et une arrivée à Dakar, ou touchez la carte. Partez maintenant, ou choisissez une autre heure pour une prévision.</p>
+        <a href="/trajet">Estimer un trajet</a>
       </div>
-      <div class="etape">
-        <h3>Voyez le temps et les lignes</h3>
-        <p>UrbanFlow affiche le temps en voiture avec le trafic estimé par TomTom, la circulation, les incidents routiers et les lignes DDD concernées.</p>
-      </div>
-      <div class="etape">
-        <h3>Posez vos questions</h3>
-        <p>L'agent IA répond sur une ligne ou une heure précise à partir des données disponibles, et dit clairement quand elles manquent.</p>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-t">Départ</div><div class="mock-champ">Un lieu à Dakar</div>
+        <div class="mock-t">Arrivée</div><div class="mock-champ">Un lieu à Dakar</div>
+        <div class="mock-btn">Calculer mon trajet</div>
       </div>
     </div>
-  </section>
 
-  <!-- Fonctionnalites -->
-  <section aria-labelledby="t-faire">
-    <h2 class="sect-titre" id="t-faire">Ce que vous pouvez faire</h2>
-    <p class="sect-sous">Trois outils pour préparer vos déplacements.</p>
-    <div class="points">
-      <a class="point" href="/trajet"><b>Estimer un trajet</b><span>Temps en voiture avec le trafic du moment ou à une heure choisie, circulation et incidents routiers.</span></a>
-      <a class="point" href="/lignes"><b>Consulter les lignes</b><span>Les lignes du réseau Dakar Dem Dikk, leurs terminus et les temps voiture relevés quand ils existent.</span></a>
-      <a class="point" href="/agent"><b>Interroger l'agent IA</b><span>Une question sur une ligne ou une heure précise : l'agent répond à partir des données disponibles, ou dit qu'elles manquent.</span></a>
+    <div class="rang">
+      <div class="rang-txt">
+        <h3>2. Voyez le temps et les lignes</h3>
+        <p>Temps en voiture avec le trafic estimé par TomTom, niveau de circulation, incidents routiers, et lignes Dakar Dem Dikk dont un terminus correspond à vos lieux.</p>
+        <a href="/lignes">Consulter les lignes</a>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-t">En voiture</div>
+        <div class="mock-gros">— min</div>
+        <div class="mock-ligne"></div>
+        <span class="mock-pill">Circulation</span> <span class="mock-pill">Incidents</span>
+        <div class="mock-t" style="margin-top:14px">Lignes DDD possibles</div>
+        <div class="mock-ligne"></div><div class="mock-ligne court"></div>
+      </div>
+    </div>
+
+    <div class="rang">
+      <div class="rang-txt">
+        <h3>3. Posez vos questions</h3>
+        <p>L'agent IA répond sur une ligne ou une heure précise à partir des données disponibles, et dit clairement quand elles manquent.</p>
+        <a href="/agent">Interroger l'agent IA</a>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-sec">Fiche trajet</div>
+        <div class="mock-sec fort">Temps de trajet</div>
+        <div class="mock-sec alerte">Alertes</div>
+        <div class="mock-sec">Recommandations</div>
+      </div>
     </div>
   </section>
 
@@ -121,7 +139,7 @@
     </div>
   </section>
 
-  <!-- Appel a l'action -->
+  <!-- Appel a l'action final -->
   <section class="cta-band" aria-labelledby="t-cta">
     <div>
       <h2 id="t-cta">Prêt à partir&nbsp;?</h2>
@@ -135,7 +153,7 @@
 <script>
 chargerLignes().then(liste => {
   const zone = document.getElementById('stats');
-  const groupes = [['urbain', 'Lignes urbaines'], ['banlieue', 'Lignes de banlieue'], ['taf', 'Express TAF TAF'], ['ter', 'Rabattement TER']];
+  const groupes = [['urbain', 'Lignes urbaines'], ['banlieue', 'Lignes de banlieue'], ['taf', 'Express TAF TAF']];
   zone.replaceChildren(...groupes.map(([cle, nom]) => {
     const n = liste.filter(l => catCle(l.cat) === cle).length;
     return el('div', {className:'stat'}, el('span', {className:'nb', textContent:String(n)}), el('span', {className:'lib', textContent:nom}));

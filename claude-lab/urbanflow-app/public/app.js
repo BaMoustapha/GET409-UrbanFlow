@@ -11,13 +11,14 @@ function chargerLignes(){
       l.question = "Ligne " + l.n + ", " + l.trajet.replace(" ↔ ", " vers ");
       l.temps = l.t8 ? "8h : " + l.t8 + " · 18h : " + l.t18 + " (voiture)" : "Temps non relevé";
     });
-    return liste;
+    // Les lignes de rabattement TER ne sont pas affichees sur le site.
+    return liste.filter(l => !String(l.cat).toLowerCase().startsWith("ter"));
   }).catch(e => { _lignes = null; throw e; });
   return _lignes;
 }
 const CATEGORIES = [
   ["urbain", "Lignes urbaines"], ["banlieue", "Lignes de banlieue"],
-  ["TAF TAF", "Express TAF TAF (aéroport)"], ["TER", "Rabattement TER"],
+  ["TAF TAF", "Express TAF TAF (aéroport)"],
 ];
 const SUGGESTIONS = ['Ligne 8 à 8h, y a-t-il du monde ?', 'Ligne 18 à 17h30 ?', 'Ligne 7, Ouakam vers Palais 2 ?'];
 
@@ -100,7 +101,7 @@ const PAGES = [['/', 'Accueil'], ['/trajet', 'Trajet'], ['/agent', 'Agent IA'], 
     toggle.textContent = ouvert ? 'Fermer' : 'Menu';
   });
 
-  const droite = el('div', {className:'nav-droite'}, toggle, liens, el('div', {className:'nav-actions'}, theme, cta));
+  const droite = el('div', {className:'nav-droite'}, toggle, liens, el('div', {className:'nav-actions'}, theme, chemin === '/' ? '' : cta));
   const h = document.getElementById('menu');
   if(h) h.replaceWith(droite);
 

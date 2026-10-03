@@ -8,7 +8,7 @@ Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 - `/` : page d'accueil (présentation, étapes, réseau, engagements).
 - `/trajet` : trajet A vers B (carte, temps voiture, heure de départ, circulation, incidents, lignes dont un terminus correspond).
 - `/agent` : questions à l'agent.
-- `/lignes` : les lignes du réseau (`public/lignes.json`).
+- `/lignes` : les lignes du réseau (`public/lignes.json`), sans la catégorie TER.
 - `/a-propos` : sources, limites, confidentialité.
 
 ## Lancer en local

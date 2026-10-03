@@ -208,6 +208,13 @@
       resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', role:'alert', textContent:'Calcul indisponible pour le moment, réessayez.'}));
     } finally { btn.disabled = false; btn.textContent = 'Calculer mon trajet'; }
   });
+
+  // Pre-remplissage depuis la page d'accueil (?depart=...&arrivee=...).
+  const q = new URLSearchParams(location.search);
+  const d0 = (q.get('depart') || '').slice(0, 120), a0 = (q.get('arrivee') || '').slice(0, 120);
+  if(d0) iDep.value = d0;
+  if(a0) iArr.value = a0;
+  if(d0 && a0) document.getElementById('form-trajet').requestSubmit();
 })();
 </script>
 </body>

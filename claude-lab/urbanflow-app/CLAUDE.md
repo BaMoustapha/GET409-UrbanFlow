@@ -5,10 +5,10 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 
 ## Architecture de l'app (ce dossier)
 - `public/` : interface en 5 pages avec menu commun (`app.js`, `style.css`, `lignes.json`) :
-  - `/` (`index.html`) : landing page classique (barre de navigation, hero, étapes, fonctionnalités, nombre de lignes par catégorie calculé depuis `lignes.json`, engagements de transparence, appel à l'action, pied de page).
+  - `/` (`index.html`) : landing page classique (barre de navigation, hero avec formulaire départ et arrivée qui ouvre `/trajet?depart=...&arrivee=...` et calcule aussitôt, décor discret baobab et corniche, trois rangées « Comment ça marche » avec aperçus sans donnée réelle, nombre de lignes par catégorie calculé depuis `lignes.json`, engagements de transparence, appel à l'action, pied de page). Un seul bouton principal par écran.
   - `/trajet` (`trajet.html`) : trajet A vers B (carte Leaflet/OpenStreetMap, géolocalisation sur clic, heure de départ, temps voiture TomTom, lignes dont un terminus correspond aux lieux saisis).
   - `/agent` : questions à l'agent Dify, fiche en sections, suggestions. Accepte `?q=` pour une question préremplie.
-  - `/lignes` : les 42 lignes de `lignes.json` par catégorie, avec temps voiture 8h et 18h quand ils sont relevés.
+  - `/lignes` : les lignes de `lignes.json` par catégorie (la catégorie « Rabattement TER » est masquée de tout le site par `chargerLignes()` dans `public/app.js`), avec temps voiture 8h et 18h quand ils sont relevés.
   - `/a-propos` : sources, limites, confidentialité.
 - `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom avec `departAt` pour une heure future, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
 - `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
