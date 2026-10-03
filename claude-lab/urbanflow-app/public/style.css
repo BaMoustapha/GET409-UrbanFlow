@@ -178,8 +178,9 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
 /* Pied de page */
 
 /* Bouton de theme */
-.theme-btn{margin-left:auto; flex:none; min-height:44px; padding:0 12px; background:transparent; border:0; color:var(--muted); font-family:var(--body); font-size:14px; cursor:pointer}
-.theme-btn:hover{color:var(--ink)}
+.theme-btn{flex:none; width:44px; height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; background:transparent; border:1px solid transparent; border-radius:50%; color:var(--muted); cursor:pointer}
+.theme-btn svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.theme-btn:hover{color:var(--ink); background:var(--bg3)}
 
 /* Badge de circulation : variantes lisibles sur fond clair */
 :root[data-theme="light"] .trafic-fluide{color:#00642F; background:rgba(0,166,81,.14)}
@@ -195,7 +196,7 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
 
 /* Pied de page en colonnes */
 .pied{border-top:1px solid var(--line); background:var(--bg2); margin-top:24px; color:var(--muted); font-size:14px}
-.pied-in{max-width:1040px; margin:0 auto; padding:36px 20px 20px; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:28px}
+.pied-in{max-width:1040px; margin:0 auto; padding:36px 20px 20px; display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:28px}
 .pied-col h2{font-family:var(--body); font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink); margin:0 0 12px}
 .pied-col p{margin:0 0 8px}
 .pied-col a{display:block; color:var(--muted); text-decoration:none; padding:3px 0}

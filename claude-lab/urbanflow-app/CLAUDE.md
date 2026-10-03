@@ -38,7 +38,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Texte en français partout (interface, contenus, documentation).
 - Réponses concises, pas de tirets cadratins, pas de récapitulatif non demandé.
 - Toute donnée de trafic doit être sourcée : base xlsx ou fichiers `sources-*.md`. Jamais de chiffre inventé.
-- Identité visuelle : vert #00A651 (principal), jaune #FDEF42 et rouge #E31B23 (touches ponctuelles uniquement), polices Fraunces (titres) + Poppins (texte). Thème clair ou sombre selon le système, avec bouton de bascule (variables dans `public/style.css`). Pastilles de ligne par catégorie : urbaine vert, banlieue orange, TAF TAF jaune, TER bleu, toujours accompagnées du libellé de catégorie. Le pied de page cite la source officielle (demdikk.sn) et précise qu'UrbanFlow est indépendant de DDD : ne pas reprendre le logo ni la charte de DDD.
+- Identité visuelle : vert #00A651 (principal), jaune #FDEF42 et rouge #E31B23 (touches ponctuelles uniquement), polices Fraunces (titres) + Poppins (texte). Thème clair ou sombre selon le système, avec bouton-icône (soleil ou lune) de bascule (variables dans `public/style.css`). Pastilles de ligne par catégorie : urbaine vert, banlieue orange, TAF TAF jaune, TER bleu, toujours accompagnées du libellé de catégorie. Le pied de page cite la source officielle (demdikk.sn). Ne pas reprendre le logo ni la charte de DDD.
 - Lignes urbaines DDD confirmées à utiliser en priorité : 1, 4, 7, 8, 9, 10, 13, 18, 20, 23, 121.
 
 ## Vocabulaire du domaine

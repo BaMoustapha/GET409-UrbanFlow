@@ -71,13 +71,23 @@ const PAGES = [['/', 'Accueil'], ['/trajet', 'Trajet'], ['/agent', 'Agent IA'], 
     liens.append(a);
   });
 
-  const theme = el('button', {type:'button', className:'theme-btn', textContent:themeActuel() === 'light' ? 'Thème sombre' : 'Thème clair'});
-  theme.setAttribute('aria-label', 'Basculer entre le thème clair et le thème sombre');
+  // Bouton de theme a icone : lune en theme clair (passer au sombre), soleil en theme sombre (passer au clair).
+  const SOLEIL = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  const LUNE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  const theme = el('button', {type:'button', className:'theme-btn'});
+  const majTheme = () => {
+    const clair = themeActuel() === 'light';
+    theme.innerHTML = clair ? LUNE : SOLEIL;
+    const libelle = clair ? 'Passer au thème sombre' : 'Passer au thème clair';
+    theme.setAttribute('aria-label', libelle);
+    theme.title = libelle;
+  };
+  majTheme();
   theme.addEventListener('click', () => {
     const suivant = themeActuel() === 'light' ? 'dark' : 'light';
     appliquerTheme(suivant);
     try { localStorage.setItem('uf-theme', suivant); } catch(e) {}
-    theme.textContent = suivant === 'light' ? 'Thème sombre' : 'Thème clair';
+    majTheme();
   });
 
   const cta = el('a', {className:'btn btn-main nav-cta', href:'/trajet', textContent:'Calculer mon trajet'});
@@ -94,17 +104,16 @@ const PAGES = [['/', 'Accueil'], ['/trajet', 'Trajet'], ['/agent', 'Agent IA'], 
   const h = document.getElementById('menu');
   if(h) h.replaceWith(droite);
 
-  // Pied de page en colonnes : projet independant, source officielle et contact de DDD.
+  // Pied de page en colonnes : presentation, navigation et source officielle.
   const col = (titre, ...contenu) => el('div', {className:'pied-col'}, el('h2', {textContent:titre}), ...contenu);
   const lien = (href, texte, externe) => { const a = el('a', {href, textContent:texte}); if(externe){ a.target = '_blank'; a.rel = 'noopener'; } return a; };
   document.body.append(el('footer', {className:'pied'},
     el('div', {className:'pied-in'},
       col('UrbanFlow', el('p', {textContent:"Estimez la durée réelle de votre trajet à Dakar et trouvez les lignes Dakar Dem Dikk qui vous concernent."})),
       col('Navigation', ...PAGES.map(([href, nom]) => lien(href, nom))),
-      col('Source officielle', lien('https://demdikk.sn/', 'demdikk.sn', true), lien('https://demdikk.sn/info-voyageurs', 'Info voyageurs de DDD', true)),
-      col('Contact DDD', el('p', {textContent:'Interurbain : +221 33 824 10 10'}), el('p', {textContent:'Express AIBD : +221 78 184 58 23'}))),
+      col('Source officielle', lien('https://demdikk.sn/', 'demdikk.sn', true), lien('https://demdikk.sn/info-voyageurs', 'Info voyageurs de DDD', true))),
     el('div', {className:'pied-bas'},
-      el('p', {textContent:"UrbanFlow est un projet étudiant indépendant (GET409, UMEF Swiss University, Dakar), non affilié à Dakar Dem Dikk. Aucune donnée de bus en temps réel n'existe : les temps affichés sont des temps voiture."}))));
+      el('p', {textContent:"Aucune donnée de bus en temps réel n'existe : les temps affichés sont des temps voiture."}))));
 })();
 
 // ---------- Agent ----------
