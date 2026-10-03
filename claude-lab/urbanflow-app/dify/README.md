@@ -5,7 +5,7 @@ Source : `DakarFlow_Donnees_1.xlsx` (15 lignes de la feuille DakarFlow, 16 feuil
 ## Ce qui est dans la base
 - 42 lignes : urbain, banlieue, TAF TAF, TER, ligne 319 (captures appli), avec trajet officiel, terminus capturés, zones traversées, heures de pointe habituelles (valables pour toutes les lignes).
 - 613 arrêts ordonnés pour 16 lignes (1, 4, 5, 6, 7, 8, 9, 10, 13, 18, 121, 213, 218, 234, 23, 319).
-- Temps de trajet : uniquement les 4 lignes déjà relevées (1, 4, 8, 18, estimation voiture Google Maps). Les 38 autres sont "non relevé". Le xlsx a les colonnes Temps, Prix, Fréquence, Incident vides : rien n'a été inventé.
+- Pas de temps de trajet dans la base : les temps voiture avec trafic sont calculés en direct par TomTom dans l'app (le xlsx a les colonnes Temps, Prix, Fréquence, Incident vides, rien n'a été inventé). Pas de prix non plus.
 - Incohérences entre sources signalées par "A vérifier" dans chaque ligne concernée (lignes 4, 6, 10, 13, 23, 121, 5, 213, 218, 220).
 
 ## Fichiers et import Dify (mode Économique, découpage personnalisé, séparateur \n\n, longueur max 1024)
