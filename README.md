@@ -7,6 +7,10 @@
 | Mouhamadou Moustapha BA | Chef de Produit (PM) / Dev UI (No-Code) | BaMoustapha | bam480836@gmail.com |
 | Astou Barro Ndiaye | Master Prompt Engineer / Responsable Impact |astoubarrond| astoubarrond@gmail.com |
 
+## Site déployé
+
+L'application UrbanFlow est en ligne (Cloudflare Workers) : **https://urbanflow.urbanflow-moustapha.workers.dev/**
+
 ## Notre défi
 
 **Secteur :** Mobilité urbaine à Dakar
@@ -17,7 +21,7 @@
 
 ## Documentation (docs/)
 
-Les livrables S1, S2, S3 et S5 sont organisés par séance :
+Les livrables S1, S2, S3, S4 et S5 sont organisés par séance :
 
 **S1 :**
 - [`docs/s1/fiche-equipe.md`](docs/s1/fiche-equipe.md) — Fiche équipe et défi
@@ -33,6 +37,9 @@ Les livrables S1, S2, S3 et S5 sont organisés par séance :
 **S3 :**
 - [`docs/s3/journal-prompts.md`](docs/s3/journal-prompts.md) — Journal de Prompts S3 (Agent, Chercheur, IF/ELSE, Rédacteur)
 - [`docs/s3/reflexion-ethique.md`](docs/s3/reflexion-ethique.md) — Réflexion éthique (L4)
+
+**S4 :**
+- Prototype fonctionnel : application UrbanFlow, code dans [`claude-lab/urbanflow-app`](claude-lab/urbanflow-app), déployée sur https://urbanflow.urbanflow-moustapha.workers.dev/
 
 **S5 :**
 - [`docs/s5/pipeline-rag.md`](docs/s5/pipeline-rag.md) - Pipeline RAG opérationnel (L2) : workflow Dify, bases de connaissances, données
@@ -93,6 +100,18 @@ Détail des prompts de chaque nœud et procédure de test de la boucle IF/ELSE :
 ## Réflexion éthique (S3)
 
 Trois risques identifiés — fiabilité des estimations, exclusion numérique (usagers sans smartphone), dépendance à l'infrastructure — chacun avec un garde-fou technique et un garde-fou organisationnel, et une recommandation de déploiement en pilote contrôlé : [`docs/s3/reflexion-ethique.md`](docs/s3/reflexion-ethique.md)
+
+## Prototype (S4)
+
+Phase Prototype du Design Thinking : le MVP est l'application web UrbanFlow, développée dans [`claude-lab/urbanflow-app`](claude-lab/urbanflow-app) et déployée sur Cloudflare Workers : https://urbanflow.urbanflow-moustapha.workers.dev/
+
+**Fonctions :**
+- Carte (Leaflet / OpenStreetMap) avec géolocalisation de l'usager
+- Calcul d'un trajet A vers B avec le temps en voiture dans le trafic actuel (TomTom) et l'état de la circulation : fluide, dense, très dense, bloqué
+- Agent UrbanFlow (workflow Dify avec RAG sur les lignes DDD) : ligne à prendre, lignes qui desservent un lieu, arrêts d'une ligne, heures de pointe habituelles
+- Pages Lignes, Relevés et À propos
+
+**Limite assumée :** Dakar Dem Dikk ne publie aucune donnée en temps réel ni de temps de trajet en bus. Le temps affiché est celui d'une voiture et l'interface le précise.
 
 ## Livrables S1
 
