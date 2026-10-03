@@ -14,7 +14,8 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - `server.js` : serveur Express local (`npm start`, http://localhost:3000). Sert uniquement `public/`, avec URL propres (`/lignes`).
 - Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 - `worker.js` + `wrangler.toml` : même API sur Cloudflare Workers (`deployer.bat` pousse aussi les secrets). Worker nommé `urbanflow`.
-- Routes : `POST /api/analyser-trafic` (guide réseau, sinon Dify) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
+- Temps de trajet : géré par TomTom, jamais par Dify. Une question de temps citant une ligne (« temps ligne 8 ») est traitée par `reponseTemps()` dans `core.mjs` : temps voiture avec le trafic actuel entre les deux terminus de la ligne, avec message de repli si TomTom est indisponible. La base de connaissance Dify ne contient aucun temps de trajet.
+- Routes : `POST /api/analyser-trafic` (temps de ligne par TomTom, guide réseau, sinon Dify) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
 
 ## Services externes
 - **Dify** : workflow UrbanFlow (RAG sur 2 bases, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus, prévoir Gemini Flash-Lite avec une clé AI Studio personnelle).
@@ -56,7 +57,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Ne jamais inventer de témoignage usager, de partenariat ou de statistique DDD non sourcée.
 - Ne jamais coder en dur une clé API (Dify, TomTom, Gemini, etc.) ni la coller dans le chat : toujours via `.env` ou secrets Cloudflare. Une clé exposée doit être régénérée.
 - Ne pas travailler sur les livrables S6 tant que l'équipe ne le demande pas.
-- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps relevés et l'affluence typique sont utilisés. Le mot retard ne désigne que le retard dû au trafic.
+- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps relevés (t8, t18) et l'affluence typique sont utilisés. Le mot retard ne désigne que le retard dû au trafic.
 - Pas de prix de tickets dans la base de connaissance (hors périmètre).
 
 ## Recherche Dify (base de connaissance)
