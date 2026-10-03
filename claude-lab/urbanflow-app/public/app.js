@@ -36,6 +36,29 @@ function el(tag, props, ...kids){
 const hhmm = d => d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
 const lienAgent = q => '/agent?q=' + encodeURIComponent(q);
 
+// ---------- Pastilles de ligne ----------
+const CAT_NOM = {urbain:'Ligne urbaine', banlieue:'Ligne de banlieue', taf:'Express TAF TAF', ter:'Rabattement TER', autre:'Ligne'};
+function catCle(cat){
+  const c = String(cat || '').toLowerCase();
+  return c.startsWith('urbain') ? 'urbain' : c.startsWith('banlieue') ? 'banlieue' : c.startsWith('taf') ? 'taf' : c.startsWith('ter') ? 'ter' : 'autre';
+}
+// "Ligne" + pastille de couleur ; la categorie est aussi donnee en texte (title), pas seulement par la couleur.
+function titreLigne(l){
+  const k = catCle(l.cat);
+  const t = el('span', {className:'tl'});
+  if(/^\d/.test(l.n)) t.append('Ligne');
+  t.append(el('span', {className:'bl bl-' + k, title:CAT_NOM[k], textContent:l.n}));
+  return t;
+}
+
+// ---------- Theme clair / sombre ----------
+function appliquerTheme(t){ if(t) document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme'); }
+try { appliquerTheme(localStorage.getItem('uf-theme')); } catch(e) {}
+function themeActuel(){
+  return document.documentElement.getAttribute('data-theme')
+    || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+}
+
 // ---------- Menu ----------
 (function(){
   const PAGES = [['/', 'Trajet'], ['/agent', 'Agent IA'], ['/lignes', 'Lignes'], ['/a-propos', 'À propos']];
@@ -46,8 +69,24 @@ const lienAgent = q => '/agent?q=' + encodeURIComponent(q);
     if(href === chemin) a.setAttribute('aria-current', 'page');
     nav.append(a);
   });
+  const bt = el('button', {type:'button', className:'theme-btn', textContent:themeActuel() === 'light' ? 'Thème sombre' : 'Thème clair'});
+  bt.setAttribute('aria-label', 'Basculer entre le thème clair et le thème sombre');
+  bt.addEventListener('click', () => {
+    const suivant = themeActuel() === 'light' ? 'dark' : 'light';
+    appliquerTheme(suivant);
+    try { localStorage.setItem('uf-theme', suivant); } catch(e) {}
+    bt.textContent = suivant === 'light' ? 'Thème sombre' : 'Thème clair';
+  });
+  nav.append(bt);
   const h = document.getElementById('menu');
   if(h) h.replaceWith(nav);
+
+  // Pied de page commun : source officielle et contact de DDD (projet independant).
+  document.body.append(el('footer', {className:'pied'},
+    el('p', {textContent:"UrbanFlow est un projet étudiant indépendant (GET409, UMEF Swiss University, Dakar), non affilié à Dakar Dem Dikk."}),
+    el('p', {}, 'Informations officielles : ',
+      el('a', {href:'https://demdikk.sn/info-voyageurs', target:'_blank', rel:'noopener', textContent:'demdikk.sn, Info voyageurs'}),
+      ' · Contact DDD : +221 33 824 10 10 (interurbain), +221 78 184 58 23 (Express AIBD).')));
 })();
 
 // ---------- Agent ----------
