@@ -21,7 +21,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 ## Services externes
 - **Dify** : workflow UrbanFlow (RAG sur la base des lignes, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus, prévoir Gemini Flash-Lite avec une clé AI Studio personnelle).
 - **TomTom** : géocodage (Sénégal) et itinéraire avec trafic, offre gratuite sans carte bancaire. Clé côté serveur uniquement.
-- Variables : `DIFY_API_KEY`, `DIFY_API_URL`, `TOMTOM_API_KEY`, `DEMO_MODE` (1 = réponses d'exemple lignes 8 et 18, sans Dify). Voir `.env.example`.
+- Variables : `DIFY_API_KEY`, `DIFY_API_URL`, `TOMTOM_API_KEY`. Voir `.env.example`. Le mode démo (`DEMO_MODE`) a été retiré : aucune réponse d'exemple ni temps fictif.
 
 ## Limites connues
 - Aucune donnée en temps réel n'existe pour les bus DDD (rien n'est publié). Le temps affiché dans l'app est celui d'une voiture avec le trafic actuel, et l'interface le dit.
@@ -52,7 +52,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Toute évolution du workflow Dify est d'abord testée sur une copie du YAML avant application dans l'éditeur Dify.
 - Après chaque modification nécessaire : pousser sur GitHub (code, docs, CLAUDE.md) et mettre à jour Dify (bases de connaissance, workflow) si la modification le concerne. Ne pas attendre une demande.
 - Les questions des utilisateurs peuvent être courtes ou mal écrites ("8", "l8 matin", "Ouakam Plateau") : ne jamais exiger de phrase complète.
-- Tester en local avec `DEMO_MODE=1` avant de brancher les vraies clés.
+- Tester en local avec `npm start` et de vraies clés dans `.env` (pas de mode démo). Ménager le quota Dify : le guide réseau et TomTom répondent sans Dify.
 
 ## Interdits
 - Ne jamais inventer de témoignage usager, de partenariat ou de statistique DDD non sourcée.

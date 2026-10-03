@@ -21,7 +21,7 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Ajout d'un serveur Express (clés Dify et TomTom côté serveur) et d'une version Cloudflare Worker partageant `lib/core.mjs`.
 - `index.html` déplacé dans `public/` : seul ce dossier est servi (avant, `.env` était accessible par le navigateur).
 - Trajet A vers B : géolocalisation du navigateur, carte Leaflet/OpenStreetMap, TomTom (gratuit) pour le temps voiture avec trafic. Pas de données bus en temps réel (DDD n'en publie pas).
-- Agent Dify : champ optionnel `donnees_trafic`, délai 30 s, `DEMO_MODE` pour les lignes 8 et 18.
+- Agent Dify : champ optionnel `donnees_trafic`, délai 30 s, `DEMO_MODE` pour les lignes 8 et 18 (retiré ensuite : aucune donnée d'exemple dans l'application).
 
 ## Phase 3 (2026-10-02 et 2026-10-03)
 - Interface en 5 pages au lieu d'une seule : Trajet, Agent IA, Lignes, Relevés terrain, À propos (sans framework ni build : fichiers HTML dans `public/`, `app.js` et `style.css` partagés, menu injecté par `app.js`). Raison : le parcours principal (trajet) reste direct sur `/`, les autres usages ont leur URL partageable.

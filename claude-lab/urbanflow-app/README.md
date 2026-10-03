@@ -15,7 +15,6 @@ Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 1. `npm install`
 2. Copier `.env.example` en `.env` et remplir `DIFY_API_KEY` et `TOMTOM_API_KEY` (clé gratuite sur developer.tomtom.com, sans carte bancaire).
 3. `npm start` puis ouvrir http://localhost:3000 (la géolocalisation marche sur localhost et en https).
-- `DEMO_MODE=1` dans `.env` : réponses d'exemple pour les lignes 8 et 18, sans appeler Dify.
 
 ## Déployer sur Cloudflare
 1. Créer un compte gratuit sur cloudflare.com.
