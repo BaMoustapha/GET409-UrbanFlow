@@ -112,3 +112,9 @@ footer{padding-bottom:40px; color:var(--muted); font-size:13px}
   .btn{width:100%}
   .ligne-prop .btn{width:auto}
 }
+
+.trafic{display:inline-block; align-self:flex-start; font-size:13px; font-weight:600; border-radius:99px; padding:3px 12px; margin:6px 0; border:1px solid transparent}
+.trafic-fluide{background:rgba(0,166,81,.18); color:#5FD38D; border-color:#00A651}
+.trafic-dense{background:rgba(253,239,66,.15); color:#FDEF42; border-color:#FDEF42}
+.trafic-tres-dense{background:rgba(245,140,40,.18); color:#F5A04A; border-color:#F5A04A}
+.trafic-bloque{background:rgba(227,27,35,.18); color:#F08585; border-color:#E31B23}

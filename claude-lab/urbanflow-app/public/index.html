@@ -137,7 +137,11 @@
     enfants.push(el('span', {className:'gros', textContent:j.voitureMin + ' min'}));
     enfants.push(el('small', {textContent:j.distanceKm + ' km, trafic estimé par TomTom'}));
     enfants.push(el('small', {textContent:'Sans trafic : ' + j.habituelMin + ' min' + (j.retardMin > 0 ? ' · retard dû au trafic : +' + j.retardMin + ' min' : '')}));
-    if(j.congestion) enfants.push(el('small', {textContent:'Circulation : ' + j.congestion.niveau}));
+    if(j.congestion){
+      const niv = j.congestion.niveau;
+      const cls = niv === 'fluide' ? 'fluide' : niv === 'dense' ? 'dense' : niv === 'très dense' ? 'tres-dense' : 'bloque';
+      enfants.push(el('span', {className:'trafic trafic-' + cls, textContent:'Circulation : ' + niv}));
+    }
     if(Array.isArray(j.incidents)){
       if(j.incidents.length){
         enfants.push(el('small', {}, el('b', {textContent:'Incidents routiers sur le trajet :'})));
@@ -170,7 +174,7 @@
         const h = selQuand.value === "later" && iHeure.value ? " à " + hhmm(new Date(iHeure.value)) : "";
         enfants.push(el("div", {className:"ligne-prop"},
           el("div", {}, el("b", {textContent:l.nom}), el("span", {textContent:l.trajet + " · " + l.temps})),
-          el("a", {className:"btn btn-sec", href:lienAgent(l.question + h + " ?"), textContent:"Durée et affluence"})));
+          el("a", {className:"btn btn-sec", href:lienAgent(l.question + h + " ?"), textContent:"Durée et circulation"})));
       });
       enfants.push(el("small", {textContent:"Lignes dont un terminus correspond à vos lieux. Les temps affichés sont des temps voiture relevés, pas des temps en bus."}));
     }
