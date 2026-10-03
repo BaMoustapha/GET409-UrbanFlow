@@ -63,11 +63,6 @@ export function enrichirRequete(q) {
   return [...jetons, ...jetons, ...heures, ...lieux].join(' ');
 }
 
-const DEMO = {
-  '8': "FICHE TRAJET\nLigne 8 : Aéroport LSS (Yoff) vers Palais 2.\n\nTEMPS DE TRAJET\n24 à 45 minutes selon l'heure.\n\nANALYSE\nExemple de démonstration, non issu du workflow en direct.\n\nALERTES\nHeures de pointe : durée proche du haut de la fourchette.\n\nRECOMMANDATIONS\nPartez avant 7h30 ou après 9h30.",
-  '18': "FICHE TRAJET\nLigne 18 : Dieuppeul vers Centre-ville.\n\nTEMPS DE TRAJET\n18 à 35 minutes selon l'heure.\n\nANALYSE\nExemple de démonstration, non issu du workflow en direct.\n\nALERTES\nHeures de pointe : durée proche du haut de la fourchette.\n\nRECOMMANDATIONS\nPartez avant 7h30 ou après 9h30.",
-};
-
 
 // Questions de temps ("temps ligne 8", "combien de minutes ligne 7") : le calcul est fait par TomTom entre les deux terminus de la ligne.
 async function reponseTemps(env, query) {
@@ -92,12 +87,6 @@ export async function analyserTrafic(env, query, donneesTrafic) {
   donneesTrafic = String(donneesTrafic || '').trim().slice(0, 256);
   if (!query) return { status: 400, body: { error: 'Question vide.' } };
 
-  if (env.DEMO_MODE === '1') {
-    const m = query.match(/\b(8|18)\b/);
-    return m
-      ? { status: 200, body: { outputs: DEMO[m[1]], demo: true } }
-      : { status: 200, body: { outputs: "INSUFFISANT : mode démonstration, seules les lignes 8 et 18 sont disponibles.", demo: true } };
-  }
   // Questions sur le réseau (quelle ligne prendre, arrêts d'une ligne) : réponse directe depuis les données, sans IA.
   const temps = await reponseTemps(env, query);
   if (temps) return { status: 200, body: { outputs: temps, source: 'tomtom' } };
