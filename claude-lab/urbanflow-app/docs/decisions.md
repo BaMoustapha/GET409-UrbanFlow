@@ -26,7 +26,7 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 ## Phase 3 (2026-10-02 et 2026-10-03)
 - Interface en 5 pages au lieu d'une seule : Trajet, Agent IA, Lignes, Relevés terrain, À propos (sans framework ni build : fichiers HTML dans `public/`, `app.js` et `style.css` partagés, menu injecté par `app.js`). Raison : le parcours principal (trajet) reste direct sur `/`, les autres usages ont leur URL partageable.
 - Les lignes viennent de `public/lignes.json` (42 lignes, données du projet). La liste codée en dur de la Phase 1 est supprimée : elle contredisait la base maître (par exemple ligne 7 = Ouakam vers Palais 2, pas Pikine).
-- Aucun temps en bus n'est affiché par l'application : seulement des temps voiture (TomTom, ou relevés `t8`/`t18`) et la réponse de l'agent. Quand une donnée manque, l'interface le dit.
+- Aucun temps en bus n'est affiché par l'application : seulement des temps voiture calculés en direct par TomTom, et la réponse de l'agent. Les temps par ligne (`t8`, `t18`) ont été retirés de `lignes.json` et de l'interface. Quand une donnée manque, l'interface le dit.
 - Heure de départ : TomTom `departAt` (de 5 minutes à 7 jours). Les incidents routiers ne sont affichés que pour « maintenant », car ils décrivent le moment présent.
 - Le journal de trajets local est supprimé. La page Relevés terrain (relevé chronométré envoyé à l'agent, non enregistré) est retirée de l'interface pour l'instant et conservée dans `archive/releves.html`.
 - Page d'accueil : introduction courte avec la limite (pas de données bus en direct) et trois points d'entrée, sans chiffre ni témoignage.

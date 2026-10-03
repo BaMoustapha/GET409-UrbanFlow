@@ -32,4 +32,4 @@ Les clés sont envoyées comme secrets Cloudflare et ne figurent dans aucun fich
 - `dify/` : bases de connaissance de l'agent.
 
 ## Limites
-Aucune donnée en temps réel n'existe pour les bus Dakar Dem Dikk : le temps affiché est celui d'une voiture avec le trafic estimé par TomTom. Les temps par ligne de `lignes.json` sont des temps voiture relevés, jamais des temps en bus. L'abonnement Dify limite le nombre de requêtes à la base de connaissance : l'interface affiche un message clair quand la limite est atteinte.
+Aucune donnée en temps réel n'existe pour les bus Dakar Dem Dikk : le temps affiché est celui d'une voiture avec le trafic estimé par TomTom. Aucun temps de trajet n'est stocké ni affiché par ligne de bus. L'abonnement Dify limite le nombre de requêtes à la base de connaissance : l'interface affiche un message clair quand la limite est atteinte.

@@ -8,7 +8,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
   - `/` (`index.html`) : landing page classique (barre de navigation, hero avec formulaire départ et arrivée qui ouvre `/trajet?depart=...&arrivee=...` et calcule aussitôt, décor discret baobab et corniche, trois rangées « Comment ça marche » avec aperçus sans donnée réelle, nombre de lignes par catégorie calculé depuis `lignes.json`, engagements de transparence, appel à l'action, pied de page). Un seul bouton principal par écran.
   - `/trajet` (`trajet.html`) : trajet A vers B (carte Leaflet/OpenStreetMap, géolocalisation sur clic, heure de départ, temps voiture TomTom, lignes dont un terminus correspond aux lieux saisis).
   - `/agent` : questions à l'agent Dify, fiche en sections, suggestions. Accepte `?q=` pour une question préremplie.
-  - `/lignes` : les lignes de `lignes.json` par catégorie (la catégorie « Rabattement TER » est masquée de tout le site par `chargerLignes()` dans `public/app.js`), avec temps voiture 8h et 18h quand ils sont relevés.
+  - `/lignes` : les lignes de `lignes.json` par catégorie (la catégorie « Rabattement TER » est masquée de tout le site par `chargerLignes()` dans `public/app.js`), sans aucun temps de trajet par ligne.
   - `/a-propos` : sources, limites, confidentialité.
 - `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom avec `departAt` pour une heure future, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
 - `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
@@ -25,7 +25,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 
 ## Limites connues
 - Aucune donnée en temps réel n'existe pour les bus DDD (rien n'est publié). Le temps affiché dans l'app est celui d'une voiture avec le trafic actuel, et l'interface le dit.
-- Les temps par ligne (`t8`, `t18` dans `public/lignes.json`) sont des temps voiture relevés, jamais des temps en bus. Quand ils manquent, l'interface affiche « Temps non relevé ».
+- Aucun temps de trajet par ligne n'est stocké ni affiché (`public/lignes.json` ne contient plus `t8` ni `t18`). Le temps en bus n'est pas publié : le temps affiché est celui d'une voiture, calculé en direct par TomTom.
 - Quota Dify : l'abonnement limite les requêtes à la base de connaissance (erreur « rate limit »). `core.mjs` renvoie alors un 429 avec un message clair. Éviter de multiplier les tests de l'agent.
 - Le journal de trajets local et la page `/releves` (relevé chronométré envoyé à l'agent via `donnees_trafic`) sont retirés de l'interface pour l'instant. La page est conservée dans `archive/releves.html` : la remettre dans `public/` et dans le menu de `public/app.js` pour la réactiver.
 
@@ -58,7 +58,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Ne jamais inventer de témoignage usager, de partenariat ou de statistique DDD non sourcée.
 - Ne jamais coder en dur une clé API (Dify, TomTom, Gemini, etc.) ni la coller dans le chat : toujours via `.env` ou secrets Cloudflare. Une clé exposée doit être régénérée.
 - Ne pas travailler sur les livrables S6 tant que l'équipe ne le demande pas.
-- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps relevés (t8, t18) et les heures de pointe habituelles du réseau sont utilisés. Pas d'affluence : aucune donnée sur le remplissage des bus. Le mot retard ne désigne que le retard dû au trafic.
+- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps calculés en direct par TomTom et les heures de pointe habituelles du réseau sont utilisés. Pas d'affluence : aucune donnée sur le remplissage des bus. Le mot retard ne désigne que le retard dû au trafic.
 - Pas de prix de tickets dans la base de connaissance (hors périmètre).
 
 ## Recherche Dify (base de connaissance)

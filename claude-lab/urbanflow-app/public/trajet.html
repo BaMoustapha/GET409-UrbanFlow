@@ -167,10 +167,10 @@
       trouvees.forEach(l => {
         const h = selQuand.value === "later" && iHeure.value ? " à " + hhmm(new Date(iHeure.value)) : "";
         enfants.push(el("div", {className:"ligne-prop"},
-          el("div", {}, titreLigne(l), el("span", {textContent:l.trajet + " · " + l.temps})),
+          el("div", {}, titreLigne(l), el("span", {textContent:l.trajet})),
           el("a", {className:"btn btn-sec", href:lienAgent(l.question + h + " ?"), textContent:"Durée et circulation"})));
       });
-      enfants.push(el("small", {textContent:"Lignes dont un terminus correspond à vos lieux. Les temps affichés sont des temps voiture relevés, pas des temps en bus."}));
+      enfants.push(el("small", {textContent:"Lignes dont un terminus correspond à vos lieux. Aucun temps en bus n'est affiché : il n'est pas publié."}));
     }
     resLignes.replaceChildren(...enfants);
   }
