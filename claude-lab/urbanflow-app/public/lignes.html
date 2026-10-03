@@ -12,15 +12,17 @@
 </head>
 <body>
 <div class="band"></div>
-<header>
-  <a class="marque" href="/">UrbanFlow</a>
-  <div id="menu"></div>
-  <p class="intro">Les lignes du réseau Dakar Dem Dikk suivies par UrbanFlow.</p>
+<header class="navbar">
+  <div class="nav-in">
+    <a class="marque" href="/">UrbanFlow</a>
+    <div id="menu"></div>
+  </div>
 </header>
 
 <main>
+  <p class="intro" style="margin:0">Les lignes du réseau Dakar Dem Dikk suivies par UrbanFlow.</p>
   <section aria-labelledby="t-lignes">
-    <h2 id="t-lignes">Lignes du réseau</h2>
+    <h1 id="t-lignes" class="titre-page">Lignes du réseau</h1>
     <p class="note" style="margin:0 0 12px">Touchez une ligne pour interroger l'agent. Les temps affichés sont des temps voiture relevés à 8h et à 18h, pas des temps en bus. Quand aucun temps n'a été relevé, c'est indiqué.</p>
     <div id="groupes" aria-live="polite"><p class="vide">Chargement des lignes...</p></div>
   </section>

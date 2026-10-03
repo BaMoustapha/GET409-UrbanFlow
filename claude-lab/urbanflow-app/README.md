@@ -5,7 +5,8 @@ App locale et Cloudflare : trajet A vers B avec trafic (TomTom), carte et géolo
 Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 
 ## Pages
-- `/` : trajet A vers B (carte, temps voiture, heure de départ, circulation, incidents, lignes dont un terminus correspond).
+- `/` : page d'accueil (présentation, étapes, réseau, engagements).
+- `/trajet` : trajet A vers B (carte, temps voiture, heure de départ, circulation, incidents, lignes dont un terminus correspond).
 - `/agent` : questions à l'agent.
 - `/lignes` : les lignes du réseau (`public/lignes.json`).
 - `/a-propos` : sources, limites, confidentialité.
@@ -24,7 +25,7 @@ Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 Les clés sont envoyées comme secrets Cloudflare et ne figurent dans aucun fichier du dépôt.
 
 ## Structure
-- `public/` : interface (`index.html`, `agent.html`, `lignes.html`, `a-propos.html`, `app.js`, `style.css`, `lignes.json`).
+- `public/` : interface (`index.html`, `trajet.html`, `agent.html`, `lignes.html`, `a-propos.html`, `app.js`, `style.css`, `lignes.json`).
 - `lib/core.mjs` : logique serveur partagée (Dify, TomTom, cache 5 min). `lib/guide.mjs` et `lib/reseau.mjs` : réponses directes du guide réseau.
 - `server.js` : serveur Express local. `worker.js` + `wrangler.toml` : version Cloudflare.
 - `archive/` : pages retirées pour l'instant (relevés terrain).

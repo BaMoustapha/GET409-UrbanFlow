@@ -5,7 +5,8 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 
 ## Architecture de l'app (ce dossier)
 - `public/` : interface en 5 pages avec menu commun (`app.js`, `style.css`, `lignes.json`) :
-  - `/` (`index.html`) : trajet A vers B (carte Leaflet/OpenStreetMap, géolocalisation sur clic, heure de départ, temps voiture TomTom, lignes dont un terminus correspond aux lieux saisis).
+  - `/` (`index.html`) : landing page classique (barre de navigation, hero, étapes, fonctionnalités, nombre de lignes par catégorie calculé depuis `lignes.json`, engagements de transparence, appel à l'action, pied de page).
+  - `/trajet` (`trajet.html`) : trajet A vers B (carte Leaflet/OpenStreetMap, géolocalisation sur clic, heure de départ, temps voiture TomTom, lignes dont un terminus correspond aux lieux saisis).
   - `/agent` : questions à l'agent Dify, fiche en sections, suggestions. Accepte `?q=` pour une question préremplie.
   - `/lignes` : les 42 lignes de `lignes.json` par catégorie, avec temps voiture 8h et 18h quand ils sont relevés.
   - `/a-propos` : sources, limites, confidentialité.

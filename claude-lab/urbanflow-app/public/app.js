@@ -59,34 +59,52 @@ function themeActuel(){
     || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 }
 
-// ---------- Menu ----------
+// ---------- Barre de navigation et pied de page ----------
+const PAGES = [['/', 'Accueil'], ['/trajet', 'Trajet'], ['/agent', 'Agent IA'], ['/lignes', 'Lignes'], ['/a-propos', 'À propos']];
 (function(){
-  const PAGES = [['/', 'Trajet'], ['/agent', 'Agent IA'], ['/lignes', 'Lignes'], ['/a-propos', 'À propos']];
   const chemin = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1');
-  const nav = el('nav', {'aria-label':'Navigation principale'});
+
+  const liens = el('nav', {id:'menu-liens', className:'nav-liens', 'aria-label':'Navigation principale'});
   PAGES.forEach(([href, nom]) => {
     const a = el('a', {href, textContent:nom});
     if(href === chemin) a.setAttribute('aria-current', 'page');
-    nav.append(a);
+    liens.append(a);
   });
-  const bt = el('button', {type:'button', className:'theme-btn', textContent:themeActuel() === 'light' ? 'Thème sombre' : 'Thème clair'});
-  bt.setAttribute('aria-label', 'Basculer entre le thème clair et le thème sombre');
-  bt.addEventListener('click', () => {
+
+  const theme = el('button', {type:'button', className:'theme-btn', textContent:themeActuel() === 'light' ? 'Thème sombre' : 'Thème clair'});
+  theme.setAttribute('aria-label', 'Basculer entre le thème clair et le thème sombre');
+  theme.addEventListener('click', () => {
     const suivant = themeActuel() === 'light' ? 'dark' : 'light';
     appliquerTheme(suivant);
     try { localStorage.setItem('uf-theme', suivant); } catch(e) {}
-    bt.textContent = suivant === 'light' ? 'Thème sombre' : 'Thème clair';
+    theme.textContent = suivant === 'light' ? 'Thème sombre' : 'Thème clair';
   });
-  nav.append(bt);
-  const h = document.getElementById('menu');
-  if(h) h.replaceWith(nav);
 
-  // Pied de page commun : source officielle et contact de DDD (projet independant).
+  const cta = el('a', {className:'btn btn-main nav-cta', href:'/trajet', textContent:'Calculer mon trajet'});
+  const toggle = el('button', {type:'button', className:'nav-toggle', textContent:'Menu'});
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', 'menu-liens');
+  toggle.addEventListener('click', () => {
+    const ouvert = liens.classList.toggle('ouvert');
+    toggle.setAttribute('aria-expanded', String(ouvert));
+    toggle.textContent = ouvert ? 'Fermer' : 'Menu';
+  });
+
+  const droite = el('div', {className:'nav-droite'}, toggle, liens, el('div', {className:'nav-actions'}, theme, cta));
+  const h = document.getElementById('menu');
+  if(h) h.replaceWith(droite);
+
+  // Pied de page en colonnes : projet independant, source officielle et contact de DDD.
+  const col = (titre, ...contenu) => el('div', {className:'pied-col'}, el('h2', {textContent:titre}), ...contenu);
+  const lien = (href, texte, externe) => { const a = el('a', {href, textContent:texte}); if(externe){ a.target = '_blank'; a.rel = 'noopener'; } return a; };
   document.body.append(el('footer', {className:'pied'},
-    el('p', {textContent:"UrbanFlow est un projet étudiant indépendant (GET409, UMEF Swiss University, Dakar), non affilié à Dakar Dem Dikk."}),
-    el('p', {}, 'Informations officielles : ',
-      el('a', {href:'https://demdikk.sn/info-voyageurs', target:'_blank', rel:'noopener', textContent:'demdikk.sn, Info voyageurs'}),
-      ' · Contact DDD : +221 33 824 10 10 (interurbain), +221 78 184 58 23 (Express AIBD).')));
+    el('div', {className:'pied-in'},
+      col('UrbanFlow', el('p', {textContent:"Estimez la durée réelle de votre trajet à Dakar et trouvez les lignes Dakar Dem Dikk qui vous concernent."})),
+      col('Navigation', ...PAGES.map(([href, nom]) => lien(href, nom))),
+      col('Source officielle', lien('https://demdikk.sn/', 'demdikk.sn', true), lien('https://demdikk.sn/info-voyageurs', 'Info voyageurs de DDD', true)),
+      col('Contact DDD', el('p', {textContent:'Interurbain : +221 33 824 10 10'}), el('p', {textContent:'Express AIBD : +221 78 184 58 23'}))),
+    el('div', {className:'pied-bas'},
+      el('p', {textContent:"UrbanFlow est un projet étudiant indépendant (GET409, UMEF Swiss University, Dakar), non affilié à Dakar Dem Dikk. Aucune donnée de bus en temps réel n'existe : les temps affichés sont des temps voiture."}))));
 })();
 
 // ---------- Agent ----------

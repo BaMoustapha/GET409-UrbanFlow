@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UrbanFlow — Votre trajet à Dakar</title>
+<meta name="description" content="Estimez la durée réelle de votre trajet à Dakar avec le trafic, et trouvez les lignes Dakar Dem Dikk qui vous concernent.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2300A651'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%2304201C' font-family='Georgia' font-weight='bold'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,208 +13,134 @@
 </head>
 <body>
 <div class="band"></div>
-<header>
-  <a class="marque" href="/">UrbanFlow</a>
-  <div id="menu"></div>
-  <div class="hero">
-    <h1>Combien de temps durera vraiment votre trajet à&nbsp;Dakar&nbsp;?</h1>
-    <p>UrbanFlow estime votre trajet en voiture avec le trafic réel, vous montre les lignes Dakar Dem Dikk qui desservent vos lieux, et répond à vos questions sur les lignes.</p>
-    <p class="note">Limite à connaître : aucune donnée en temps réel n'existe pour les bus. Le temps affiché est celui d'une voiture, comptez en général plus en bus.</p>
+<header class="navbar">
+  <div class="nav-in">
+    <a class="marque" href="/">UrbanFlow</a>
+    <div id="menu"></div>
   </div>
 </header>
 
 <main>
-  <section aria-labelledby="t-recherche">
-    <h2 id="t-recherche">Où allez-vous ?</h2>
-    <form class="carte-form" id="form-trajet">
-      <div class="grille-rech">
-        <div class="champ-dep">
-          <div>
-            <label for="t-depart">Départ</label>
-            <input id="t-depart" type="text" placeholder="Un lieu à Dakar, ou votre position" autocomplete="off">
-          </div>
-          <button type="button" class="btn btn-sec" id="btn-loc">Me localiser</button>
-        </div>
-        <div>
-          <label for="t-arrivee">Arrivée</label>
-          <input id="t-arrivee" type="text" placeholder="Un lieu à Dakar, ou un clic sur la carte" required autocomplete="off">
-        </div>
+  <!-- Hero -->
+  <section class="land-hero" aria-labelledby="t-hero">
+    <div>
+      <span class="eyebrow">Dakar · Dakar Dem Dikk</span>
+      <h1 id="t-hero">Combien de temps durera vraiment votre trajet&nbsp;?</h1>
+      <p>UrbanFlow estime votre trajet en voiture avec le trafic réel, vous montre les lignes Dakar Dem Dikk qui desservent vos lieux, et répond à vos questions sur les lignes.</p>
+      <div class="actions">
+        <a class="btn btn-main" href="/trajet">Calculer mon trajet</a>
+        <a class="btn btn-sec" href="/lignes">Voir les lignes</a>
       </div>
-      <div class="ligne-heure">
-        <div>
-          <label for="t-quand">Partir</label>
-          <select id="t-quand">
-            <option value="now">Maintenant</option>
-            <option value="later">À une autre heure</option>
-          </select>
-        </div>
-        <div id="bloc-heure" hidden>
-          <label for="t-heure">Date et heure de départ</label>
-          <input id="t-heure" type="datetime-local">
-        </div>
-        <button type="submit" class="btn btn-main" id="btn-trajet">Calculer mon trajet</button>
-      </div>
-      <p class="note" id="note-loc" aria-live="polite">La localisation n'est demandée que si vous cliquez sur « Me localiser ».</p>
-    </form>
-    <div id="carte" role="application" aria-label="Carte du trajet. Cliquez pour choisir l'arrivée."></div>
-  </section>
-
-  <section id="sect-res" aria-labelledby="t-res" hidden>
-    <h2 id="t-res">Votre trajet</h2>
-    <div class="resultats" id="resultats" aria-live="polite">
-      <div class="carte-res" id="res-voiture"></div>
-      <div class="carte-res" id="res-lignes"></div>
+      <p class="note">Limite à connaître : aucune donnée en temps réel n'existe pour les bus. Le temps affiché est celui d'une voiture, comptez en général plus en bus.</p>
     </div>
-    <p class="note">Le temps affiché est celui d'une voiture avec le trafic estimé par TomTom. Aucune donnée en temps réel n'existe pour les bus Dakar Dem Dikk : comptez en général plus que ce temps.</p>
+    <div class="hero-visu" aria-hidden="true">
+      <svg viewBox="0 0 480 340" role="presentation" focusable="false">
+        <rect x="0" y="0" width="480" height="340" rx="12" style="fill:var(--bg3)"/>
+        <g style="stroke:var(--line-strong)" stroke-width="1" opacity=".55">
+          <path d="M0 70H480M0 140H480M0 210H480M0 280H480M80 0V340M160 0V340M240 0V340M320 0V340M400 0V340"/>
+        </g>
+        <path d="M40 270 C 120 270, 120 190, 200 190 S 290 120, 360 100 S 420 70, 440 60" fill="none" style="stroke:var(--accent)" stroke-width="8" stroke-linecap="round"/>
+        <path d="M40 270 C 120 270, 120 190, 200 190 S 290 120, 360 100 S 420 70, 440 60" fill="none" stroke="#FDEF42" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 12"/>
+        <g>
+          <circle cx="40" cy="270" r="14" style="fill:var(--bg2);stroke:var(--accent)" stroke-width="5"/>
+          <circle cx="440" cy="60" r="14" fill="#E31B23"/>
+          <circle cx="440" cy="60" r="5" fill="#FFFFFF"/>
+        </g>
+        <g transform="translate(150 96)">
+          <rect width="120" height="56" rx="12" fill="#00A651"/>
+          <rect x="10" y="10" width="22" height="18" rx="3" fill="#EAF0E7"/>
+          <rect x="38" y="10" width="22" height="18" rx="3" fill="#EAF0E7"/>
+          <rect x="66" y="10" width="22" height="18" rx="3" fill="#EAF0E7"/>
+          <rect x="94" y="10" width="16" height="30" rx="3" fill="#EAF0E7"/>
+          <rect x="0" y="36" width="120" height="6" fill="#FDEF42"/>
+          <circle cx="30" cy="58" r="9" fill="#14201A"/>
+          <circle cx="90" cy="58" r="9" fill="#14201A"/>
+        </g>
+      </svg>
+    </div>
   </section>
 
+  <!-- Comment ca marche -->
+  <section aria-labelledby="t-comment">
+    <h2 class="sect-titre" id="t-comment">Comment ça marche</h2>
+    <p class="sect-sous">Trois étapes, sans compte ni inscription.</p>
+    <div class="etapes-land">
+      <div class="etape">
+        <h3>Indiquez votre trajet</h3>
+        <p>Saisissez un départ et une arrivée à Dakar, ou touchez la carte. Choisissez de partir maintenant ou à une autre heure.</p>
+      </div>
+      <div class="etape">
+        <h3>Voyez le temps et les lignes</h3>
+        <p>UrbanFlow affiche le temps en voiture avec le trafic estimé par TomTom, la circulation, les incidents routiers et les lignes DDD concernées.</p>
+      </div>
+      <div class="etape">
+        <h3>Posez vos questions</h3>
+        <p>L'agent IA répond sur une ligne ou une heure précise à partir des données disponibles, et dit clairement quand elles manquent.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fonctionnalites -->
   <section aria-labelledby="t-faire">
-    <h2 id="t-faire">Ce que vous pouvez faire</h2>
+    <h2 class="sect-titre" id="t-faire">Ce que vous pouvez faire</h2>
+    <p class="sect-sous">Trois outils pour préparer vos déplacements.</p>
     <div class="points">
-      <a class="point" href="/#t-recherche"><b>Estimer un trajet</b><span>Temps en voiture avec le trafic du moment ou à une heure choisie, circulation et incidents routiers.</span></a>
+      <a class="point" href="/trajet"><b>Estimer un trajet</b><span>Temps en voiture avec le trafic du moment ou à une heure choisie, circulation et incidents routiers.</span></a>
       <a class="point" href="/lignes"><b>Consulter les lignes</b><span>Les lignes du réseau Dakar Dem Dikk, leurs terminus et les temps voiture relevés quand ils existent.</span></a>
       <a class="point" href="/agent"><b>Interroger l'agent IA</b><span>Une question sur une ligne ou une heure précise : l'agent répond à partir des données disponibles, ou dit qu'elles manquent.</span></a>
     </div>
   </section>
+
+  <!-- Le reseau (chiffres calcules depuis lignes.json) -->
+  <section aria-labelledby="t-reseau">
+    <h2 class="sect-titre" id="t-reseau">Le réseau suivi par UrbanFlow</h2>
+    <p class="sect-sous">Nombre de lignes dans notre base de données, par catégorie.</p>
+    <div class="stats" id="stats" aria-live="polite">
+      <div class="stat"><span class="nb">…</span><span class="lib">Chargement</span></div>
+    </div>
+    <p class="note"><a href="/lignes">Voir toutes les lignes</a></p>
+  </section>
+
+  <!-- Transparence -->
+  <section aria-labelledby="t-garanties">
+    <h2 class="sect-titre" id="t-garanties">Nos engagements de transparence</h2>
+    <p class="sect-sous">Un outil utile est un outil honnête sur ce qu'il sait et ne sait pas.</p>
+    <div class="garanties">
+      <div class="garantie">
+        <h3>Pas de bus en direct</h3>
+        <p>Dakar Dem Dikk ne publie aucune donnée de suivi : UrbanFlow n'affiche ni position ni retard de bus.</p>
+      </div>
+      <div class="garantie">
+        <h3>Des sources nommées</h3>
+        <p>Temps voiture : TomTom. Lignes et terminus : données du projet. Informations officielles : demdikk.sn.</p>
+      </div>
+      <div class="garantie">
+        <h3>Pas d'invention</h3>
+        <p>Quand une donnée manque, l'agent répond « insuffisant » plutôt que d'inventer un chiffre.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appel a l'action -->
+  <section class="cta-band" aria-labelledby="t-cta">
+    <div>
+      <h2 id="t-cta">Prêt à partir&nbsp;?</h2>
+      <p>Calculez le temps de votre prochain trajet en quelques secondes.</p>
+    </div>
+    <a class="btn" href="/trajet">Calculer mon trajet</a>
+  </section>
 </main>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <script src="/app.js"></script>
 <script>
-(function(){
-  const DAKAR = [14.7167, -17.4677];
-  const map = L.map('carte').setView(DAKAR, 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
-  let depart = null, arrivee = null, mDep = null, mArr = null, trace = null;
-
-  const iDep = document.getElementById('t-depart');
-  const iArr = document.getElementById('t-arrivee');
-  const noteLoc = document.getElementById('note-loc');
-  const selQuand = document.getElementById('t-quand');
-  const blocHeure = document.getElementById('bloc-heure');
-  const iHeure = document.getElementById('t-heure');
-  const sect = document.getElementById('sect-res');
-  const resVoit = document.getElementById('res-voiture');
-  const resLignes = document.getElementById('res-lignes');
-
-  function marque(p, ancien, titre){
-    if(ancien) map.removeLayer(ancien);
-    return L.marker([p.lat, p.lng]).addTo(map).bindPopup(titre);
-  }
-  function setDepart(p){ depart = p; mDep = marque(p, mDep, 'Départ'); iDep.value = 'Ma position'; }
-
-  function localiser(){
-    if(!navigator.geolocation){ noteLoc.textContent = 'Géolocalisation indisponible : saisissez un lieu de départ.'; return; }
-    noteLoc.textContent = 'Localisation en cours...';
-    navigator.geolocation.getCurrentPosition(
-      pos => { setDepart({lat:pos.coords.latitude, lng:pos.coords.longitude}); map.setView([pos.coords.latitude, pos.coords.longitude], 14); noteLoc.textContent = 'Position trouvée.'; },
-      () => { noteLoc.textContent = 'Position refusée ou indisponible : saisissez un lieu de départ.'; },
-      {enableHighAccuracy:true, timeout:10000}
-    );
-  }
-  document.getElementById('btn-loc').addEventListener('click', localiser);
-
-  iDep.addEventListener('input', () => { depart = null; });
-  iArr.addEventListener('input', () => { arrivee = null; });
-  map.on('click', e => {
-    arrivee = {lat:e.latlng.lat, lng:e.latlng.lng};
-    mArr = marque(arrivee, mArr, 'Arrivée');
-    iArr.value = 'Point choisi sur la carte';
-  });
-
-  selQuand.addEventListener('change', () => {
-    blocHeure.hidden = selQuand.value !== 'later';
-    if(!blocHeure.hidden && !iHeure.value){
-      const d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0);
-      const p = n => String(n).padStart(2, '0');
-      iHeure.min = new Date(Date.now() + 6*60e3).toISOString().slice(0, 16);
-      iHeure.value = d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':00';
-    }
-  });
-
-  function carteVoiture(j, heureDemandee){
-    const enfants = [el('h3', {textContent:'En voiture'})];
-    enfants.push(el('span', {className:'gros', textContent:j.voitureMin + ' min'}));
-    enfants.push(el('small', {textContent:j.distanceKm + ' km, trafic estimé par TomTom'}));
-    enfants.push(el('small', {textContent:'Sans trafic : ' + j.habituelMin + ' min' + (j.retardMin > 0 ? ' · retard dû au trafic : +' + j.retardMin + ' min' : '')}));
-    if(j.congestion){
-      const niv = j.congestion.niveau;
-      const cls = niv === 'fluide' ? 'fluide' : niv === 'dense' ? 'dense' : niv === 'très dense' ? 'tres-dense' : 'bloque';
-      enfants.push(el('span', {className:'trafic trafic-' + cls, textContent:'Circulation : ' + niv}));
-    }
-    if(Array.isArray(j.incidents)){
-      if(j.incidents.length){
-        enfants.push(el('small', {}, el('b', {textContent:'Incidents routiers sur le trajet :'})));
-        j.incidents.forEach(i => enfants.push(el('small', {textContent:'· ' + i.type
-          + (i.description ? ' : ' + i.description : '')
-          + (i.de ? ' (' + i.de + (i.vers ? ' vers ' + i.vers : '') + ')' : '')
-          + (i.retardMin ? ', +' + i.retardMin + ' min' : '')})));
-      } else enfants.push(el('small', {textContent:'Aucun incident routier signalé sur le trajet'}));
-    }
-    if(j.previsionPour) enfants.push(el('span', {className:'badge', textContent:'Prévision pour ' + new Date(j.previsionPour).toLocaleString('fr-FR', {weekday:'short', hour:'2-digit', minute:'2-digit'})}));
-    else enfants.push(el('span', {className:'badge', textContent:'Trafic actuel, calculé à ' + hhmm(new Date(j.calculeA))}));
-    if(heureDemandee && !j.previsionPour) enfants.push(el('small', {textContent:"L'heure choisie est hors plage (5 minutes à 7 jours) : calcul pour maintenant."}));
-    resVoit.replaceChildren(...enfants);
-  }
-
-  async function carteLignes(dTxt, aTxt){
-    const enfants = [el("h3", {textContent:"Lignes DDD possibles"})];
-    let liste;
-    try { liste = await chargerLignes(); } catch(e) {
-      resLignes.replaceChildren(...enfants, el("p", {className:"vide", textContent:"Liste des lignes indisponible."})); return;
-    }
-    // Une ligne est proposee si un de ses terminus correspond au lieu de depart ou d'arrivee saisi ; celles qui correspondent aux deux d'abord.
-    const sur = (l, txt) => contient(txt, l.depart) || (l.arrivee && contient(txt, l.arrivee));
-    const trouvees = liste.map(l => ({l, nb:(sur(l, dTxt) ? 1 : 0) + (sur(l, aTxt) ? 1 : 0)}))
-      .filter(x => x.nb > 0).sort((x, y) => y.nb - x.nb).slice(0, 4).map(x => x.l);
-    if(!trouvees.length){
-      enfants.push(el("p", {className:"vide"}, "Aucune ligne du réseau n'a un terminus correspondant à ces lieux. Consultez la ", el("a", {href:"/lignes", textContent:"liste des lignes"}), " ou interrogez l'agent."));
-    } else {
-      trouvees.forEach(l => {
-        const h = selQuand.value === "later" && iHeure.value ? " à " + hhmm(new Date(iHeure.value)) : "";
-        enfants.push(el("div", {className:"ligne-prop"},
-          el("div", {}, titreLigne(l), el("span", {textContent:l.trajet + " · " + l.temps})),
-          el("a", {className:"btn btn-sec", href:lienAgent(l.question + h + " ?"), textContent:"Durée et circulation"})));
-      });
-      enfants.push(el("small", {textContent:"Lignes dont un terminus correspond à vos lieux. Les temps affichés sont des temps voiture relevés, pas des temps en bus."}));
-    }
-    resLignes.replaceChildren(...enfants);
-  }
-
-  document.getElementById('form-trajet').addEventListener('submit', async ev => {
-    ev.preventDefault();
-    const btn = document.getElementById('btn-trajet');
-    const d = depart || iDep.value.trim();
-    const a = arrivee || iArr.value.trim();
-    sect.hidden = false;
-    if(!d){ resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', textContent:'Indiquez un départ ou cliquez sur « Me localiser ».'})); resLignes.replaceChildren(); return; }
-    const heureDemandee = selQuand.value === 'later' && iHeure.value ? new Date(iHeure.value).toISOString() : null;
-    btn.disabled = true; btn.textContent = 'Calcul en cours...';
-    resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', textContent:'Calcul du trajet...'}));
-    carteLignes(typeof d === 'string' ? d : '', typeof a === 'string' ? a : '');
-    try{
-      const r = await fetch('/api/trajet', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({depart:d, arrivee:a, departAt:heureDemandee})});
-      const j = await r.json();
-      const msg = {
-        no_key: "Service de trajet non configuré (clé TomTom manquante).",
-        not_found: "Adresse introuvable. Précisez le lieu ou cliquez sur la carte.",
-      }[j.statut];
-      if(j.statut !== 'ok'){
-        resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', role:'alert', textContent: msg || 'Calcul indisponible pour le moment, réessayez.'}));
-      } else {
-        mDep = marque(j.depart, mDep, 'Départ'); mArr = marque(j.arrivee, mArr, 'Arrivée');
-        if(trace) map.removeLayer(trace);
-        trace = L.polyline(j.trace, {color:'#00A651', weight:5}).addTo(map);
-        map.fitBounds(trace.getBounds(), {padding:[30,30]});
-        carteVoiture(j, heureDemandee);
-        // Les lignes se cherchent aussi sur l'adresse trouvee par TomTom.
-        carteLignes((typeof d === 'string' ? d : '') + ' ' + (j.depart.label || ''), (typeof a === 'string' ? a : '') + ' ' + (j.arrivee.label || ''));
-      }
-    } catch(e){
-      resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', role:'alert', textContent:'Calcul indisponible pour le moment, réessayez.'}));
-    } finally { btn.disabled = false; btn.textContent = 'Calculer mon trajet'; }
-  });
-})();
+chargerLignes().then(liste => {
+  const zone = document.getElementById('stats');
+  const groupes = [['urbain', 'Lignes urbaines'], ['banlieue', 'Lignes de banlieue'], ['taf', 'Express TAF TAF'], ['ter', 'Rabattement TER']];
+  zone.replaceChildren(...groupes.map(([cle, nom]) => {
+    const n = liste.filter(l => catCle(l.cat) === cle).length;
+    return el('div', {className:'stat'}, el('span', {className:'nb', textContent:String(n)}), el('span', {className:'lib', textContent:nom}));
+  }));
+}).catch(() => { document.getElementById('stats').replaceChildren(el('p', {className:'vide', textContent:'Liste des lignes indisponible pour le moment.'})); });
 </script>
 </body>
 </html>
