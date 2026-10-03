@@ -18,7 +18,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Routes : `POST /api/analyser-trafic` (temps de ligne par TomTom, guide réseau, sinon Dify) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
 
 ## Services externes
-- **Dify** : workflow UrbanFlow (RAG sur 2 bases, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus, prévoir Gemini Flash-Lite avec une clé AI Studio personnelle).
+- **Dify** : workflow UrbanFlow (RAG sur la base des lignes, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus, prévoir Gemini Flash-Lite avec une clé AI Studio personnelle).
 - **TomTom** : géocodage (Sénégal) et itinéraire avec trafic, offre gratuite sans carte bancaire. Clé côté serveur uniquement.
 - Variables : `DIFY_API_KEY`, `DIFY_API_URL`, `TOMTOM_API_KEY`, `DEMO_MODE` (1 = réponses d'exemple lignes 8 et 18, sans Dify). Voir `.env.example`.
 
@@ -29,7 +29,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Le journal de trajets local et la page `/releves` (relevé chronométré envoyé à l'agent via `donnees_trafic`) sont retirés de l'interface pour l'instant. La page est conservée dans `archive/releves.html` : la remettre dans `public/` et dans le menu de `public/app.js` pour la réactiver.
 
 ## Dossiers
-- `dify/` : bases de connaissance Dify (catalogue des lignes, affluence type, base xlsx maître, 11 feuilles).
+- `dify/` : base de connaissance Dify (lignes, arrêts, lieux, infos réseau DDD) et archive de l'ancienne base d'affluence (plus utilisée).
 - `docs/decisions.md` : décisions techniques par phase.
 - Hors de ce dossier : `docs/s3/`, `docs/s4/`, `docs/s5/` (journaux de prompts par séance) à la racine du dépôt.
 
@@ -42,7 +42,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 
 ## Vocabulaire du domaine
 - **Ligne urbaine** : trajet DDD à l'intérieur de Dakar (ex. Ligne 1, Parcelles Assainies ↔ Place Leclerc).
-- **Affluence** : niveau d'occupation estimé d'une ligne (fluide / dense / saturé).
+- **Circulation** : état de la route donné par TomTom (fluide / dense / très dense / bloqué), affiché en badge de couleur. Ce n'est pas le remplissage des bus : il n'y a plus de notion d'affluence dans l'app.
 - **Point noir** : axe routier chroniquement saturé (ex. Patte d'Oie, Colobane).
 - **TAF TAF** : navette express aéroport DDD.
 
@@ -57,7 +57,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Ne jamais inventer de témoignage usager, de partenariat ou de statistique DDD non sourcée.
 - Ne jamais coder en dur une clé API (Dify, TomTom, Gemini, etc.) ni la coller dans le chat : toujours via `.env` ou secrets Cloudflare. Une clé exposée doit être régénérée.
 - Ne pas travailler sur les livrables S6 tant que l'équipe ne le demande pas.
-- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps relevés (t8, t18) et l'affluence typique sont utilisés. Le mot retard ne désigne que le retard dû au trafic.
+- Pas de disponibilité, de retard, de position ni d'incident de bus : aucune source (DDD ne publie aucune donnée de suivi). Seuls le trafic TomTom, les temps relevés (t8, t18) et les heures de pointe habituelles du réseau sont utilisés. Pas d'affluence : aucune donnée sur le remplissage des bus. Le mot retard ne désigne que le retard dû au trafic.
 - Pas de prix de tickets dans la base de connaissance (hors périmètre).
 
 ## Recherche Dify (base de connaissance)
