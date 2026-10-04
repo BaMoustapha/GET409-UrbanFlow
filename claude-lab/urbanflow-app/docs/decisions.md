@@ -57,7 +57,7 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Quoi : sous-agent `.claude/agents/securite-urbanflow.md` (outils Read, Grep, Glob : il ne modifie rien). Rapport : `docs/audit-securite-2026-10-04.md`.
 - Correctifs appliqués (priorité ÉLEVÉ et MOYEN) : limite de requêtes par IP (bindings Cloudflare `[[ratelimits]]`, 10 questions et 20 trajets par minute, et la même chose en mémoire dans `server.js`), corps limité à 10 ko, POST seulement, en-têtes `nosniff` et `no-store` sur l'API.
 - Compromis : la limite Cloudflare est comptée par emplacement et n'est pas exacte à la requête près ; elle sert à éviter l'épuisement des quotas, pas à facturer. La limite en mémoire de `server.js` ne vaut que pour le serveur local.
-- Reste à faire : régénérer la clé TomTom (fuite dans un chat), ajouter une CSP.
+- Clé TomTom collée dans un chat : régénération jugée inutile par Moustapha (04/10), risque accepté. CSP : faite (entrée suivante).
 
 ## 2026-10-04 : E10, boucle d'amélioration de l'interface
 - Brief : `.claude/ralph-brief.md` ; commande de lancement : `.claude/ralph-commande.txt` (plugin ralph-loop, 2 tours maximum, mot de fin POLISHED).

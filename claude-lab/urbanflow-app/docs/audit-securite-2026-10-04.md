@@ -7,7 +7,7 @@ Méthode : liste de contrôle du sous-agent `.claude/agents/securite-urbanflow.m
 | Gravité | Fichier:ligne | Problème | Risque | Correctif | État |
 |---|---|---|---|---|---|
 | ÉLEVÉ | `worker.js` (avant correctif) | Aucune limite de requêtes sur `/api/*` | N'importe qui peut épuiser le quota Dify, TomTom et Gemini, et l'app tombe pendant la promotion | Bindings `[[ratelimits]]` : 10 questions et 20 calculs de trajet par minute et par IP ; même limite en mémoire dans `server.js` | Corrigé |
-| ÉLEVÉ | Hors code | Une clé TomTom a été collée dans un chat | Clé utilisable par un tiers | Régénérer la clé sur developer.tomtom.com, la mettre dans `.env`, relancer `deployer.bat` | À faire (Moustapha) |
+| FAIBLE | Hors code | Une clé TomTom a été collée dans un chat | Clé utilisable par un tiers sur l'offre gratuite (quota partagé) | Régénération jugée inutile par Moustapha (04/10) ; à refaire si le quota TomTom baisse anormalement | Accepté |
 | MOYEN | `worker.js` (avant correctif) | Taille du corps non limitée, toutes méthodes acceptées | Requêtes énormes, consommation CPU inutile | 10 ko maximum (413), POST seulement (405), JSON invalide traité comme vide | Corrigé |
 | MOYEN | `.claude/settings.json` (avant correctif) | `Read(./.env)` ne bloque pas `cat .env` dans le terminal | Claude pourrait afficher une clé via Bash | Règles deny ajoutées pour `cat`, `type`, `Get-Content`, `more` et `.dev.vars` | Corrigé (E08) |
 | MOYEN | `public/app.js:22` (avant correctif) | Suggestion « y a-t-il du monde ? » | Question d'affluence : contraire aux règles du projet | Suggestions remplacées | Corrigé (E08) |
@@ -21,7 +21,7 @@ Méthode : liste de contrôle du sous-agent `.claude/agents/securite-urbanflow.m
 | OK | `lib/core.mjs` | Délais d'attente sur tous les appels externes (10 s, 20 s, 30 s), erreurs sans détail interne | | | OK |
 
 ## Les 3 priorités
-1. Régénérer la clé TomTom, puis redéployer (`deployer.bat`).
+1. Redéployer (`deployer.bat`).
 2. Après le déploiement, vérifier que la limite marche : 11 questions rapides à l'agent, la 11e doit répondre « Trop de requêtes ». Si `wrangler deploy` refuse les bindings `[[ratelimits]]` sur ton offre, supprime les deux blocs de `wrangler.toml` et préviens-moi : on passera à une limite en mémoire.
 3. Après le déploiement, ouvrir chaque page avec la console du navigateur (F12) : aucune ligne « Content Security Policy » ne doit apparaître, et la carte doit afficher ses tuiles.
 
