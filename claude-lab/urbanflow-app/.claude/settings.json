@@ -4,7 +4,13 @@
       "Read(./.env)",
       "Read(./.env.*)",
       "Edit(./.env)",
-      "Edit(./.env.*)"
+      "Edit(./.env.*)",
+      "Read(./.dev.vars)",
+      "Edit(./.dev.vars)",
+      "Bash(cat .env*)",
+      "Bash(type .env*)",
+      "Bash(Get-Content .env*)",
+      "Bash(more .env*)"
     ]
   }
 }

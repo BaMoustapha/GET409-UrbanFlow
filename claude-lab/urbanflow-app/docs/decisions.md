@@ -31,3 +31,16 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Le journal de trajets local est supprimé. La page Relevés terrain (relevé chronométré envoyé à l'agent, non enregistré) est retirée de l'interface pour l'instant et conservée dans `archive/releves.html`.
 - Page d'accueil : introduction courte avec la limite (pas de données bus en direct) et trois points d'entrée, sans chiffre ni témoignage.
 - Quota Dify : une erreur « rate limit » de l'abonnement donne un message clair (HTTP 429). Limitation de débit propre à l'app et cache des réponses de l'agent : à faire.
+
+## Phase 4 (2026-10-03) : plus d'affluence, plus de temps dans la base
+- La notion d'affluence (remplissage des bus) est retirée de l'app, de la base Dify et du workflow : aucune source ne la publie. Le badge de couleur montre seulement la circulation TomTom (fluide, dense, très dense, bloqué).
+- Les temps de trajet sont retirés de la base de connaissance : ils sont calculés en direct par TomTom (`reponseTemps()` pour « temps ligne 8 », `tempsTrajet()` pour A vers B).
+- Réponses sans IA (`lib/guide.mjs`) pour « quelle ligne prendre », « lignes qui desservent un lieu », « arrêts de la ligne N ».
+- Note : les phases 1 et 2 ci-dessus décrivent l'état de l'époque (journal local, affluence ressentie, temps codés en dur). Tout cela est retiré.
+
+## 2026-10-04 : E08, protections et bouton « Copier le trajet »
+- Quoi : `.gitignore` couvre `.env`, `.env.*` (sauf `.env.example`) et `.dev.vars` (secrets locaux de Wrangler). Règles deny de `.claude/settings.json` étendues à `.dev.vars` et aux lectures de `.env` par le terminal (`cat`, `type`, `Get-Content`, `more`), car `Read(./.env)` seul ne bloque pas une commande Bash.
+- Quoi : bouton « Copier le trajet » sur la carte « En voiture » de `/trajet`. Le résumé copié reprend départ, arrivée, temps voiture TomTom (avec et sans trafic), circulation, heure du calcul, lignes DDD possibles et la mention « temps en bus non publié ». Aucune donnée inventée.
+- Pourquoi : partager un trajet par WhatsApp ou SMS sans capture d'écran.
+- Compromis : l'API presse-papiers exige HTTPS ou localhost ; sinon repli par `execCommand('copy')`, puis message demandant de copier à la main.
+- Corrections trouvées pendant l'analyse : un numéro qui fait partie d'un nom de lieu (« Liberté 5 », « Palais 2 », « Rue 11 ») n'est plus pris pour une ligne (`numeroDeLieu()` dans `guide.mjs`, utilisé aussi par `enrichirRequete()`). « , Dakar » n'est plus ajouté deux fois au géocodage des terminus. La suggestion « y a-t-il du monde ? » de la page Agent (question d'affluence) est remplacée.

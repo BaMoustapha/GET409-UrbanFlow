@@ -2,7 +2,7 @@
 // Tout vient de reseau.mjs : rien n'est inventé. Retourne null si la question n'est pas de ce type.
 import { LIGNES, ARRETS } from './reseau.mjs';
 
-const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+export const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 const VIDES = new Set('de du des la le les un une en au aux a face gare arret station rue pres devant'.split(' '));
 const jetons = (s) => norm(s).split(' ').filter((w) => w && !VIDES.has(w));
 
@@ -116,12 +116,28 @@ export function estQuestionTemps(question) {
   return /\b(temps|dur[ée]e|dure|combien de minutes|minutes|mn|long|rapide|vite)\b/i.test(String(question));
 }
 
+// Noms de lieux qui contiennent un numéro ("Liberté 5", "Palais 2", "Rue 11", "UCAD 2") : le numéro n'est pas une ligne.
+const LIEUX_NUMEROTES = new Set();
+for (const l of LIGNES) for (const t of [l.trajet, l.zones, l.terminus, ...(ARRETS[l.n] || [])]) {
+  for (const m of norm(t).matchAll(/([a-z]+) (\d{1,3}[a-z]?)\b/g)) LIEUX_NUMEROTES.add(m[1] + ' ' + m[2]);
+}
+// Vrai si le numéro à la position idx de la question normalisée fait partie d'un nom de lieu.
+export function numeroDeLieu(qn, idx, num) {
+  const avant = qn.slice(0, idx).trim().split(' ').pop();
+  return !!avant && LIEUX_NUMEROTES.has(avant + ' ' + num);
+}
+
 // Retourne la ligne citée dans la question ("ligne 8", "l8", "bus 18", "8"), ou null.
+// Un numéro seul est ignoré quand il appartient à un nom de lieu ("aller à Liberté 5").
 export function ligneCitee(question) {
   const qn = norm(question);
-  const m = qn.match(/\b(?:lignes?|bus|l|n|numero)\s*(t?\d{1,3}[a-z]?)\b/) || qn.match(/(?<![\d:.])\b(t?\d{1,3}[a-gi-z]?)\b(?!\s*(?:h|min|km|mn))/);
-  if (!m) return null;
-  return parLigne.get(m[1]) || null;
+  const m = qn.match(/\b(?:lignes?|bus|l|n|numero)\s*(t?\d{1,3}[a-z]?)\b/);
+  if (m) return parLigne.get(m[1]) || null;
+  for (const b of qn.matchAll(/(?<![\d:.])\b(t?\d{1,3}[a-gi-z]?)\b(?!\s*(?:h|min|km|mn))/g)) {
+    if (numeroDeLieu(qn, b.index, b[1])) continue;
+    return parLigne.get(b[1]) || null;
+  }
+  return null;
 }
 
 // Deux extrémités d'une ligne (pour le calcul de trajet). Les boucles prennent les deux premiers lieux distincts.

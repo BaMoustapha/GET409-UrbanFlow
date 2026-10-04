@@ -19,7 +19,7 @@ const CATEGORIES = [
   ["urbain", "Lignes urbaines"], ["banlieue", "Lignes de banlieue"],
   ["TAF TAF", "Express TAF TAF (aéroport)"],
 ];
-const SUGGESTIONS = ['Ligne 8 à 8h, y a-t-il du monde ?', 'Ligne 18 à 17h30 ?', 'Ligne 7, Ouakam vers Palais 2 ?'];
+const SUGGESTIONS = ['Temps ligne 8', 'Arrêts de la ligne 18', 'Ouakam vers Plateau'];
 
 const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 // Le mot-cle doit apparaitre comme mot entier ("port" ne correspond pas a "aeroport").

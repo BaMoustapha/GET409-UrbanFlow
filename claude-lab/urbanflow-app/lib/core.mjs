@@ -24,7 +24,7 @@ async function fetchJson(url, options = {}, ms = 10000) {
   }
 }
 
-import { repondreReseau, estQuestionTemps, ligneCitee, extremites } from './guide.mjs';
+import { repondreReseau, estQuestionTemps, ligneCitee, extremites, numeroDeLieu, norm } from './guide.mjs';
 
 // ---------- Agent Dify ----------
 const MOTS_VIDES = new Set(('le la les un une de du des d l au aux a à en et ou &  vers pour par sur dans depuis jusqu jusque avec sans ' +
@@ -48,7 +48,10 @@ export function enrichirRequete(q) {
   if (jetons.length) for (const m of q.matchAll(/(?:\bet|\bou|&|,)\s*(\d{1,3}[a-z]?)\b(?!\s*(?:h|:|min|km))/gi)) add(m[1]);
   // numéro seul : "8", "18 ouakam" (un nombre qui n'est ni une heure, ni une durée)
   if (!jetons.length) {
-    for (const m of q.matchAll(/(?<![\d:.])\b(t?\d{1,3}[a-gi-z]?)\b(?!\s*(?:h|:|min|km|m\b|mn|heures?))/gi)) add(m[1]);
+    const qn = norm(q);
+    for (const m of qn.matchAll(/(?<![\d:.])\b(t?\d{1,3}[a-gi-z]?)\b(?!\s*(?:h|:|min|km|m\b|mn|heures?))/gi)) {
+      if (!numeroDeLieu(qn, m.index, m[1])) add(m[1]);
+    }
   }
   if (!jetons.length) return q;
   const heures = [...q.matchAll(/\b(\d{1,2})\s*(?:h|:)\s*(\d{2})?(?!\w)/gi)].map((m) => m[1] + 'h' + (m[2] || ''));
@@ -70,7 +73,7 @@ async function reponseTemps(env, query) {
   const l = ligneCitee(query);
   const ext = l && extremites(l);
   if (!ext) return null;
-  const r = await tempsTrajet(env, { depart: ext[0] + ', Dakar', arrivee: ext[1] + ', Dakar' });
+  const r = await tempsTrajet(env, { depart: ext[0], arrivee: ext[1] }); // geocoder() ajoute déjà « , Dakar »
   const b = r.body;
   const tete = `TEMPS DE TRAJET\nLigne ${l.n} : ${l.trajet}\n`;
   if (b.statut !== 'ok') {

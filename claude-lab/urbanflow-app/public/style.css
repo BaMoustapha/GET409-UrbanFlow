@@ -254,3 +254,8 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
 }
 
 @media (max-width:820px){ .hero-deco{display:none} .land-hero{padding-bottom:28px} }
+
+/* Bouton Copier le trajet */
+.copie{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+.copie-etat{color:var(--muted)}
