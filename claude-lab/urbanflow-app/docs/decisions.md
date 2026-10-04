@@ -79,3 +79,9 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Scripts : les 4 scripts inline (accueil, trajet, agent, lignes) sont sortis dans `public/page-*.js`, ce qui permet `script-src 'self' https://unpkg.com` sans `'unsafe-inline'`.
 - Compromis : `style-src` garde `'unsafe-inline'` (attributs `style` dans le HTML et styles posés par Leaflet sur la carte) ; le risque est faible, les styles ne pouvant pas exécuter de code.
 - Test : les 5 pages sous CSP dans Chromium (375 px), aucune violation ni erreur JavaScript ; calcul de trajet, bouton « Copier le trajet », thème et liste des lignes fonctionnent. Les tuiles OpenStreetMap n'ont pas pu être chargées ici (réseau bloqué) : à confirmer après déploiement.
+
+## 2026-10-04 : tests automatiques et mise en ligne par GitHub Actions
+- Quoi : `npm test` (8 tests, `node:test`, aucun appel réseau) et le workflow `.github/workflows/urbanflow.yml` : tests et `wrangler deploy --dry-run` à chaque push ou pull request, puis mise en ligne sur `main` et vérification du site (accueil et « arrêts ligne 7 »).
+- Pourquoi : déployer sans dépendre du PC ni de `deployer.bat`, et ne jamais mettre en ligne une version qui casse les règles (clé, affluence, script inline).
+- Clés : secrets GitHub uniquement (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, puis les clés de l'app). Seuls les secrets remplis sont envoyés au Worker ; les autres gardent leur valeur actuelle.
+- Compromis : le jeton Cloudflare est stocké chez GitHub ; il doit être limité au droit « Edit Cloudflare Workers » sur ce compte.

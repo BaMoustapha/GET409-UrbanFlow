@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.js",
     "deploy": "wrangler deploy",
-    "dev:cf": "wrangler dev"
+    "dev:cf": "wrangler dev",
+    "test": "node --test test/app.test.mjs"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

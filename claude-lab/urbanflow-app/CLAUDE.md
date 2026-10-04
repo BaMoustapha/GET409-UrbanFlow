@@ -15,7 +15,8 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
 - `server.js` : serveur Express local (`npm start`, http://localhost:3000). Sert uniquement `public/`, avec URL propres (`/lignes`).
 - Production : https://urbanflow.urbanflow-moustapha.workers.dev/
-- `worker.js` + `wrangler.toml` : même API sur Cloudflare Workers (`deployer.bat` pousse aussi les secrets). Worker nommé `urbanflow`.
+- `worker.js` + `wrangler.toml` : même API sur Cloudflare Workers. Worker nommé `urbanflow`. Mise en ligne automatique par GitHub Actions (`.github/workflows/urbanflow.yml` à la racine du dépôt) à chaque push sur `main` touchant ce dossier, si `npm test` passe ; les clés viennent des secrets GitHub. `deployer.bat` reste possible depuis le PC.
+- Tests : `npm test` (`test/app.test.mjs`, sans réseau) : détection de ligne, guide, secours Gemini, protections du Worker, aucune clé ni affluence ni script inline dans `public/`. À lancer avant chaque push.
 - Temps de trajet : géré par TomTom, jamais par Dify. Une question de temps citant une ligne (« temps ligne 8 ») est traitée par `reponseTemps()` dans `core.mjs` : temps voiture avec le trafic actuel entre les deux terminus de la ligne, avec message de repli si TomTom est indisponible. La base de connaissance Dify ne contient aucun temps de trajet.
 - Routes : `POST /api/analyser-trafic` (temps de ligne par TomTom, guide réseau, sinon Dify, puis Gemini en secours) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
 - Protections des routes : POST seulement, corps de 10 ko maximum, limite par IP (10 questions et 20 trajets par minute : bindings `[[ratelimits]]` de `wrangler.toml` en production, compteur en mémoire dans `server.js`).
@@ -75,4 +76,4 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 ## Prochaines étapes possibles
 1. Passer le modèle Dify de Groq à Gemini Flash-Lite (le secours côté serveur existe déjà).
 2. Relevés chronométrés de bus réels pour alimenter le catalogue et `donnees_trafic`.
-3. Déploiement Cloudflare et test de bout en bout avec de vraies clés.
+3. Test de bout en bout avec de vraies clés (le workflow vérifie l'accueil et « arrêts ligne 7 » après chaque mise en ligne).

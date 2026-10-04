@@ -1,0 +1,88 @@
+# UrbanFlow : tests a chaque push, puis mise en ligne sur Cloudflare Workers si les tests passent (branche main).
+# Secrets a creer une fois dans GitHub (Settings > Secrets and variables > Actions), jamais dans le code :
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID (obligatoires pour le deploiement)
+#   DIFY_API_KEY, DIFY_API_URL, TOMTOM_API_KEY, GEMINI_API_KEY, GEMINI_MODEL (facultatifs : seuls ceux remplis sont envoyes au Worker)
+name: UrbanFlow
+
+on:
+  push:
+    branches: [main]
+    paths: ['claude-lab/urbanflow-app/**', '.github/workflows/urbanflow.yml']
+  pull_request:
+    paths: ['claude-lab/urbanflow-app/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: urbanflow-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: claude-lab/urbanflow-app
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: claude-lab/urbanflow-app/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - name: Verifier la configuration Cloudflare (sans deployer)
+        run: npx wrangler deploy --dry-run --outdir dist
+
+  deploiement:
+    needs: tests
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: claude-lab/urbanflow-app/package-lock.json
+      - run: npm ci
+      - name: Secrets Cloudflare presents ?
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Ajoute CLOUDFLARE_API_TOKEN et CLOUDFLARE_ACCOUNT_ID dans les secrets GitHub (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+      - name: Deployer le Worker
+        run: npx wrangler deploy
+      - name: Envoyer les cles de l'app au Worker (seulement celles remplies)
+        env:
+          DIFY_API_KEY: ${{ secrets.DIFY_API_KEY }}
+          DIFY_API_URL: ${{ secrets.DIFY_API_URL }}
+          TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+        run: |
+          for nom in DIFY_API_KEY DIFY_API_URL TOMTOM_API_KEY GEMINI_API_KEY GEMINI_MODEL; do
+            valeur="${!nom}"
+            if [ -n "$valeur" ]; then
+              printf '%s' "$valeur" | npx wrangler secret put "$nom" > /dev/null && echo "$nom envoye"
+            else
+              echo "$nom non defini dans GitHub : valeur actuelle du Worker conservee"
+            fi
+          done
+      - name: Verifier le site en ligne
+        run: |
+          sleep 5
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://urbanflow.urbanflow-moustapha.workers.dev/)
+          echo "Accueil : HTTP $code"
+          rep=$(curl -s -X POST https://urbanflow.urbanflow-moustapha.workers.dev/api/analyser-trafic -H 'Content-Type: application/json' -d '{"query":"arrets ligne 7"}')
+          echo "$rep" | head -c 200; echo
+          [ "$code" = "200" ] && echo "$rep" | grep -q "Gare Ouakam"
