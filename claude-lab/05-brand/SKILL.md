@@ -22,7 +22,7 @@ disable-model-invocation: true
 
 ## Ton
 - Direct, factuel, jamais alarmiste. On informe, on n'invente pas de chiffre.
-- Vocabulaire : "trajet", "circulation", "ligne", "temps en voiture avec le trafic" (jamais "affluence" : aucune donnée sur le remplissage des bus) — jamais "révolutionnaire", "next-gen", "disruptif".
+- Vocabulaire : "trajet", "circulation", "ligne", "temps en voiture avec le trafic" (jamais "affluence" : aucune donnée sur le remplissage des bus) ; jamais "révolutionnaire", "next-gen", "disruptif".
 - Toujours signer : équipe GET409 — UrbanFlow, UMEF Swiss University, Dakar.
 
 ## Mots à éviter
