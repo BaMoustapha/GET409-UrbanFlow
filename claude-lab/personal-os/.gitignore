@@ -1,0 +1,10 @@
+# Agent personnel : ce dossier est dans un depot PUBLIC.
+# Tout ce qui est personnel reste sur le PC : SOUL.md rempli, toute la memoire (vault), les sorties des automatisations.
+SOUL.md
+vault/*
+!vault/README.md
+work/**/output/
+brand/images/*
+!brand/images/.gitkeep
+.env
+.env.*

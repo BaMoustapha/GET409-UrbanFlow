@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(./vault/sources/**)",
+      "Write(./vault/sources/**)",
+      "Read(./.env)",
+      "Edit(./.env)",
+      "Bash(rm *vault/sources*)",
+      "Bash(Remove-Item *vault*sources*)"
+    ]
+  }
+}
