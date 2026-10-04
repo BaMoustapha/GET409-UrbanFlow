@@ -8,6 +8,18 @@ const path = require('path');
 const app = express();
 app.disable('x-powered-by');
 app.use(express.json({ limit: '10kb' }));
+
+// En-tetes de securite : memes regles qu'en production, lues dans public/_headers (bloc /*).
+const fs = require('fs');
+const ENTETES = {};
+let dansBloc = false;
+for (const l of fs.readFileSync(path.join(__dirname, 'public', '_headers'), 'utf8').split(/\r?\n/)) {
+  if (/^\S/.test(l)) { dansBloc = l.trim() === '/*'; continue; }
+  const m = l.match(/^\s+([\w-]+):\s*(.+)$/);
+  if (dansBloc && m) ENTETES[m[1]] = m[2];
+}
+app.use((req, res, next) => { res.set(ENTETES); next(); });
+app.get('/_headers', (req, res) => res.status(404).end());
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
 const core = import('./lib/core.mjs');

@@ -1,0 +1,7 @@
+# En-tetes de securite des pages (Cloudflare Workers Static Assets ; relus aussi par server.js en local).
+# Domaines externes autorises : unpkg.com (Leaflet), Google Fonts, tuiles OpenStreetMap. Aucun script inline.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com https://*.tile.openstreetmap.org; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(self), camera=(), microphone=()

@@ -73,3 +73,9 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Badge de circulation : une phrase l'explique avec le vrai rapport TomTom (« le trafic multiplie le temps sans trafic par 1,62 »).
 - Carte indisponible : hauteur réduite pour ne pas laisser un grand vide.
 - Non fait : CSP (voir l'audit E14). POLISHED non écrit : la CSP et un test sur un vrai téléphone restent à faire.
+
+## 2026-10-04 : Content-Security-Policy (suite de l'audit E14)
+- Quoi : `public/_headers` définit la CSP et les en-têtes de sécurité des pages. Cloudflare l'applique aux fichiers statiques (le fichier lui-même n'est pas servi) ; `server.js` relit le même bloc pour appliquer les mêmes règles en local et renvoie 404 sur `/_headers`.
+- Scripts : les 4 scripts inline (accueil, trajet, agent, lignes) sont sortis dans `public/page-*.js`, ce qui permet `script-src 'self' https://unpkg.com` sans `'unsafe-inline'`.
+- Compromis : `style-src` garde `'unsafe-inline'` (attributs `style` dans le HTML et styles posés par Leaflet sur la carte) ; le risque est faible, les styles ne pouvant pas exécuter de code.
+- Test : les 5 pages sous CSP dans Chromium (375 px), aucune violation ni erreur JavaScript ; calcul de trajet, bouton « Copier le trajet », thème et liste des lignes fonctionnent. Les tuiles OpenStreetMap n'ont pas pu être chargées ici (réseau bloqué) : à confirmer après déploiement.

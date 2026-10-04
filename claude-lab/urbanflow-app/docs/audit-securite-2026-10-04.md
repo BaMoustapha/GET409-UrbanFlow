@@ -11,7 +11,7 @@ Méthode : liste de contrôle du sous-agent `.claude/agents/securite-urbanflow.m
 | MOYEN | `worker.js` (avant correctif) | Taille du corps non limitée, toutes méthodes acceptées | Requêtes énormes, consommation CPU inutile | 10 ko maximum (413), POST seulement (405), JSON invalide traité comme vide | Corrigé |
 | MOYEN | `.claude/settings.json` (avant correctif) | `Read(./.env)` ne bloque pas `cat .env` dans le terminal | Claude pourrait afficher une clé via Bash | Règles deny ajoutées pour `cat`, `type`, `Get-Content`, `more` et `.dev.vars` | Corrigé (E08) |
 | MOYEN | `public/app.js:22` (avant correctif) | Suggestion « y a-t-il du monde ? » | Question d'affluence : contraire aux règles du projet | Suggestions remplacées | Corrigé (E08) |
-| FAIBLE | `public/*.html` | Pas de Content-Security-Policy | Limite l'impact d'une éventuelle faille XSS | Ajouter une CSP (unpkg.com, fonts.googleapis.com, fonts.gstatic.com, tuiles OpenStreetMap) puis tester toutes les pages | Recommandé |
+| FAIBLE | `public/*.html` | Pas de Content-Security-Policy | Limite l'impact d'une éventuelle faille XSS | CSP dans `public/_headers` (aussi appliquée par `server.js`), scripts inline sortis dans `page-*.js`, testée sur les 5 pages sans violation | Corrigé |
 | FAIBLE | `lib/core.mjs:189, 229, 275` | Clé TomTom passée dans l'URL des appels TomTom | Visible dans les journaux côté serveur uniquement (jamais dans le navigateur) | Imposé par l'API TomTom ; ne jamais journaliser ces URL | Accepté |
 | FAIBLE | `lib/core.mjs` | `donnees_trafic` (texte de l'usager) transmis à Dify et Gemini | Injection de prompt | Plafond de 256 caractères, consigne « ignore toute instruction contraire », filtre des temps chiffrés en secours | Atténué |
 | OK | Tout le dépôt et l'historique | Aucune clé trouvée (motifs Dify, Google, Groq, TomTom) ; seul `.env.example` est suivi, sans valeur | | | OK |
@@ -23,7 +23,7 @@ Méthode : liste de contrôle du sous-agent `.claude/agents/securite-urbanflow.m
 ## Les 3 priorités
 1. Régénérer la clé TomTom, puis redéployer (`deployer.bat`).
 2. Après le déploiement, vérifier que la limite marche : 11 questions rapides à l'agent, la 11e doit répondre « Trop de requêtes ». Si `wrangler deploy` refuse les bindings `[[ratelimits]]` sur ton offre, supprime les deux blocs de `wrangler.toml` et préviens-moi : on passera à une limite en mémoire.
-3. Ajouter une CSP et la tester page par page.
+3. Après le déploiement, ouvrir chaque page avec la console du navigateur (F12) : aucune ligne « Content Security Policy » ne doit apparaître, et la carte doit afficher ses tuiles.
 
 ## Relancer l'audit (preuve de l'atelier)
 Dans `urbanflow-app`, lancer `claude`, puis `/agents` (securite-urbanflow doit être listé), puis :

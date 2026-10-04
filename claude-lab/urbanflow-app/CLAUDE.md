@@ -10,6 +10,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
   - `/agent` : questions à l'agent Dify, fiche en sections, suggestions. Accepte `?q=` pour une question préremplie.
   - `/lignes` : les lignes de `lignes.json` par catégorie (la catégorie « Rabattement TER » est masquée de tout le site par `chargerLignes()` dans `public/app.js`), sans aucun temps de trajet par ligne.
   - `/a-propos` : sources, limites, confidentialité.
+- Sécurité des pages : `public/_headers` (CSP, nosniff, Referrer-Policy) appliqué par Cloudflare et relu par `server.js`. Aucun script inline : le code de chaque page est dans `public/page-*.js`. Un nouveau domaine externe doit être ajouté à la CSP.
 - `lib/core.mjs` : logique serveur partagée (appel Dify, TomTom avec `departAt` pour une heure future, cache mémoire 5 min). Aucune clé dedans, tout vient de `env`.
 - `lib/guide.mjs` + `lib/reseau.mjs` : réponses directes sans IA (quelle ligne prendre entre A et B, arrêts d'une ligne) depuis les données du réseau. `reseau.mjs` est généré depuis les CSV de `dify/`, ne pas l'éditer à la main.
 - `server.js` : serveur Express local (`npm start`, http://localhost:3000). Sert uniquement `public/`, avec URL propres (`/lignes`).
