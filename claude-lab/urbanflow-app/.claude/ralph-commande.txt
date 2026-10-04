@@ -1,0 +1,1 @@
+/ralph-loop:ralph-loop "Read .claude/ralph-brief.md and run exactly one improvement round as described there." --max-iterations 2 --completion-promise "POLISHED"

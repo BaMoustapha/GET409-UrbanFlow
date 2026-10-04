@@ -133,6 +133,24 @@ function afficherErreur(zone, msg, aide){
   zone.replaceChildren(el('div', {className:'msg-erreur', role:'alert'}, msg, aide ? el('p', {className:'note', textContent:aide}) : ''));
 }
 
+// Reponse sans les 5 titres (guide reseau, temps TomTom) : un bloc par paragraphe,
+// titre en capitales repris en en-tete, paragraphe « Limites » en note discrete.
+function ficheSimple(texte){
+  const fiche = el('div', {className:'fiche'});
+  String(texte).split(/\n\s*\n/).map(b => b.trim()).filter(Boolean).forEach(b => {
+    const lignes = b.split('\n');
+    const m = lignes[0].match(/^([A-ZÀ-ÖØ-Þ' ]{6,}?)\s*(?::\s*(.*))?$/);
+    if(m){
+      const titre = m[1].trim();
+      const t = titre.charAt(0) + titre.slice(1).toLowerCase() + (m[2] ? ' : ' + m[2] : '');
+      if(lignes.length === 1) fiche.append(el('h3', {className:'fiche-titre', textContent:t}));
+      else fiche.append(el('div', {className:'bloc'}, el('h4', {textContent:t}), el('p', {textContent:lignes.slice(1).join('\n')})));
+    } else if(/^Limites\s*:/.test(b)) fiche.append(el('p', {className:'note', textContent:b}));
+    else fiche.append(el('div', {className:'bloc'}, el('p', {textContent:b})));
+  });
+  return fiche;
+}
+
 function afficherFiche(zone, texte){
   if(/^\s*INSUFFISANT/i.test(texte)){
     const raison = texte.replace(/^\s*INSUFFISANT\s*:?\s*/i, '');
@@ -141,7 +159,7 @@ function afficherFiche(zone, texte){
     return;
   }
   const sections = decouper(texte);
-  if(!sections.length){ zone.replaceChildren(el('div', {className:'fiche'}, el('div', {className:'bloc'}, el('p', {textContent:texte})))); return; }
+  if(!sections.length){ zone.replaceChildren(ficheSimple(texte)); return; }
   const fiche = el('div', {className:'fiche'});
   sections.forEach(s => {
     const cls = 'bloc' + (s.titre === 'TEMPS DE TRAJET' ? ' temps' : s.titre === 'ALERTES' ? ' alertes' : '');

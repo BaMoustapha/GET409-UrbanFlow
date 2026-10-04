@@ -58,3 +58,18 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Correctifs appliqués (priorité ÉLEVÉ et MOYEN) : limite de requêtes par IP (bindings Cloudflare `[[ratelimits]]`, 10 questions et 20 trajets par minute, et la même chose en mémoire dans `server.js`), corps limité à 10 ko, POST seulement, en-têtes `nosniff` et `no-store` sur l'API.
 - Compromis : la limite Cloudflare est comptée par emplacement et n'est pas exacte à la requête près ; elle sert à éviter l'épuisement des quotas, pas à facturer. La limite en mémoire de `server.js` ne vaut que pour le serveur local.
 - Reste à faire : régénérer la clé TomTom (fuite dans un chat), ajouter une CSP.
+
+## 2026-10-04 : E10, boucle d'amélioration de l'interface
+- Brief : `.claude/ralph-brief.md` ; commande de lancement : `.claude/ralph-commande.txt` (plugin ralph-loop, 2 tours maximum, mot de fin POLISHED).
+- Les deux tours ci-dessous ont été faits à la main en suivant le brief (critique sur mobile 375 px en clair et sombre avec captures Playwright, 3 corrections, vérification sans erreur console). Le plugin lui-même se lance dans Claude Code sur le PC. Captures avant/après : `docs/captures/e10/`.
+
+### Ralph round 1
+- La page Trajet ne marchait plus du tout si Leaflet (unpkg) ne se chargeait pas : la carte est maintenant facultative, avec un message, et le calcul du trajet reste disponible.
+- Lignes proposées sur mobile : le bouton « Durée et circulation » écrasait le nom de la ligne ; la carte de ligne s'empile et le bouton prend toute la largeur.
+- Textes d'aide des champs coupés à 375 px : remplacés par des exemples courts (« Ex : Ouakam », « Ex : Plateau »).
+
+### Ralph round 2
+- Réponses sans IA (guide réseau, temps TomTom) affichées en un seul bloc de texte : titre en en-tête, un bloc par paragraphe, « Limites » en note discrète.
+- Badge de circulation : une phrase l'explique avec le vrai rapport TomTom (« le trafic multiplie le temps sans trafic par 1,62 »).
+- Carte indisponible : hauteur réduite pour ne pas laisser un grand vide.
+- Non fait : CSP (voir l'audit E14). POLISHED non écrit : la CSP et un test sur un vrai téléphone restent à faire.

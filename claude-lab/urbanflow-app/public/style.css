@@ -156,7 +156,8 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
   .ligne-heure{flex-direction:column; align-items:stretch}
   .agent-form{grid-template-columns:1fr}
   .btn{width:100%}
-  .ligne-prop .btn{width:auto}
+  .ligne-prop{flex-direction:column; align-items:stretch}
+  .ligne-prop .btn{width:100%}
 }
 
 .trafic{display:inline-block; align-self:flex-start; font-size:13px; font-weight:600; border-radius:99px; padding:3px 12px; margin:6px 0; border:1px solid transparent}
@@ -259,3 +260,7 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
 .copie{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px}
 
 .copie-etat{color:var(--muted)}
+#carte.carte-off{height:auto; min-height:110px; display:flex; align-items:center; justify-content:center; padding:20px; text-align:center}
+
+.fiche > .note{margin:4px 0 0}
+.fiche-titre{margin:0; line-height:1.25; font-family:var(--display); font-size:20px; font-weight:600; color:var(--accent-ink)}

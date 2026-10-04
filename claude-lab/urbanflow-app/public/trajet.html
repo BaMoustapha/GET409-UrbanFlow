@@ -29,13 +29,13 @@
         <div class="champ-dep">
           <div>
             <label for="t-depart">Départ</label>
-            <input id="t-depart" type="text" placeholder="Un lieu à Dakar, ou votre position" autocomplete="off">
+            <input id="t-depart" type="text" placeholder="Ex : Ouakam, ou votre position" autocomplete="off">
           </div>
           <button type="button" class="btn btn-sec" id="btn-loc">Me localiser</button>
         </div>
         <div>
           <label for="t-arrivee">Arrivée</label>
-          <input id="t-arrivee" type="text" placeholder="Un lieu à Dakar, ou un clic sur la carte" required autocomplete="off">
+          <input id="t-arrivee" type="text" placeholder="Ex : Plateau, ou un clic sur la carte" required autocomplete="off">
         </div>
       </div>
       <div class="ligne-heure">
@@ -77,8 +77,15 @@
 <script>
 (function(){
   const DAKAR = [14.7167, -17.4677];
-  const map = L.map('carte').setView(DAKAR, 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  // La carte est un plus : si Leaflet ne se charge pas (reseau, bloqueur), le calcul du trajet reste disponible.
+  const carteOK = typeof L !== 'undefined';
+  const map = carteOK ? L.map('carte').setView(DAKAR, 12) : null;
+  if(carteOK) L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
+  else {
+    const zoneCarte = document.getElementById('carte');
+    zoneCarte.classList.add('carte-off'); zoneCarte.removeAttribute('role');
+    zoneCarte.replaceChildren(el('p', {className:'vide', textContent:'Carte indisponible pour le moment. Le calcul du trajet fonctionne quand même : saisissez un départ et une arrivée.'}));
+  }
   let depart = null, arrivee = null, mDep = null, mArr = null, trace = null;
   let lignesTrouvees = []; // lignes proposees, reprises dans le resume copie
 
@@ -93,6 +100,7 @@
   const resLignes = document.getElementById('res-lignes');
 
   function marque(p, ancien, titre){
+    if(!carteOK) return null;
     if(ancien) map.removeLayer(ancien);
     return L.marker([p.lat, p.lng]).addTo(map).bindPopup(titre);
   }
@@ -102,7 +110,7 @@
     if(!navigator.geolocation){ noteLoc.textContent = 'Géolocalisation indisponible : saisissez un lieu de départ.'; return; }
     noteLoc.textContent = 'Localisation en cours...';
     navigator.geolocation.getCurrentPosition(
-      pos => { setDepart({lat:pos.coords.latitude, lng:pos.coords.longitude}); map.setView([pos.coords.latitude, pos.coords.longitude], 14); noteLoc.textContent = 'Position trouvée.'; },
+      pos => { setDepart({lat:pos.coords.latitude, lng:pos.coords.longitude}); if(map) map.setView([pos.coords.latitude, pos.coords.longitude], 14); noteLoc.textContent = 'Position trouvée.'; },
       () => { noteLoc.textContent = 'Position refusée ou indisponible : saisissez un lieu de départ.'; },
       {enableHighAccuracy:true, timeout:10000}
     );
@@ -111,7 +119,7 @@
 
   iDep.addEventListener('input', () => { depart = null; });
   iArr.addEventListener('input', () => { arrivee = null; });
-  map.on('click', e => {
+  if(map) map.on('click', e => {
     arrivee = {lat:e.latlng.lat, lng:e.latlng.lng};
     mArr = marque(arrivee, mArr, 'Arrivée');
     iArr.value = 'Point choisi sur la carte';
@@ -136,6 +144,7 @@
       const niv = j.congestion.niveau;
       const cls = niv === 'fluide' ? 'fluide' : niv === 'dense' ? 'dense' : niv === 'très dense' ? 'tres-dense' : 'bloque';
       enfants.push(el('span', {className:'trafic trafic-' + cls, textContent:'Circulation : ' + niv}));
+      if(j.congestion.ratio > 1) enfants.push(el('small', {textContent:'Le trafic multiplie le temps sans trafic par ' + String(j.congestion.ratio).replace('.', ',') + '.'}));
     }
     if(Array.isArray(j.incidents)){
       if(j.incidents.length){
@@ -230,9 +239,11 @@
         resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', role:'alert', textContent: msg || 'Calcul indisponible pour le moment, réessayez.'}));
       } else {
         mDep = marque(j.depart, mDep, 'Départ'); mArr = marque(j.arrivee, mArr, 'Arrivée');
-        if(trace) map.removeLayer(trace);
-        trace = L.polyline(j.trace, {color:'#00A651', weight:5}).addTo(map);
-        map.fitBounds(trace.getBounds(), {padding:[30,30]});
+        if(carteOK){
+          if(trace) map.removeLayer(trace);
+          trace = L.polyline(j.trace, {color:'#00A651', weight:5}).addTo(map);
+          map.fitBounds(trace.getBounds(), {padding:[30,30]});
+        }
         carteVoiture(j, heureDemandee);
         // Les lignes se cherchent aussi sur l'adresse trouvee par TomTom.
         carteLignes((typeof d === 'string' ? d : '') + ' ' + (j.depart.label || ''), (typeof a === 'string' ? a : '') + ' ' + (j.arrivee.label || ''));
