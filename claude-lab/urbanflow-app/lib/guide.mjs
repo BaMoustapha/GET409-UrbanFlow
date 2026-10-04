@@ -146,3 +146,18 @@ export function extremites(l) {
   const uniq = [...new Set(parts)];
   return uniq.length >= 2 ? [uniq[0], uniq[1]] : null;
 }
+
+// ---------- Contexte pour le modèle de secours (Gemini) ----------
+// Extrait du réseau lié à la question : la ligne citée (avec ses arrêts) ou les lignes qui desservent les lieux nommés.
+// Chaîne vide si rien ne correspond : dans ce cas, aucun appel au modèle (rien à lui donner, risque d'invention).
+export function contexteReseau(question) {
+  const l = ligneCitee(question);
+  if (l) {
+    const arrets = ARRETS[l.n];
+    return ficheLigne(l, '') + (arrets ? `\nArrêts (${arrets.length}, dans l'ordre) : ${arrets.join(', ')}.` : '\nArrêts : non relevés.');
+  }
+  const mots = jetons(question).filter((w) => w.length >= 4 && !/^\d/.test(w));
+  const vues = new Map();
+  for (const w of mots) for (const x of lignesPassantPar(w)) if (!vues.has(x.ix.l.n)) vues.set(x.ix.l.n, x.ix.l);
+  return [...vues.values()].slice(0, 6).map((x) => ficheLigne(x, '')).join('\n\n');
+}

@@ -175,6 +175,7 @@ async function interrogerAgent(question, donneesTrafic, zone, bouton){
     const data = await res.json();
     if(!res.ok) afficherErreur(zone, data.error || 'Service temporairement indisponible.', 'Réessayez dans un instant.');
     else afficherFiche(zone, typeof data.outputs === 'string' ? data.outputs : JSON.stringify(data.outputs, null, 2));
+    if(res.ok && data.source === 'secours') zone.append(el('p', {className:'note', textContent:"Réponse du modèle de secours (Gemini) : l'agent principal est indisponible. Elle s'appuie seulement sur les données du réseau."}));
   } catch(err){
     afficherErreur(zone, 'Service temporairement indisponible.', 'Vérifiez votre connexion et réessayez.');
   } finally {

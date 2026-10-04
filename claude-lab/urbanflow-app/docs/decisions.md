@@ -44,3 +44,11 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Pourquoi : partager un trajet par WhatsApp ou SMS sans capture d'écran.
 - Compromis : l'API presse-papiers exige HTTPS ou localhost ; sinon repli par `execCommand('copy')`, puis message demandant de copier à la main.
 - Corrections trouvées pendant l'analyse : un numéro qui fait partie d'un nom de lieu (« Liberté 5 », « Palais 2 », « Rue 11 ») n'est plus pris pour une ligne (`numeroDeLieu()` dans `guide.mjs`, utilisé aussi par `enrichirRequete()`). « , Dakar » n'est plus ajouté deux fois au géocodage des terminus. La suggestion « y a-t-il du monde ? » de la page Agent (question d'affluence) est remplacée.
+
+## 2026-10-04 : E09, Gemini en secours côté serveur
+- Quoi : `secoursGemini()` dans `lib/core.mjs`. Quand Dify échoue (clé absente, erreur HTTP, run échoué, quota, délai de 30 s dépassé), l'app appelle Gemini (`generateContent`, modèle `gemini-3.5-flash-lite` par défaut, réglable par `GEMINI_MODEL`). Sans `GEMINI_API_KEY`, le comportement reste celui d'avant (message d'erreur).
+- Clé : lue uniquement côté serveur (`.env` en local, secret Cloudflare poussé par `deployer.ps1`). Jamais dans `public/`. Envoyée dans l'en-tête `x-goog-api-key`, pas dans l'URL.
+- Règles : le modèle ne reçoit que des extraits de `lib/reseau.mjs` (`contexteReseau()` : ligne citée avec ses arrêts, ou lignes qui desservent les lieux nommés) et les consignes du Rédacteur (5 titres, INSUFFISANT, ni affluence, ni temps, ni donnée inventée). Si aucun lieu ni ligne n'est reconnu, aucun appel : réponse INSUFFISANT directe. Garde-fou `filtrerTemps()` : toute ligne contenant un temps en minutes est retirée.
+- Interface : une note signale une réponse de secours.
+- Modèle vérifié sur la documentation Google (04/10/2026) : la famille 2.5 est restreinte aux anciens utilisateurs, d'où 3.5 Flash-Lite.
+- Test : fausse clé Dify (HTTP 401) et faux serveur Gemini, la réponse arrive avec `source: secours`, le contexte de la ligne 7 est bien transmis, le temps inventé est retiré.
