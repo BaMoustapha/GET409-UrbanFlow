@@ -6,3 +6,21 @@ compatibility_date = "2025-09-01"
 directory = "./public"
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
+
+# Limite de requetes par adresse IP (Workers Rate Limiting, wrangler 4.36 ou plus).
+# Agent : 10 questions par minute. Trajet : 20 calculs par minute.
+[[ratelimits]]
+name = "LIMITE_AGENT"
+namespace_id = "4091"
+
+[ratelimits.simple]
+limit = 10
+period = 60
+
+[[ratelimits]]
+name = "LIMITE_TRAJET"
+namespace_id = "4092"
+
+[ratelimits.simple]
+limit = 20
+period = 60

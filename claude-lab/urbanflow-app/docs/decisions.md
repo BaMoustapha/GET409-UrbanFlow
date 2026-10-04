@@ -52,3 +52,9 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Interface : une note signale une réponse de secours.
 - Modèle vérifié sur la documentation Google (04/10/2026) : la famille 2.5 est restreinte aux anciens utilisateurs, d'où 3.5 Flash-Lite.
 - Test : fausse clé Dify (HTTP 401) et faux serveur Gemini, la réponse arrive avec `source: secours`, le contexte de la ligne 7 est bien transmis, le temps inventé est retiré.
+
+## 2026-10-04 : E14, relecteur sécurité et correctifs
+- Quoi : sous-agent `.claude/agents/securite-urbanflow.md` (outils Read, Grep, Glob : il ne modifie rien). Rapport : `docs/audit-securite-2026-10-04.md`.
+- Correctifs appliqués (priorité ÉLEVÉ et MOYEN) : limite de requêtes par IP (bindings Cloudflare `[[ratelimits]]`, 10 questions et 20 trajets par minute, et la même chose en mémoire dans `server.js`), corps limité à 10 ko, POST seulement, en-têtes `nosniff` et `no-store` sur l'API.
+- Compromis : la limite Cloudflare est comptée par emplacement et n'est pas exacte à la requête près ; elle sert à éviter l'épuisement des quotas, pas à facturer. La limite en mémoire de `server.js` ne vaut que pour le serveur local.
+- Reste à faire : régénérer la clé TomTom (fuite dans un chat), ajouter une CSP.

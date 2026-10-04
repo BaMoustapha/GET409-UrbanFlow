@@ -16,12 +16,14 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Production : https://urbanflow.urbanflow-moustapha.workers.dev/
 - `worker.js` + `wrangler.toml` : même API sur Cloudflare Workers (`deployer.bat` pousse aussi les secrets). Worker nommé `urbanflow`.
 - Temps de trajet : géré par TomTom, jamais par Dify. Une question de temps citant une ligne (« temps ligne 8 ») est traitée par `reponseTemps()` dans `core.mjs` : temps voiture avec le trafic actuel entre les deux terminus de la ligne, avec message de repli si TomTom est indisponible. La base de connaissance Dify ne contient aucun temps de trajet.
-- Routes : `POST /api/analyser-trafic` (temps de ligne par TomTom, guide réseau, sinon Dify) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
+- Routes : `POST /api/analyser-trafic` (temps de ligne par TomTom, guide réseau, sinon Dify, puis Gemini en secours) et `POST /api/trajet` (TomTom : temps voiture, niveau de circulation, incidents routiers).
+- Protections des routes : POST seulement, corps de 10 ko maximum, limite par IP (10 questions et 20 trajets par minute : bindings `[[ratelimits]]` de `wrangler.toml` en production, compteur en mémoire dans `server.js`).
 
 ## Services externes
-- **Dify** : workflow UrbanFlow (RAG sur la base des lignes, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus, prévoir Gemini Flash-Lite avec une clé AI Studio personnelle).
+- **Dify** : workflow UrbanFlow (RAG sur la base des lignes, Chercheur, SI/SINON, Rédacteur). Entrées : `query` et `donnees_trafic` (optionnelle, 256 caractères max). Sortie à 5 titres : FICHE TRAJET, TEMPS DE TRAJET, ANALYSE, ALERTES, RECOMMANDATIONS. Répond INSUFFISANT quand la donnée manque (anti-hallucination). Modèle actuel : gpt-oss-120b via Groq (comptes Groq parfois suspendus).
+- **Gemini (secours)** : `secoursGemini()` dans `core.mjs`, appelé seulement si Dify échoue et si `GEMINI_API_KEY` existe. Ne reçoit que des extraits de `reseau.mjs` (`contexteReseau()`) et les règles du Rédacteur ; pas d'appel si aucun lieu ni ligne n'est reconnu ; `filtrerTemps()` retire tout temps chiffré. Modèle par défaut `gemini-3.5-flash-lite` (`GEMINI_MODEL` pour changer).
 - **TomTom** : géocodage (Sénégal) et itinéraire avec trafic, offre gratuite sans carte bancaire. Clé côté serveur uniquement.
-- Variables : `DIFY_API_KEY`, `DIFY_API_URL`, `TOMTOM_API_KEY`. Voir `.env.example`. Le mode démo (`DEMO_MODE`) a été retiré : aucune réponse d'exemple ni temps fictif.
+- Variables : `DIFY_API_KEY`, `DIFY_API_URL`, `TOMTOM_API_KEY`, `GEMINI_API_KEY` (optionnelle), `GEMINI_MODEL` (optionnelle). Voir `.env.example`. Le mode démo (`DEMO_MODE`) a été retiré : aucune réponse d'exemple ni temps fictif.
 
 ## Limites connues
 - Aucune donnée en temps réel n'existe pour les bus DDD (rien n'est publié). Le temps affiché dans l'app est celui d'une voiture avec le trafic actuel, et l'interface le dit.
@@ -31,7 +33,10 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 
 ## Dossiers
 - `dify/` : base de connaissance Dify (lignes, arrêts, lieux, infos réseau DDD) et archive de l'ancienne base d'affluence (plus utilisée).
-- `docs/decisions.md` : décisions techniques par phase.
+- `docs/decisions.md` : décisions techniques par phase et par épisode de l'atelier.
+- `docs/audit-securite-*.md` : rapports d'audit sécurité.
+- `.claude/agents/securite-urbanflow.md` : sous-agent de relecture sécurité, lecture seule. À lancer avant chaque déploiement.
+- `.claude/ralph-brief.md` : règles de la boucle d'amélioration de l'interface (E10).
 - Hors de ce dossier : `docs/s3/`, `docs/s4/`, `docs/s5/` (journaux de prompts par séance) à la racine du dépôt.
 
 ## Conventions
@@ -67,6 +72,6 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Top K de la base lignes : 8. Fichiers et règles d'import dans `dify/README.md`.
 
 ## Prochaines étapes possibles
-1. Passer le modèle Dify de Groq à Gemini Flash-Lite.
+1. Passer le modèle Dify de Groq à Gemini Flash-Lite (le secours côté serveur existe déjà).
 2. Relevés chronométrés de bus réels pour alimenter le catalogue et `donnees_trafic`.
 3. Déploiement Cloudflare et test de bout en bout avec de vraies clés.
