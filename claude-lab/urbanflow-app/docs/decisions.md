@@ -85,3 +85,10 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Pourquoi : déployer sans dépendre du PC ni de `deployer.bat`, et ne jamais mettre en ligne une version qui casse les règles (clé, affluence, script inline).
 - Clés : secrets GitHub uniquement (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, puis les clés de l'app). Seuls les secrets remplis sont envoyés au Worker ; les autres gardent leur valeur actuelle.
 - Compromis : le jeton Cloudflare est stocké chez GitHub ; il doit être limité au droit « Edit Cloudflare Workers » sur ce compte.
+
+## 2026-10-04 : lignes « A vérifier » confrontées aux sources officielles
+- Sources : page « Réseau urbain » de demdikk.sn (listes d'arrêts officielles, consultée le 04/10/2026) et communiqué DDD sur la ligne 06 relayé par Senego (08/07/2026).
+- Résolues (6) : lignes 4, 10 et 13 (le terminus « Liberté 5 » est la Gare Dieuppeul, écrit « Terminus Liberté 5 (Dieuppeul) » par DDD : trajet noté « Liberté 5 (Dieuppeul) ») ; ligne 23 (arrivée Palais 2 selon la liste d'arrêts officielle et les captures, même si le titre officiel dit Palais 1) ; ligne 6 (Guédiawaye - Palais 1 depuis juillet 2026, comme les arrêts capturés) ; ligne 319 (présente sur la liste officielle du réseau urbain).
+- Toujours à vérifier (10) : 121 (Scat Urbam ou HLM Grand Yoff au départ), 5, 18, 20, 213, 218, 220, T05, T07, T08. Ces cas demandent un relevé sur le terrain ou une source qui n'est pas publiée en ligne.
+- Fichiers mis à jour : `dify/urbanflow_lignes_complet.csv`, `dify/urbanflow_kb_lignes.md` (lignes « Vérifié : » avec la source), `lib/reseau.mjs`, `public/lignes.json`.
+- Dify : `urbanflow_kb_lignes.md` doit être réimporté dans la base des lignes (mêmes réglages : séparateur `\n\n`, 1024 caractères, mode Économique). Pas fait : demande un navigateur connecté au compte Dify.

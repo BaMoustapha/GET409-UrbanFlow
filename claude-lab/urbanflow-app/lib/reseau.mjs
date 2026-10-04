@@ -1,4 +1,4 @@
-// Données du réseau DDD (générées depuis DakarFlow_Donnees_1.xlsx). Ne pas éditer à la main.
+// Données du réseau DDD (générées depuis DakarFlow_Donnees_1.xlsx, lignes vérifiées le 04/10/2026 : voir docs/decisions.md). Ne pas éditer à la main.
 export const LIGNES = [
  {
   "n": "1",
@@ -12,11 +12,11 @@ export const LIGNES = [
  {
   "n": "4",
   "cat": "urbain",
-  "trajet": "Liberté 5 ↔ Place Leclerc",
+  "trajet": "Liberté 5 (Dieuppeul) ↔ Place Leclerc",
   "terminus": "Gare Dieuppeul -> Gare Leclerc",
   "zones": "Dieuppeul / Sacré-Cœur / Point E > Canal 4 / Delafosse / Manguiers > Médina / Plateau",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
-  "verif": true
+  "verif": false
  },
  {
   "n": "7",
@@ -48,20 +48,20 @@ export const LIGNES = [
  {
   "n": "10",
   "cat": "urbain",
-  "trajet": "Liberté 5 ↔ Palais 2",
+  "trajet": "Liberté 5 (Dieuppeul) ↔ Palais 2",
   "terminus": "Gare Dieuppeul -> Gare Palais 2",
   "zones": "Dieuppeul / Sacré-Cœur > Sicap Karack / Corniche > Médina / Plateau",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
-  "verif": true
+  "verif": false
  },
  {
   "n": "13",
   "cat": "urbain",
-  "trajet": "Liberté 5 ↔ Palais 2",
+  "trajet": "Liberté 5 (Dieuppeul) ↔ Palais 2",
   "terminus": "Gare Dieuppeul -> Gare Palais 2",
   "zones": "Dieuppeul / HLM > Colobane / Centenaire > Médina / Plateau",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
-  "verif": true
+  "verif": false
  },
  {
   "n": "18",
@@ -93,11 +93,11 @@ export const LIGNES = [
  {
   "n": "23",
   "cat": "urbain",
-  "trajet": "Parcelles Assainies ↔ Palais 1",
+  "trajet": "Parcelles Assainies ↔ Palais 2",
   "terminus": "Gare Parcelles Assainies -> Gare Palais 2",
   "zones": "Parcelles Assainies / Dior > Castors / Sicap Karack > Croisement 22 / Grand Médine > Fann / UCAD > Médina / Plateau",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
-  "verif": true
+  "verif": false
  },
  {
   "n": "2",
@@ -120,11 +120,11 @@ export const LIGNES = [
  {
   "n": "6",
   "cat": "banlieue",
-  "trajet": "Cambérène 2 ↔ Palais 2",
+  "trajet": "Guédiawaye ↔ Palais 1",
   "terminus": "Gare Guédiawaye -> Gare Palais 1",
   "zones": "Guédiawaye > Camberène / Grand Médine > Impôts / Liberté 4-6 > Niary Tally > Centenaire / Sandaga > Médina / Plateau",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
-  "verif": true
+  "verif": false
  },
  {
   "n": "11",
@@ -272,12 +272,12 @@ export const LIGNES = [
  },
  {
   "n": "319",
-  "cat": "urbain (captures appli)",
+  "cat": "urbain",
   "trajet": "Liberté 6 ↔ Ouakam",
   "terminus": "Gare Ouakam -> Gare Liberté 6",
   "zones": "Ouakam > Sacré-Cœur / JVC > Liberté 6",
   "pointe": "7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues",
-  "verif": true
+  "verif": false
  },
  {
   "n": "T05",

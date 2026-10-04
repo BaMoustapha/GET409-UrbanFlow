@@ -8,8 +8,8 @@
  {
   "n": "4",
   "cat": "urbain",
-  "trajet": "Liberté 5 ↔ Place Leclerc",
-  "verif": true
+  "trajet": "Liberté 5 (Dieuppeul) ↔ Place Leclerc",
+  "verif": false
  },
  {
   "n": "7",
@@ -32,14 +32,14 @@
  {
   "n": "10",
   "cat": "urbain",
-  "trajet": "Liberté 5 ↔ Palais 2",
-  "verif": true
+  "trajet": "Liberté 5 (Dieuppeul) ↔ Palais 2",
+  "verif": false
  },
  {
   "n": "13",
   "cat": "urbain",
-  "trajet": "Liberté 5 ↔ Palais 2",
-  "verif": true
+  "trajet": "Liberté 5 (Dieuppeul) ↔ Palais 2",
+  "verif": false
  },
  {
   "n": "18",
@@ -62,8 +62,8 @@
  {
   "n": "23",
   "cat": "urbain",
-  "trajet": "Parcelles Assainies ↔ Palais 1",
-  "verif": true
+  "trajet": "Parcelles Assainies ↔ Palais 2",
+  "verif": false
  },
  {
   "n": "2",
@@ -80,8 +80,8 @@
  {
   "n": "6",
   "cat": "banlieue",
-  "trajet": "Cambérène 2 ↔ Palais 2",
-  "verif": true
+  "trajet": "Guédiawaye ↔ Palais 1",
+  "verif": false
  },
  {
   "n": "11",
@@ -181,9 +181,9 @@
  },
  {
   "n": "319",
-  "cat": "urbain (captures appli)",
+  "cat": "urbain",
   "trajet": "Liberté 6 ↔ Ouakam",
-  "verif": true
+  "verif": false
  },
  {
   "n": "T05",

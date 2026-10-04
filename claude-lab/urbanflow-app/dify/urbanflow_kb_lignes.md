@@ -5,11 +5,11 @@ Zones : Parcelles Assainies / Yoff > Fann / Mermoz / UCAD > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
 
 LIGNE 4 ligne4 (urbain). ligne4
-Trajet officiel demdikk.sn : Liberté 5 <-> Place Leclerc.
+Trajet officiel demdikk.sn : Liberté 5 (Dieuppeul) <-> Place Leclerc.
 Terminus des arrêts capturés (sens Aller) : Gare Dieuppeul -> Gare Leclerc, 37 arrêts.
 Zones : Dieuppeul / Sacré-Cœur / Point E > Canal 4 / Delafosse / Manguiers > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Départ : Liberté 5 (site officiel et feuille DakarFlow) ou Dieuppeul (arrêts capturés). A vérifier.
+Vérifié : Terminus Liberté 5 = Gare Dieuppeul (demdikk.sn, page Réseau urbain, consultée le 04/10/2026).
 
 LIGNE 7 ligne7 (urbain). ligne7
 Trajet officiel demdikk.sn : Ouakam <-> Palais 2.
@@ -30,18 +30,18 @@ Zones : Liberté 4-6 / JVC > Niary Tally / Centenaire > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
 
 LIGNE 10 ligne10 (urbain). ligne10
-Trajet officiel demdikk.sn : Liberté 5 <-> Palais 2.
+Trajet officiel demdikk.sn : Liberté 5 (Dieuppeul) <-> Palais 2.
 Terminus des arrêts capturés (sens Aller) : Gare Dieuppeul -> Gare Palais 2, 29 arrêts.
 Zones : Dieuppeul / Sacré-Cœur > Sicap Karack / Corniche > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Départ : Liberté 5 (site officiel) ou Dieuppeul (captures appli). A vérifier.
+Vérifié : Terminus Liberté 5 = Gare Dieuppeul (demdikk.sn, page Réseau urbain, consultée le 04/10/2026).
 
 LIGNE 13 ligne13 (urbain). ligne13
-Trajet officiel demdikk.sn : Liberté 5 <-> Palais 2.
+Trajet officiel demdikk.sn : Liberté 5 (Dieuppeul) <-> Palais 2.
 Terminus des arrêts capturés (sens Aller) : Gare Dieuppeul -> Gare Palais 2, 26 arrêts.
 Zones : Dieuppeul / HLM > Colobane / Centenaire > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Départ : Liberté 5 (site officiel) ou Dieuppeul (captures appli). A vérifier.
+Vérifié : Terminus Liberté 5 = Gare Dieuppeul (demdikk.sn, page Réseau urbain, consultée le 04/10/2026).
 
 LIGNE 18 ligne18 (urbain). ligne18
 Trajet officiel demdikk.sn : Dieuppeul <-> Centre-ville <-> Dieuppeul (boucle).
@@ -61,14 +61,14 @@ Trajet officiel demdikk.sn : Scat Urbam <-> Leclerc.
 Terminus des arrêts capturés (sens Aller) : Gare HLM Grand Yoff -> Gare Leclerc, 38 arrêts.
 Zones : HLM / Grand Yoff > Zone B / Dieuppeul > Canal 4 / Santhiaba > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Départ : Scat Urbam (site officiel) ou HLM Grand Yoff (captures appli). A vérifier.
+Attention : Départ : Terminus Scat Urbam (liste d'arrêts officielle, demdikk.sn) ou Gare HLM Grand Yoff (arrêts capturés). A vérifier sur le terrain.
 
 LIGNE 23 ligne23 (urbain). ligne23
-Trajet officiel demdikk.sn : Parcelles Assainies <-> Palais 1.
+Trajet officiel demdikk.sn : Parcelles Assainies <-> Palais 2.
 Terminus des arrêts capturés (sens Aller) : Gare Parcelles Assainies -> Gare Palais 2, 52 arrêts.
 Zones : Parcelles Assainies / Dior > Castors / Sicap Karack > Croisement 22 / Grand Médine > Fann / UCAD > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Arrivée : Palais 1 (site officiel) ou Palais 2 (captures appli). A vérifier.
+Vérifié : Arrivée Palais 2 : liste d'arrêts officielle (demdikk.sn, page Réseau urbain, consultée le 04/10/2026) et arrêts capturés ; le titre de la liste officielle des lignes indique encore Palais 1.
 
 LIGNE 2 ligne2 (banlieue). ligne2
 Trajet officiel demdikk.sn : Daroukhane <-> Place Leclerc.
@@ -82,11 +82,11 @@ Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers le
 Attention : Les arrêts capturés se terminent à ENNS Jem Sport, pas à Palais 1. A vérifier.
 
 LIGNE 6 ligne6 (banlieue). ligne6
-Trajet officiel demdikk.sn : Cambérène 2 <-> Palais 2.
+Trajet officiel demdikk.sn : Guédiawaye <-> Palais 1.
 Terminus des arrêts capturés (sens Aller) : Gare Guédiawaye -> Gare Palais 1, 59 arrêts.
 Zones : Guédiawaye > Camberène / Grand Médine > Impôts / Liberté 4-6 > Niary Tally > Centenaire / Sandaga > Médina / Plateau.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Trois versions : Cambérène 2 vers Palais 2 (site officiel), Daroukhane vers Palais 1 (feuille DakarFlow), Guédiawaye vers Palais 1 (arrêts capturés). A vérifier.
+Vérifié : Itinéraire Guédiawaye - Palais 1 (communiqué DDD relayé par Senego le 08/07/2026), identique aux arrêts capturés ; la liste du site indique encore Cambérène 2 - Palais 2.
 
 LIGNE 11 ligne11 (banlieue). ligne11
 Trajet officiel demdikk.sn : Keur Massar <-> Lat Dior.
@@ -161,12 +161,12 @@ LIGNE 208 ligne208 (banlieue). ligne208
 Trajet officiel demdikk.sn : Bayakh <-> Rufisque.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
 
-LIGNE 319 ligne319 (urbain (captures appli)). ligne319
-Trajet (appli Lignes Urbain) : Liberté 6 <-> Ouakam.
+LIGNE 319 ligne319 (urbain). ligne319
+Trajet officiel demdikk.sn : Liberté 6 <-> Ouakam.
 Terminus des arrêts capturés (sens Aller) : Gare Ouakam -> Gare Liberté 6, 26 arrêts.
 Zones : Ouakam > Sacré-Cœur / JVC > Liberté 6.
 Heures de pointe habituelles : 7h-9h30 vers le Plateau/Palais, 17h30-20h vers les banlieues.
-Attention : Absente de la liste du site officiel, relevée sur l'appli Lignes Urbain.
+Vérifié : Ligne présente sur la liste officielle du réseau urbain (demdikk.sn, page Réseau urbain, consultée le 04/10/2026).
 
 LIGNE T05 lignet05 (TAF TAF (captures appli)). lignet05
 Trajet (appli Lignes Urbain) : Keur Massar <-> Palais 1.
