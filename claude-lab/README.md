@@ -22,7 +22,7 @@ Le détail de chaque épisode (quoi, pourquoi, compromis) est dans `urbanflow-ap
 - E08 : validé le 05/10/2026 (Claude refuse de lire `.env`, bouton « Copier le trajet » testé en local, historique git).
 - E09 : validé le 05/10/2026 (fausse clé Dify, question « ligne 7, quels quartiers ? », réponse `source=secours` via Gemini avec la note de secours ; les questions de trajet « A vers B » passent par le guide réseau, sans IA).
 - E11 : notebook exécuté le 05/10/2026 (22 s, 0 erreur, aucune clé dans les sorties) : sans mémoire la question de suivi échoue, avec mémoire elle réussit (ligne 7, quartiers, temps en bus « non relevé »). Skill externe : `agents-sdk` de Cloudflare (https://github.com/cloudflare/skills), `SKILL.md` relu (documentation seule, aucune commande risquée), installée en portée Project dans `11-agent/.claude/skills/agents-sdk/`. E11 validé.
-- E12 : `/setup` (interview, `SOUL.md`) et `/ingest` du CV (13 pages dans le vault, index et journal à jour) faits le 05/10/2026 ; contenu personnel gardé sur le PC (ignoré par git). Reste la capture du graphe Obsidian.
+- E12 : `/setup` (interview, `SOUL.md`) et `/ingest` du CV (13 pages dans le vault, index et journal à jour) faits le 05/10/2026 ; contenu personnel gardé sur le PC (ignoré par git). Graphe Obsidian vérifié (16 pages reliées autour de `index` et `profil`). E12 validé.
 - E14 : validé le 05/10/2026 (sous-agent `securite-urbanflow` chargé depuis `urbanflow-app`, ligne d'outil `securite-urbanflow(...)`, lecture seule ; verdict : règles Read/Edit OK, commandes Bash de lecture non couvertes, hook PreToolUse recommandé).
 
 ## Ce qui se fait sur ton PC (preuves de l'atelier)
