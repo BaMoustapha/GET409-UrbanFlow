@@ -18,6 +18,9 @@ Fichiers produits pendant l'atelier Claude Code, adaptés à UrbanFlow (mobilit�
 
 Le détail de chaque épisode (quoi, pourquoi, compromis) est dans `urbanflow-app/docs/decisions.md`.
 
+## Validation
+- E08 : validé le 05/10/2026 (Claude refuse de lire `.env`, bouton « Copier le trajet » testé en local, historique git).
+
 ## Ce qui se fait sur ton PC (preuves de l'atelier)
 - E08 : demander à Claude de lire `.env` (il doit refuser), capture de l'app et `git log --oneline`.
 - E09 : coller `GEMINI_API_KEY` dans `.env`, tester avec une clé Dify volontairement fausse, puis `deployer.bat`.
