@@ -11,7 +11,6 @@
     zoneCarte.replaceChildren(el('p', {className:'vide', textContent:'Carte indisponible pour le moment. Le calcul du trajet fonctionne quand même : saisissez un départ et une arrivée.'}));
   }
   let depart = null, arrivee = null, mDep = null, mArr = null, trace = null;
-  let lignesTrouvees = []; // lignes proposees, reprises dans le resume copie
 
   const iDep = document.getElementById('t-depart');
   const iArr = document.getElementById('t-arrivee');
@@ -82,38 +81,7 @@
     if(j.previsionPour) enfants.push(el('span', {className:'badge', textContent:'Prévision pour ' + new Date(j.previsionPour).toLocaleString('fr-FR', {weekday:'short', hour:'2-digit', minute:'2-digit'})}));
     else enfants.push(el('span', {className:'badge', textContent:'Trafic actuel, calculé à ' + hhmm(new Date(j.calculeA))}));
     if(heureDemandee && !j.previsionPour) enfants.push(el('small', {textContent:"L'heure choisie est hors plage (5 minutes à 7 jours) : calcul pour maintenant."}));
-    const etat = el('small', {className:'copie-etat', role:'status'});
-    enfants.push(el('div', {className:'copie'}, el('button', {type:'button', className:'btn btn-sec', textContent:'Copier le trajet', onclick:() => copierTrajet(j, etat)}), etat));
     resVoit.replaceChildren(...enfants);
-  }
-
-  // Resume texte du trajet : uniquement des donnees calculees (TomTom) ou du reseau, jamais de temps en bus.
-  function resumeTrajet(j){
-    const quand = j.previsionPour
-      ? 'prévision pour ' + new Date(j.previsionPour).toLocaleString('fr-FR', {weekday:'long', hour:'2-digit', minute:'2-digit'})
-      : 'trafic actuel, calculé à ' + hhmm(new Date(j.calculeA));
-    const l = [
-      'UrbanFlow : ' + (j.depart.label || 'Départ') + ' vers ' + (j.arrivee.label || 'Arrivée'),
-      'En voiture : ' + j.voitureMin + ' min (' + j.distanceKm + ' km), sans trafic : ' + j.habituelMin + ' min (' + quand + ', TomTom).',
-    ];
-    if(j.congestion) l.push('Circulation : ' + j.congestion.niveau + '.');
-    l.push(lignesTrouvees.length ? 'Lignes DDD possibles : ' + lignesTrouvees.map(x => x.nom + ' (' + x.trajet + ')').join(', ') + '.' : 'Lignes DDD possibles : aucune trouvée pour ces lieux.');
-    l.push("Temps en bus non publié par Dakar Dem Dikk : comptez en général plus que le temps en voiture.");
-    l.push(location.origin + '/trajet');
-    return l.join('\n');
-  }
-  async function copierTrajet(j, etat){
-    const texte = resumeTrajet(j);
-    try {
-      if(navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(texte);
-      else {
-        const t = el('textarea', {value:texte}); t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
-        document.body.append(t); t.select(); const ok = document.execCommand('copy'); t.remove();
-        if(!ok) throw new Error('copie');
-      }
-      etat.textContent = 'Trajet copié.';
-    } catch(e) { etat.textContent = 'Copie impossible : sélectionnez le texte à la main.'; }
-    setTimeout(() => { etat.textContent = ''; }, 4000);
   }
 
   async function carteLignes(dTxt, aTxt){
@@ -126,7 +94,6 @@
     const sur = (l, txt) => contient(txt, l.depart) || (l.arrivee && contient(txt, l.arrivee));
     const trouvees = liste.map(l => ({l, nb:(sur(l, dTxt) ? 1 : 0) + (sur(l, aTxt) ? 1 : 0)}))
       .filter(x => x.nb > 0).sort((x, y) => y.nb - x.nb).slice(0, 4).map(x => x.l);
-    lignesTrouvees = trouvees;
     if(!trouvees.length){
       enfants.push(el("p", {className:"vide"}, "Aucune ligne du réseau n'a un terminus correspondant à ces lieux. Consultez la ", el("a", {href:"/lignes", textContent:"liste des lignes"}), " ou interrogez l'agent."));
     } else {

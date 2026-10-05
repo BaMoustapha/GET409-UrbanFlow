@@ -92,3 +92,6 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Toujours à vérifier (10) : 121 (Scat Urbam ou HLM Grand Yoff au départ), 5, 18, 20, 213, 218, 220, T05, T07, T08. Ces cas demandent un relevé sur le terrain ou une source qui n'est pas publiée en ligne.
 - Fichiers mis à jour : `dify/urbanflow_lignes_complet.csv`, `dify/urbanflow_kb_lignes.md` (lignes « Vérifié : » avec la source), `lib/reseau.mjs`, `public/lignes.json`.
 - Dify : `urbanflow_kb_lignes.md` doit être réimporté dans la base des lignes (mêmes réglages : séparateur `\n\n`, 1024 caractères, mode Économique). Pas fait : demande un navigateur connecté au compte Dify.
+
+## 2026-10-05 : bouton « Copier le trajet » retiré
+- Retiré à la demande de Moustapha : bouton, fonctions `resumeTrajet()` et `copierTrajet()` de `public/page-trajet.js`, et styles `.copie` / `.copie-etat`. Le reste de E08 (protections, correction de la détection de ligne) est conservé.
