@@ -107,3 +107,8 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 - Données : `dify/urbanflow_kb_affluence.md` déplacé dans `dify/archive/` (plus au niveau des fichiers importables). Le test `npm test` contrôle maintenant les fichiers importables de `dify/` (ni affluence ni clé) et l'absence de message de configuration dans les réponses. 11 tests.
 - Non fait, à décider : règles deny de `.claude/settings.json` (`cat`, `.dev.vars` côté terminal, `Select-String`, etc.), régénération de la clé TomTom (risque accepté le 04/10), nuance « non disponible dans UrbanFlow » dans `dify/urbanflow_kb_infos_ddd.md` (puis réimport Dify), actions GitHub figées par SHA, `?q=` qui lance un appel sans clic.
 - Cause de la production périmée : non établie depuis le dépôt. À lire dans l'onglet Actions du dépôt (étape en échec, approbation de l'environnement `production`, compte de `CLOUDFLARE_ACCOUNT_ID`).
+
+## 2026-10-05 : Ralph round 1 : ce qui a changé
+- Constat (375/360 px, thèmes clair et sombre) : aucun débordement horizontal ; les 5 pages répondent 200 sans erreur de console. Problèmes trouvés : liens de texte et de pied de page de 18 à 28 px de haut (cible tactile sous 44 px), anneau de focus jaune invisible sur fond clair, texte indicatif des champs trop pâle en thème clair (`#9AAA9C` sur blanc).
+- Corrigé dans `public/style.css` uniquement : cibles de 44 px minimum (logo, bouton du menu, liens du pied de page, liens des notes et des rangées de la landing) ; focus vert foncé `#00753A` en thème clair ; `::placeholder` en `var(--muted)`.
+- Reste (faible impact) : texte de 13 px des `.note` ; hiérarchie des cartes de résultats de `/trajet` non revue avec de vraies données TomTom.
