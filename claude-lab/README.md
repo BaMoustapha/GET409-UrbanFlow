@@ -20,6 +20,7 @@ Le détail de chaque épisode (quoi, pourquoi, compromis) est dans `urbanflow-ap
 
 ## Validation
 - E08 : validé le 05/10/2026 (Claude refuse de lire `.env`, bouton « Copier le trajet » testé en local, historique git).
+- E09 : validé le 05/10/2026 (fausse clé Dify, question « ligne 7, quels quartiers ? », réponse `source=secours` via Gemini avec la note de secours ; les questions de trajet « A vers B » passent par le guide réseau, sans IA).
 - E14 : validé le 05/10/2026 (sous-agent `securite-urbanflow` chargé depuis `urbanflow-app`, ligne d'outil `securite-urbanflow(...)`, lecture seule ; verdict : règles Read/Edit OK, commandes Bash de lecture non couvertes, hook PreToolUse recommandé).
 
 ## Ce qui se fait sur ton PC (preuves de l'atelier)
