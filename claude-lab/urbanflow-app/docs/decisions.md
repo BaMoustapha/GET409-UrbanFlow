@@ -95,3 +95,8 @@ Version locale et autonome, complémentaire à l'app Lovable (production). Sert 
 
 ## 2026-10-05 : bouton « Copier le trajet » retiré
 - Retiré à la demande de Moustapha : bouton, fonctions `resumeTrajet()` et `copierTrajet()` de `public/page-trajet.js`, et styles `.copie` / `.copie-etat`. Le reste de E08 (protections, correction de la détection de ligne) est conservé.
+
+## 2026-10-05 : E08, test de protection échoué puis corrigé
+- Constat : lancé depuis `urbanflow-mvp` (dossier parent), Claude a lu deux fichiers `.env` et en a décrit le contenu (longueur et forme des clés). Cause : une règle `Read(./.env)` ne vise que le `.env` du dossier où Claude est lancé, et les réglages de `urbanflow-app/.claude/` ne sont pas chargés quand Claude démarre ailleurs.
+- Correctif : règles `Read(**/.env)`, `Read(**/.env.*)`, `Edit(...)` et `.dev.vars` à toute profondeur, dans `urbanflow-app`, `11-agent`, `personal-os` et à la racine du dépôt (`.claude/settings.json`). Ces règles couvrent aussi `cat`, `head`, `tail` dans le terminal. Protection globale recommandée sur le PC : `Read(//**/.env)` et `Read(//**/.env.*)` dans `%USERPROFILE%\.claude\settings.json`, valable dans tous les dossiers.
+- Limite connue : un script Python ou Node qui ouvre lui-même un fichier n'est pas bloqué par ces règles (seul le sandbox de Claude Code le bloque).
