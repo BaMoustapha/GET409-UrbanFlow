@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "agents-sdk": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/agents-sdk/SKILL.md",
+      "computedHash": "fe556fd15236ba0ee161e7a3f4aa003abf8c3bca6ab257af3183f816087b407d"
+    }
+  }
+}
