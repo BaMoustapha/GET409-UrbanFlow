@@ -123,7 +123,7 @@
       const r = await fetch('/api/trajet', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({depart:d, arrivee:a, departAt:heureDemandee})});
       const j = await r.json();
       const msg = {
-        no_key: "Service de trajet non configuré (clé TomTom manquante).",
+        no_key: "Le calcul de trajet n'est pas disponible pour le moment.",
         not_found: "Adresse introuvable. Précisez le lieu ou cliquez sur la carte.",
       }[j.statut];
       if(j.statut !== 'ok'){

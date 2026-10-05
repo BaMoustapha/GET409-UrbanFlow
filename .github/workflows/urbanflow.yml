@@ -15,10 +15,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: urbanflow-${{ github.ref }}
-  cancel-in-progress: true
-
 defaults:
   run:
     working-directory: claude-lab/urbanflow-app
@@ -26,6 +22,11 @@ defaults:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Un nouveau push annule les tests en cours (sans danger : rien n'est modifie en ligne).
+    concurrency:
+      group: urbanflow-tests-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -42,10 +43,12 @@ jobs:
     needs: tests
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: production
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    # Un deploiement en cours n'est jamais annule par un nouveau push : le suivant attend son tour.
+    concurrency:
+      group: urbanflow-deploiement
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -53,17 +56,26 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: claude-lab/urbanflow-app/package-lock.json
+      # Le jeton Cloudflare n'est donne qu'aux etapes qui en ont besoin (pas a npm ci).
       - run: npm ci
       - name: Secrets Cloudflare presents ?
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "::error::Ajoute CLOUDFLARE_API_TOKEN et CLOUDFLARE_ACCOUNT_ID dans les secrets GitHub (Settings > Secrets and variables > Actions)."
             exit 1
           fi
       - name: Deployer le Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx wrangler deploy
       - name: Envoyer les cles de l'app au Worker (seulement celles remplies)
         env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           DIFY_API_KEY: ${{ secrets.DIFY_API_KEY }}
           DIFY_API_URL: ${{ secrets.DIFY_API_URL }}
           TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
@@ -78,11 +90,41 @@ jobs:
               echo "$nom non defini dans GitHub : valeur actuelle du Worker conservee"
             fi
           done
-      - name: Verifier le site en ligne
+      # Le site en ligne doit etre la version qu'on vient de deployer : un site reste sur une ancienne version
+      # (autre compte Cloudflare, deploiement partiel) fait echouer cette etape au lieu de rester vert.
+      - name: Verifier que le site en ligne est la nouvelle version
         run: |
-          sleep 5
-          code=$(curl -s -o /dev/null -w '%{http_code}' https://urbanflow.urbanflow-moustapha.workers.dev/)
-          echo "Accueil : HTTP $code"
-          rep=$(curl -s -X POST https://urbanflow.urbanflow-moustapha.workers.dev/api/analyser-trafic -H 'Content-Type: application/json' -d '{"query":"arrets ligne 7"}')
+          site=https://urbanflow.urbanflow-moustapha.workers.dev
+          echec=0
+
+          # 1. Accueil, script de page (absent des anciennes versions) et en-tete CSP. Jusqu'a 6 essais : propagation.
+          ok=0
+          for essai in 1 2 3 4 5 6; do
+            accueil=$(curl -s -o /dev/null -w '%{http_code}' "$site/")
+            script=$(curl -s -o /dev/null -w '%{http_code}' "$site/page-trajet.js")
+            csp=$(curl -sI "$site/trajet" | grep -ci '^content-security-policy:' || true)
+            echo "Essai $essai : accueil=$accueil page-trajet.js=$script CSP=$csp"
+            if [ "$accueil" = "200" ] && [ "$script" = "200" ] && [ "$csp" -ge 1 ]; then ok=1; break; fi
+            sleep 10
+          done
+          [ "$ok" = "1" ] || { echo "::error::Le site en ligne n'est pas la version deployee (accueil, /page-trajet.js ou CSP). Verifier CLOUDFLARE_ACCOUNT_ID : est-ce le compte qui heberge ce Worker ?"; echec=1; }
+
+          # 2. Le guide reseau repond (sans IA, sans quota).
+          rep=$(curl -s -X POST "$site/api/analyser-trafic" -H 'Content-Type: application/json' -d '{"query":"arrets ligne 7"}')
           echo "$rep" | head -c 200; echo
-          [ "$code" = "200" ] && echo "$rep" | grep -q "Gare Ouakam"
+          echo "$rep" | grep -q "Gare Ouakam" || { echo "::error::Le guide reseau ne repond pas comme attendu."; echec=1; }
+
+          # 3. La limite de requetes agit : 25 questions vides (refusees en 400, sans aucun appel externe) doivent donner un 429.
+          limite=0
+          for i in $(seq 1 25); do
+            c=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$site/api/analyser-trafic" -H 'Content-Type: application/json' -d '{"query":""}')
+            [ "$c" = "429" ] && { limite=1; break; }
+          done
+          [ "$limite" = "1" ] || { echo "::error::Aucun 429 apres 25 requetes : la limite de requetes ([[ratelimits]]) n'agit pas en production."; echec=1; }
+
+          # 4. Un POST qui n'est pas du JSON est refuse (415).
+          c=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$site/api/analyser-trafic" -H 'Content-Type: text/plain' -d 'x')
+          echo "POST text/plain : HTTP $c"
+          [ "$c" = "415" ] || [ "$c" = "429" ] || { echo "::error::Un POST text/plain devrait etre refuse (415)."; echec=1; }
+
+          exit $echec

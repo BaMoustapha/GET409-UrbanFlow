@@ -14,7 +14,7 @@ Source : `DakarFlow_Donnees_1.xlsx` (15 lignes de la feuille DakarFlow, 16 feuil
 | urbanflow_kb_lignes.md | RECUP_LIGNES | 42 (un par ligne) |
 | urbanflow_kb_arrets.md | RECUP_LIGNES | 25 |
 | urbanflow_kb_lieux.md | RECUP_LIGNES | 4 |
-| urbanflow_kb_affluence.md | Archive, plus utilisée (base affluence retirée du workflow) | 4 |
+| archive/urbanflow_kb_affluence.md | Archive, plus utilisée et ne pas importer (base affluence retirée du workflow) | 4 |
 | urbanflow_kb_infos_ddd.md | base lignes (TAF TAF, AIBD, interurbain, gares, institution, flotte, sans prix) | 13 |
 | urbanflow_lignes_complet.csv, urbanflow_arrets_complet.csv | pour l'app et le dépôt (dossier dify/) | 42 lignes, 613 arrêts |
 

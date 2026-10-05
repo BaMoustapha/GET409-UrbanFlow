@@ -148,7 +148,7 @@ export async function analyserTrafic(env, query, donneesTrafic) {
   if (direct) return { status: 200, body: { outputs: direct, source: 'reseau' } };
   // Dify d'abord ; en cas d'échec (clé absente, erreur, quota, délai dépassé), Gemini en secours s'il est configuré.
   const echec = async (status, error) => (await secoursGemini(env, query, donneesTrafic)) || { status, body: { error } };
-  if (!env.DIFY_API_KEY) return echec(500, 'Clé Dify absente (DIFY_API_KEY).');
+  if (!env.DIFY_API_KEY) return echec(503, 'Service temporairement indisponible.');
 
   const inputs = { query: enrichirRequete(query) };
   if (donneesTrafic) inputs.donnees_trafic = donneesTrafic;

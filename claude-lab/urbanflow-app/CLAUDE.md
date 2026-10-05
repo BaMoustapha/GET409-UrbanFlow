@@ -34,7 +34,7 @@ UrbanFlow aide les usagers de Dakar Dem Dikk à anticiper la durée réelle de l
 - Le journal de trajets local et la page `/releves` (relevé chronométré envoyé à l'agent via `donnees_trafic`) sont retirés de l'interface pour l'instant. La page est conservée dans `archive/releves.html` : la remettre dans `public/` et dans le menu de `public/app.js` pour la réactiver.
 
 ## Dossiers
-- `dify/` : base de connaissance Dify (lignes, arrêts, lieux, infos réseau DDD) et archive de l'ancienne base d'affluence (plus utilisée).
+- `dify/` : base de connaissance Dify (lignes, arrêts, lieux, infos réseau DDD) et `dify/archive/` (ancienne base d’affluence, plus utilisée, ne pas importer).
 - `docs/decisions.md` : décisions techniques par phase et par épisode de l'atelier.
 - `docs/audit-securite-*.md` : rapports d'audit sécurité.
 - `.claude/agents/securite-urbanflow.md` : sous-agent de relecture sécurité, lecture seule. À lancer avant chaque déploiement.

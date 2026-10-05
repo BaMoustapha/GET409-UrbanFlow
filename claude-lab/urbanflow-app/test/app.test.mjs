@@ -61,13 +61,51 @@ test('pas d’appel au modèle si rien n’est reconnu', async () => {
 test('Worker : limite de requêtes, taille, méthode', async () => {
   let n = 0;
   const env = { ASSETS: { fetch: () => new Response('page') }, LIMITE_AGENT: { limit: async () => ({ success: ++n <= 1 }) } };
-  const post = (body) => new Request('https://x/api/analyser-trafic', { method: 'POST', body, headers: { 'CF-Connecting-IP': '1.2.3.4' } });
+  const post = (body) => new Request('https://x/api/analyser-trafic', { method: 'POST', body, headers: { 'CF-Connecting-IP': '1.2.3.4', 'Content-Type': 'application/json' } });
   assert.equal((await worker.fetch(post('{"query":"arrêts ligne 7"}'), env)).status, 200);
   assert.equal((await worker.fetch(post('{"query":"arrêts ligne 7"}'), env)).status, 429);
   n = 0;
   assert.equal((await worker.fetch(post('x'.repeat(20000)), env)).status, 413);
   assert.equal((await worker.fetch(new Request('https://x/api/trajet'), env)).status, 405);
   assert.equal(await (await worker.fetch(new Request('https://x/lignes'), env)).text(), 'page');
+});
+
+test('Worker : JSON exigé, corps en morceaux plafonné, limite absente tolérée', async () => {
+  const env = { ASSETS: { fetch: () => new Response('page') } };
+  const avertissements = []; const vraiWarn = console.warn; console.warn = (m) => avertissements.push(m);
+  try {
+  // Content-Type absent ou text/plain : refusé avant toute lecture du corps.
+  const texte = new Request('https://x/api/analyser-trafic', { method: 'POST', body: '{"query":"arrêts ligne 7"}', headers: { 'Content-Type': 'text/plain' } });
+  assert.equal((await worker.fetch(texte, env)).status, 415);
+  // Corps envoyé en morceaux, sans Content-Length : arrêté au plafond de 10 ko.
+  const flux = new ReadableStream({ start(c) { for (let i = 0; i < 30; i++) c.enqueue(new TextEncoder().encode('x'.repeat(1000))); c.close(); } });
+  const gros = new Request('https://x/api/analyser-trafic', { method: 'POST', body: flux, duplex: 'half', headers: { 'Content-Type': 'application/json' } });
+  assert.equal(gros.headers.get('Content-Length'), null);
+  assert.equal((await worker.fetch(gros, env)).status, 413);
+  // Sans binding de limite : la requête passe (le Worker le signale une seule fois dans les journaux).
+    const ok = new Request('https://x/api/analyser-trafic', { method: 'POST', body: '{"query":""}', headers: { 'Content-Type': 'application/json; charset=utf-8' } });
+    assert.equal((await worker.fetch(ok, env)).status, 400);
+  } finally { console.warn = vraiWarn; }
+  assert.equal(avertissements.length, 1);
+});
+
+test('aucune clé ni message de configuration renvoyé au navigateur', async () => {
+  const r = await analyserTrafic({}, 'xyzzy blabla');
+  assert.doesNotMatch(JSON.stringify(r.body), /DIFY_API_KEY|clé|TOMTOM/i);
+  const { readFileSync } = await import('node:fs');
+  assert.doesNotMatch(readFileSync(new URL('../public/page-trajet.js', import.meta.url), 'utf8'), /clé TomTom|TOMTOM_API_KEY/i);
+});
+
+test('fichiers de données Dify importables : ni affluence, ni clé', async () => {
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const dossier = new URL('../dify/', import.meta.url);
+  const importables = readdirSync(dossier).filter((x) => /^urbanflow_.*.(md|csv)$/.test(x));
+  assert.ok(importables.length >= 3, 'fichiers importables trouvés');
+  for (const f of importables) {
+    const t = readFileSync(new URL(f, dossier), 'utf8');
+    assert.doesNotMatch(t, /affluence/i, f + ' : l’affluence est retirée du projet (archive dans dify/archive/)');
+    assert.doesNotMatch(t, /AIza[0-9A-Za-z_-]{20,}|gsk_[A-Za-z0-9]{20,}|app-[A-Za-z0-9]{20,}/, f);
+  }
 });
 
 test('aucune clé ni affluence dans l’interface', async () => {
