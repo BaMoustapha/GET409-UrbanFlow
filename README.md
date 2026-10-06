@@ -11,6 +11,8 @@
 
 L'application UrbanFlow est en ligne (Cloudflare Workers) : **https://urbanflow.urbanflow-moustapha.workers.dev/**
 
+Vidéo de présentation (70 s) : [**Voir le teaser UrbanFlow**](docs/s7/UrbanFlow_teaser_S7_16x9_1080p.mp4)
+
 ## Notre défi
 
 **Secteur :** Mobilité urbaine à Dakar
