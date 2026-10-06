@@ -21,8 +21,8 @@ Méthode : liste de contrôle du sous-agent `.claude/agents/securite-urbanflow.m
 | OK | `lib/core.mjs` | Délais d'attente sur tous les appels externes (10 s, 20 s, 30 s), erreurs sans détail interne | | | OK |
 
 ## Les 3 priorités
-1. Redéployer (`deployer.bat`).
-2. Après le déploiement, vérifier que la limite marche : 11 questions rapides à l'agent, la 11e doit répondre « Trop de requêtes ». Si `wrangler deploy` refuse les bindings `[[ratelimits]]` sur ton offre, supprime les deux blocs de `wrangler.toml` et préviens-moi : on passera à une limite en mémoire.
+1. Redéployer (`deployer.bat`) : fait le 06/10/2026 par GitHub Actions (run #8 vert).
+2. Après le déploiement, vérifier que la limite marche (contrôle automatique du workflow : un 429 reçu, pas d'avertissement le 06/10/2026) : 11 questions rapides à l'agent, la 11e doit répondre « Trop de requêtes ». Si `wrangler deploy` refuse les bindings `[[ratelimits]]` sur ton offre, supprime les deux blocs de `wrangler.toml` et préviens-moi : on passera à une limite en mémoire.
 3. Après le déploiement, ouvrir chaque page avec la console du navigateur (F12) : aucune ligne « Content Security Policy » ne doit apparaître, et la carte doit afficher ses tuiles.
 
 ## Relancer l'audit (preuve de l'atelier)

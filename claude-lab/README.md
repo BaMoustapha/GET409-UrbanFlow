@@ -25,6 +25,7 @@ Le détail de chaque épisode (quoi, pourquoi, compromis) est dans `urbanflow-ap
 - E12 : `/setup` (interview, `SOUL.md`) et `/ingest` du CV (13 pages dans le vault, index et journal à jour) faits le 05/10/2026 ; contenu personnel gardé sur le PC (ignoré par git). Graphe Obsidian vérifié (16 pages reliées autour de `index` et `profil`). E12 validé.
 - E13 : brief partiel du 05/10/2026 (Notion seul, mention « Gmail et Agenda non connectés », base Notion « Daily briefs » créée après accord, rien inventé) ; erreur réelle consignée dans `vault/errors.md` (SOUL.md mal rangé). Gmail et Agenda restent à connecter pour un brief complet.
 - E10 : plugin ralph-loop lancé le 06/10/2026 sur ton PC : un tour réel (commit `51867a1` : cibles tactiles 44 px, focus visible, placeholder lisible ; page Trajet vérifiée avec Playwright, 11 tests OK). Le hook d'arrêt du plugin a échoué (`jq` introuvable sous Windows), donc la boucle ne s'est pas relancée seule ; POLISHED volontairement non écrit.
+- Déploiement : fait le 06/10/2026 par GitHub Actions (run #8 vert, commit `aead9ac`) : tests, déploiement Cloudflare, vérification en ligne. L'avertissement « aucun 429 » n'est pas apparu : la limite de requêtes agit en production.
 - E14 : validé le 05/10/2026 (sous-agent `securite-urbanflow` chargé depuis `urbanflow-app`, ligne d'outil `securite-urbanflow(...)`, lecture seule ; verdict : règles Read/Edit OK, commandes Bash de lecture non couvertes, hook PreToolUse recommandé).
 
 ## Ce qui se fait sur ton PC (preuves de l'atelier)
