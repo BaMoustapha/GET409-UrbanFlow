@@ -1,0 +1,51 @@
+1
+00:00:03,900 --> 00:00:04,750
+Pas encore...
+
+2
+00:00:05,200 --> 00:00:07,350
+Je vais être en retard pour mon rendez-vous de neuf heures.
+
+3
+00:00:10,875 --> 00:00:12,175
+Mais il est où, ce bus ?
+
+4
+00:00:12,575 --> 00:00:14,175
+Mon cours commence dans vingt minutes.
+
+5
+00:00:17,725 --> 00:00:20,075
+Les enfants vont m'attendre devant l'école...
+
+6
+00:00:23,875 --> 00:00:26,275
+Et si je calculais mon trajet avant de partir ?
+
+7
+00:00:27,225 --> 00:00:30,675
+UrbanFlow estime ton trajet avec le trafic du moment,
+
+8
+00:00:30,725 --> 00:00:32,475
+à l'heure que tu choisis.
+
+9
+00:00:35,475 --> 00:00:39,225
+Le temps affiché est celui d'un trajet en voiture :
+
+10
+00:00:39,625 --> 00:00:42,225
+en bus, compte en général plus.
+
+11
+00:00:46,025 --> 00:00:48,075
+Dix minutes d'avance. Parfait.
+
+12
+00:00:53,367 --> 00:00:54,417
+Je suis là, mon grand.
+
+13
+00:00:58,167 --> 00:01:00,067
+Neuf heures moins dix. À l'heure.
