@@ -53,7 +53,7 @@ Les livrables S1, S2, S3, S4, S5, S6 et S7 sont organisés par séance :
 
 **S7 :**
 - [`docs/s7/UrbanFlow_script_S7.docx`](docs/s7/UrbanFlow_script_S7.docx) - Script du teaser vidéo en 4 actes et prompts visuels
-- [`docs/s7/UrbanFlow_teaser_S7_16x9_1080p.mp4`](docs/s7/UrbanFlow_teaser_S7_16x9_1080p.mp4) - Teaser vidéo UrbanFlow, MP4 16:9 1080p, 64 s, sous-titres incrustés, généré avec Omni Flash (Google Flow)
+- [`docs/s7/UrbanFlow_teaser_S7_16x9_1080p.mp4`](docs/s7/UrbanFlow_teaser_S7_16x9_1080p.mp4) - Teaser vidéo UrbanFlow, MP4 16:9 1080p, 70 s, sous-titres incrustés, généré avec Omni Flash (Google Flow), avec captures de l'app et de la page Agent IA
 - [`docs/s7/UrbanFlow_sous_titres_S7.srt`](docs/s7/UrbanFlow_sous_titres_S7.srt) - Sous-titres du teaser en français (fichier modifiable)
 - [`docs/s7/UrbanFlow_film_reseaux_9x16_sous_titres.mp4`](docs/s7/UrbanFlow_film_reseaux_9x16_sous_titres.mp4) - Version verticale 9:16 pour TikTok, Instagram et Snapchat
 
