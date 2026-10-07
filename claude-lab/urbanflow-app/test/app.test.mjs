@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { ligneCitee, repondreReseau, contexteReseau } from '../lib/guide.mjs';
-import { enrichirRequete, analyserTrafic, filtrerTemps, niveauCongestion } from '../lib/core.mjs';
+import { enrichirRequete, analyserTrafic, filtrerTemps, niveauCongestion, resultatDeRepli, distanceMetres, horsDakar, tempsTrajet } from '../lib/core.mjs';
 import worker from '../worker.js';
 
 const vraiFetch = globalThis.fetch;
@@ -106,6 +106,77 @@ test('fichiers de données Dify importables : ni affluence, ni clé', async () =
     assert.doesNotMatch(t, /affluence/i, f + ' : l’affluence est retirée du projet (archive dans dify/archive/)');
     assert.doesNotMatch(t, /AIza[0-9A-Za-z_-]{20,}|gsk_[A-Za-z0-9]{20,}|app-[A-Za-z0-9]{20,}/, f);
   }
+});
+
+test('guide réseau : formulations courtes, "jusqu\'au" et numéro de ligne seul', () => {
+  for (const q of ['Ouakam Plateau', 'Plateau Ouakam', 'Ouakam/Plateau', 'bus Ouakam Plateau', 'ligne pour Ouakam Plateau svp', "Ouakam jusqu'au Plateau", 'Yoff Plateau', 'Parcelles Assainies Plateau']) {
+    assert.match(repondreReseau(q) || '', /^LIGNES POSSIBLES/, q);
+  }
+  assert.match(repondreReseau('Ouakam Plateau'), /Ligne 7 : Ouakam ↔ Palais 2/);
+  for (const q of ['8', 'l8', 'ligne 8', 'l8 matin', 'bus 18 soir']) assert.match(repondreReseau(q) || '', /^Ligne \d+ :/, q);
+  assert.match(repondreReseau('999'), /introuvable/);
+  // Ce que le guide ne doit pas capter : il laisse l'agent (ou la règle suivante) répondre.
+  for (const q of ['18h', '2026', 'bonjour', 'Météo demain à Dakar ?', 'Ouakam Plateau horaires', 'combien de temps Ouakam Plateau', 'prix du ticket ligne 8']) {
+    assert.equal(repondreReseau(q), null, q);
+  }
+});
+
+test('trajet : lieu inconnu ramené à la ville, même lieu, hors de Dakar', async () => {
+  // TomTom répond la ville elle-même quand il ne reconnaît pas le lieu : refusé ; demander "Dakar" reste accepté.
+  const ville = { type: 'Geography', entityType: 'Municipality', address: { freeformAddress: 'Dakar, Dakar', municipality: 'Dakar' } };
+  assert.equal(resultatDeRepli(ville, 'Zzzzqx'), true);
+  assert.equal(resultatDeRepli(ville, 'Dakar'), false);
+  assert.equal(resultatDeRepli({ type: 'Geography', entityType: 'MunicipalitySubdivision', address: { freeformAddress: 'Dakar Plateau, Dakar' } }, 'Plateau'), false);
+  assert.equal(resultatDeRepli({ type: 'POI', address: { freeformAddress: 'Université Cheikh Anta Diop, Dakar' } }, 'UCAD'), false);
+  assert.equal(resultatDeRepli({ type: 'Geography', entityType: 'Municipality', address: { freeformAddress: 'Rufisque, Dakar' } }, 'Rufisque'), false);
+  assert.equal(resultatDeRepli({ address: {} }, 'x'), false, 'champs absents : on accepte');
+  // Distance et région.
+  assert.ok(distanceMetres({ lat: 14.7, lng: -17.4 }, { lat: 14.7, lng: -17.4 }) < 1);
+  assert.ok(Math.abs(distanceMetres({ lat: 14.7, lng: -17.4 }, { lat: 14.8, lng: -17.4 }) - 11120) < 200);
+  assert.equal(horsDakar({ lat: 14.72, lng: -17.47 }), false);
+  assert.equal(horsDakar({ lat: 14.79, lng: -16.92 }), true, 'Thiès');
+  // Même lieu : refus avant tout calcul d'itinéraire (un seul appel de géocodage, pas d'appel de route).
+  const appels = [];
+  const r = await avecFetch(async (url) => {
+    appels.push(String(url));
+    return Response.json({ results: [{ type: 'Street', position: { lat: 14.67, lon: -17.43 }, address: { freeformAddress: 'Plateau, Dakar' } }] });
+  }, () => tempsTrajet({ TOMTOM_API_KEY: 'x' }, { depart: 'Plateau', arrivee: 'Plateau' }));
+  assert.equal(r.body.statut, 'meme_lieu');
+  assert.ok(!appels.some((u) => u.includes('calculateRoute')), 'aucun calcul d’itinéraire');
+});
+
+test('trajet : la recherche floue retrouve un lieu que le géocodage remplace par la ville', async () => {
+  const ville = { type: 'Geography', entityType: 'Municipality', address: { freeformAddress: 'Dakar, Dakar' }, position: { lat: 14.6954, lon: -17.4486 } };
+  const marche = { type: 'POI', poi: { name: 'Marché Sandaga' }, address: { freeformAddress: 'Président Lamine Guèye, Dakar' }, position: { lat: 14.6695, lon: -17.4374 } };
+  const route = { routes: [{ summary: { travelTimeInSeconds: 600, noTrafficTravelTimeInSeconds: 600, trafficDelayInSeconds: 0, lengthInMeters: 5000 }, legs: [{ points: [{ latitude: 14.67, longitude: -17.43 }, { latitude: 14.7, longitude: -17.45 }] }] }] };
+  const faux = (rechercheFloue) => async (url) => {
+    const u = String(url);
+    if (u.includes('/search/2/geocode/')) return Response.json({ results: [ville] });
+    if (u.includes('/search/2/search/')) return Response.json({ results: rechercheFloue });
+    if (u.includes('calculateRoute')) return Response.json(route);
+    return Response.json({ incidents: [] });
+  };
+  const arrivee = { lat: 14.70, lng: -17.45 };
+  const ok = await avecFetch(faux([marche]), () => tempsTrajet({ TOMTOM_API_KEY: 'x' }, { depart: 'Sandaga test', arrivee }));
+  assert.equal(ok.body.statut, 'ok');
+  assert.match(ok.body.depart.label, /Marché Sandaga/);
+  assert.equal(ok.body.depart.lat, 14.6695, 'position du marché, pas du centre-ville');
+  // Rien de plus précis que la ville nulle part : lieu introuvable, pas d'itinéraire depuis le centre-ville.
+  const inconnu = await avecFetch(faux([]), () => tempsTrajet({ TOMTOM_API_KEY: 'x' }, { depart: 'Zzzzqx test', arrivee }));
+  assert.equal(inconnu.body.statut, 'not_found');
+});
+
+test('pages : description, page 404 et cible tactile du zoom', async () => {
+  const { readdirSync, readFileSync, existsSync } = await import('node:fs');
+  const dossier = new URL('../public/', import.meta.url);
+  for (const f of readdirSync(dossier).filter((x) => x.endsWith('.html'))) {
+    const t = readFileSync(new URL(f, dossier), 'utf8');
+    assert.match(t, /<meta name="description" content="[^"]{30,}"/, f + ' : description manquante');
+    assert.match(t, /<title>[^<]{5,}<\/title>/, f);
+  }
+  assert.ok(existsSync(new URL('404.html', dossier)), '404.html');
+  assert.match(readFileSync(new URL('../wrangler.toml', import.meta.url), 'utf8'), /not_found_handling\s*=\s*"404-page"/);
+  assert.match(readFileSync(new URL('style.css', dossier), 'utf8'), /\.leaflet-control-zoom|\.leaflet-bar a\{[^}]*44px/);
 });
 
 test('aucune clé ni affluence dans l’interface', async () => {

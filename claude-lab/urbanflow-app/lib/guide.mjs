@@ -61,10 +61,41 @@ export function lignesPassantPar(lieu) {
   return index.map((ix) => ({ ix, d: desserte(ix, lieu) })).filter((x) => x.d).sort((x, y) => y.d.force - x.d.force);
 }
 
+// Mots sans valeur de lieu dans une question courte ("bus Ouakam Plateau svp", "ligne pour Yoff Plateau").
+const BRUIT = new Set('ligne lignes bus quelle quel quels quelles prendre prend aller va vais veux voudrais je pour par depuis vers jusqu jusque svp stp s il vous plait merci bonjour salut et ou'.split(' '));
+
+// Deux lieux connus côte à côte, sans mot de liaison ("Ouakam Plateau", "Yoff/Palais 2", "Guédiawaye > Plateau").
+// Tous les mots restants doivent former exactement deux lieux que le réseau connaît : sinon null (l'agent IA répond).
+function deuxLieux(texte) {
+  const mots = norm(texte).split(' ').filter((w) => w && !BRUIT.has(w));
+  if (mots.length < 2 || mots.length > 6) return null;
+  for (let k = 1; k < mots.length; k++) {
+    const g = mots.slice(0, k).join(' '), d = mots.slice(k).join(' ');
+    if (lignesPassantPar(g).length && lignesPassantPar(d).length) return [joli(g), joli(d)];
+  }
+  return null;
+}
+
+// Réponse pour un numéro de ligne seul ("8", "l8 matin", "ligne 18") : fiche de la ligne, sans IA.
+function ficheCourte(l) {
+  const arrets = ARRETS[l.n];
+  const bornes = String(l.terminus).split('->').map((x) => x.trim());
+  return ficheLigne(l, '')
+    + (arrets ? `\nArrêts : ${arrets.length}, de ${bornes[0]} à ${bornes[1] || ''}. Écrivez « arrêts ligne ${l.n} » pour la liste.` : '\nArrêts : non relevés dans nos données.')
+    + `\n\nPour le temps de trajet en voiture avec le trafic actuel, écrivez « temps ligne ${l.n} » ou utilisez le calcul de trajet. Le temps en bus n'est pas publié.`;
+}
+
 // Détection du type de question. Retourne un texte de réponse, ou null pour laisser l'agent IA répondre.
 export function repondreReseau(question) {
   const q = ' ' + String(question).trim() + ' ';
   const qn = norm(q);
+
+  // 0. Un numéro de ligne seul ("8", "l8", "ligne 18", "bus 7 matin") : fiche de la ligne, sans IA.
+  const mL = qn.match(/^(?:lignes? ?|bus ?|l ?|n ?)?(t?\d{1,3}[a-gi-z]?)(?: (?:matin|soir|midi|aujourd hui|demain))?$/);
+  if (mL) {
+    const l = parLigne.get(mL[1]);
+    return l ? ficheCourte(l) : `Ligne ${mL[1].toUpperCase()} introuvable dans nos données.`;
+  }
 
   // 1. Arrêts d'une ligne
   const mA = qn.match(/\b(?:arrets?|stations?)\b.*?\b(?:ligne|bus|l)?\s*(t?\d{1,3}[a-z]?)\b/) || qn.match(/\b(?:ligne|bus|l)\s*(t?\d{1,3}[a-z]?)\b.*?\b(?:arrets?|stations?)\b/);
@@ -78,12 +109,17 @@ export function repondreReseau(question) {
 
   // 2. Aller de A vers B
   let dep = null, arr = null;
-  let m = qn.match(/\b(?:de|depuis|du)\s+(.+?)\s+(?:a|au|aux|vers|pour|jusqu a|jusqu au)\s+(.+)$/) || qn.match(/^(.+?)\s+(?:vers|jusqu a|pour aller a|pour)\s+(.+)$/);
+  let m = qn.match(/\b(?:de|depuis|du)\s+(.+?)\s+(?:a|au|aux|vers|pour|jusqu a|jusqu au)\s+(.+)$/) || qn.match(/^(.+?)\s+(?:vers|jusqu a|jusqu au|jusqu aux|pour aller a|pour)\s+(.+)$/);
   if (!m) m = String(question).match(/^\s*(.+?)\s*(?:->|→|=>|>)\s*(.+?)\s*$/);
   if (m) { dep = m[1]; arr = m[2]; }
   else {
     const m2 = qn.match(/\b(?:aller|va|vais|rendre|arriver|rejoindre|rejoins)\s+(?:a|au|aux|vers|chez)\s+(.+)$/) || qn.match(/^(?:a|au|vers)\s+(.+)$/);
     if (m2) arr = m2[1];
+  }
+  // Deux lieux côte à côte ("Ouakam Plateau") : seulement si la question ne cite pas de ligne ni ne pose une autre question.
+  if (!m && !arr && !/\b(?:ligne|bus)\s*\d/.test(qn) && !/\b(?:combien|temps|minutes?|prix|tarif|horaires?|heures?|monde|affluence|retard|comment|pourquoi|quand)\b/.test(qn)) {
+    const dl = deuxLieux(question);
+    if (dl) { dep = dl[0]; arr = dl[1]; }
   }
   if (!arr || /^(?:quel|quelle|quels|quelles|combien|comment|quand|qui|quoi|pourquoi|est ce|y a)\b/.test(arr)) return null;
   // Si la question cite une ligne, c'est une fiche de ligne : laisser l'agent.
@@ -104,6 +140,15 @@ export function repondreReseau(question) {
     return `LIGNES POSSIBLES : ${dep} vers ${arr}\n\n` + top.map((x) => ficheLigne(x.ix.l, x.ctx)).join('\n\n')
       + (r.length > top.length ? `\n\n(${r.length - top.length} autre(s) ligne(s) possible(s) non listée(s).)` : '')
       + `\n\n${NOTE}`;
+  }
+  // Un seul "lieu" inconnu qui contient en fait deux lieux ("ligne pour Ouakam Plateau svp").
+  if (!lignesPassantPar(arr).length) {
+    const dl = deuxLieux(arr);
+    const e = dl ? lignesEntre(dl[0], dl[1]) : [];
+    if (e.length) {
+      return `LIGNES POSSIBLES : ${dl[0]} vers ${dl[1]}\n\n` + e.slice(0, 5).map((x) => ficheLigne(x.ix.l, x.ctx)).join('\n\n')
+        + (e.length > 5 ? `\n\n(${e.length - 5} autre(s) ligne(s) possible(s) non listée(s).)` : '') + `\n\n${NOTE}`;
+    }
   }
   const r = lignesPassantPar(arr);
   if (!r.length) return `Lieu non reconnu dans nos données : ${arr}.\nEssayez un arrêt ou un quartier proche (ex : Plateau, Médina, Ouakam).\n\n${NOTE}`;

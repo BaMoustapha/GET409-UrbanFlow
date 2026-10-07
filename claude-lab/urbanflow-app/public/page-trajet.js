@@ -62,6 +62,9 @@
     const enfants = [el('h3', {textContent:'En voiture'})];
     enfants.push(el('span', {className:'gros', textContent:j.voitureMin + ' min'}));
     enfants.push(el('small', {textContent:j.distanceKm + ' km, trafic estimé par TomTom'}));
+    // Lieux tels que TomTom les a compris : on voit tout de suite si un nom a été mal interprété.
+    if(j.depart && j.arrivee) enfants.push(el('small', {textContent:'Compris comme : ' + (j.depart.label || 'départ') + ' vers ' + (j.arrivee.label || 'arrivée')}));
+    if(j.horsDakar) enfants.push(el('small', {className:'avertissement', role:'status', textContent:'Un des lieux semble situé hors de la région de Dakar : le trajet est plus long et le trafic estimé peut varier.'}));
     enfants.push(el('small', {textContent:'Sans trafic : ' + j.habituelMin + ' min' + (j.retardMin > 0 ? ' · retard dû au trafic : +' + j.retardMin + ' min' : '')}));
     if(j.congestion){
       const niv = j.congestion.niveau;
@@ -124,7 +127,8 @@
       const j = await r.json();
       const msg = {
         no_key: "Le calcul de trajet n'est pas disponible pour le moment.",
-        not_found: "Adresse introuvable. Précisez le lieu ou cliquez sur la carte.",
+        not_found: "Lieu introuvable. Précisez le nom (ex : Ouakam, Plateau, Sandaga) ou cliquez sur la carte.",
+        meme_lieu: "Le départ et l'arrivée sont identiques ou à moins de 100 mètres. Choisissez deux lieux différents.",
       }[j.statut];
       if(j.statut !== 'ok'){
         resVoit.replaceChildren(el('h3', {textContent:'En voiture'}), el('p', {className:'vide', role:'alert', textContent: msg || 'Calcul indisponible pour le moment, réessayez.'}));

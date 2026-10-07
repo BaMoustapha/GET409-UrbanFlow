@@ -182,17 +182,39 @@ export async function analyserTrafic(env, query, donneesTrafic) {
 // ---------- Trajet A -> B (TomTom, avec trafic) ----------
 const base = (env) => env.TOMTOM_BASE || 'https://api.tomtom.com';
 
+// Quand TomTom ne reconnaît pas le lieu, il renvoie souvent la ville elle-même ("Dakar") : ce n'est pas le lieu demandé.
+// Un résultat de niveau ville dont le libellé ne contient aucun mot de la demande est donc refusé (sinon le trajet
+// partirait du centre-ville sans le dire). Demander "Dakar" lui-même reste accepté.
+const NIVEAUX_VILLE = new Set(['Municipality', 'CountrySecondarySubdivision', 'CountrySubdivision', 'Country']);
+export function resultatDeRepli(p, texte) {
+  if (!p || p.type !== 'Geography' || !NIVEAUX_VILLE.has(p.entityType)) return false;
+  const a = p.address || {};
+  const libelle = norm([a.freeformAddress, a.municipality, a.municipalitySubdivision].filter(Boolean).join(' '));
+  const mots = norm(texte).split(' ').filter((w) => w.length >= 3 && w !== 'dakar' && w !== 'senegal');
+  return mots.length > 0 && !mots.some((w) => libelle.includes(w));
+}
+
+async function premierResultat(url, nom) {
+  const r = await fetchJson(url);
+  if (!r.ok) throw new Error(nom + ' ' + r.status);
+  const j = await r.json();
+  return j.results && j.results[0];
+}
+
 async function geocoder(env, texte) {
   const k = 'g:' + texte.toLowerCase();
   const c = cacheGet(k);
   if (c) return c;
-  const url = `${base(env)}/search/2/geocode/${encodeURIComponent(texte + ', Dakar')}.json?key=${env.TOMTOM_API_KEY}&countrySet=SN&limit=1&language=fr-FR`;
-  const r = await fetchJson(url);
-  if (!r.ok) throw new Error('geocode ' + r.status);
-  const j = await r.json();
-  const p = j.results && j.results[0];
-  if (!p) return null;
-  const v = { lat: p.position.lat, lng: p.position.lon, label: (p.address && p.address.freeformAddress) || texte };
+  // 1. Géocodage d'adresses et de quartiers.
+  let p = await premierResultat(`${base(env)}/search/2/geocode/${encodeURIComponent(texte + ', Dakar')}.json?key=${env.TOMTOM_API_KEY}&countrySet=SN&limit=1&language=fr-FR`, 'geocode');
+  // 2. Si TomTom ne trouve que la ville, recherche floue (marchés, universités, lieux connus) autour de Dakar.
+  if (!p || resultatDeRepli(p, texte)) {
+    p = await premierResultat(`${base(env)}/search/2/search/${encodeURIComponent(texte)}.json?key=${env.TOMTOM_API_KEY}&countrySet=SN&lat=14.6937&lon=-17.4441&radius=40000&limit=1&language=fr-FR`, 'search');
+    if (!p || resultatDeRepli(p, texte)) return null;
+  }
+  const adresse = (p.address && p.address.freeformAddress) || texte;
+  const nom = p.poi && p.poi.name;
+  const v = { lat: p.position.lat, lng: p.position.lon, label: nom && !adresse.includes(nom) ? `${nom}, ${adresse}` : adresse };
   cacheSet(k, v);
   return v;
 }
@@ -204,6 +226,19 @@ async function point(env, p) {
   const t = String(p || '').trim().slice(0, 120);
   if (!t) return null;
   return geocoder(env, t);
+}
+
+// Distance à vol d'oiseau en mètres (formule de haversine).
+export function distanceMetres(a, b) {
+  const R = 6371000, rad = (x) => (x * Math.PI) / 180;
+  const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+// Région de Dakar (approximative). Un lieu en dehors n'est pas refusé : l'interface prévient que le trajet sort de Dakar.
+export function horsDakar(p) {
+  return !(p.lat >= 14.55 && p.lat <= 14.95 && p.lng >= -17.60 && p.lng <= -17.05);
 }
 
 // Niveau de congestion : rapport entre le temps avec trafic et le temps sans trafic.
@@ -267,6 +302,7 @@ export async function tempsTrajet(env, body) {
     const a = await point(env, body && body.depart);
     const b = await point(env, body && body.arrivee);
     if (!a || !b) return { status: 200, body: { statut: 'not_found' } };
+    if (distanceMetres(a, b) < 100) return { status: 200, body: { statut: 'meme_lieu', depart: a, arrivee: b } };
 
     const dep = departAt(body && body.departAt);
     const k = `r:${a.lat.toFixed(4)},${a.lng.toFixed(4)}:${b.lat.toFixed(4)},${b.lng.toFixed(4)}:${dep || 'now'}`;
@@ -296,7 +332,7 @@ export async function tempsTrajet(env, body) {
     if (!res.previsionPour) {
       try { incidents = await incidentsSurTrace(env, res.trace); } catch (e) { incidents = null; }
     }
-    return { status: 200, body: { statut: 'ok', depart: a, arrivee: b, ...res, congestion: niveauCongestion(res.voitureMin, res.habituelMin), incidents } };
+    return { status: 200, body: { statut: 'ok', depart: a, arrivee: b, ...res, horsDakar: horsDakar(a) || horsDakar(b), congestion: niveauCongestion(res.voitureMin, res.habituelMin), incidents } };
   } catch (e) {
     return { status: 200, body: { statut: 'unavailable' } };
   }

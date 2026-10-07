@@ -270,3 +270,9 @@ a.btn{display:inline-flex; align-items:center; justify-content:center; text-deco
 .pied-col a{display:flex; align-items:center; min-height:44px; padding:0}
 .note a, .rang-txt a, .land-hero p a, .suite a, .intro a, .texte a{display:inline-flex; align-items:center; min-height:44px}
 .texte p a, .texte li a{display:inline; min-height:0}
+
+/* Avertissement dans une carte de resultat (par exemple trajet hors de la region de Dakar) */
+.carte-res small.avertissement{color:var(--warn); border-left:3px solid var(--warn); padding-left:8px}
+
+/* Commandes de zoom de la carte : cible tactile de 44 px (norme WCAG 2.5.5) */
+.leaflet-touch .leaflet-bar a{width:44px; height:44px; line-height:44px; font-size:22px}

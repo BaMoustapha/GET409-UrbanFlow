@@ -6,6 +6,8 @@ compatibility_date = "2025-09-01"
 directory = "./public"
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
+# Adresse inconnue : renvoie public/404.html (avec le code 404) au lieu d'une page vide.
+not_found_handling = "404-page"
 
 # Limite de requetes par adresse IP (Workers Rate Limiting, wrangler 4.36 ou plus).
 # Agent : 10 questions par minute. Trajet : 20 calculs par minute.

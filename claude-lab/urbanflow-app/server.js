@@ -51,6 +51,9 @@ app.post('/api/trajet', limite(20), async (req, res) => {
   res.set('Cache-Control', 'no-store').status(r.status).json(r.body);
 });
 
+// Adresse inconnue : public/404.html avec le code 404 (comme not_found_handling en production).
+app.use((req, res) => res.status(404).sendFile(path.join(__dirname, 'public', '404.html')));
+
 // Corps trop gros ou JSON invalide : message clair au lieu de la page d'erreur Express.
 app.use((err, req, res, next) => {
   if (err.type === 'entity.too.large') return res.status(413).json({ error: 'Requête trop volumineuse.' });
